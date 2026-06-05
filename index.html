@@ -1,0 +1,1216 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="theme-color" content="#0a0a0f">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Periódico">
+<meta name="description" content="Mi Periódico de Inversiones — Noticias y patrones personalizados">
+<link rel="manifest" href="manifest.json">
+<link rel="apple-touch-icon" href="icon-192.png">
+<title>Mi Periódico de Inversiones</title>
+
+<!-- Fonts -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+
+<!-- React + Recharts via CDN -->
+<script crossorigin src="https://cdnjs.cloudflare.com/ajax/libs/react/18.2.0/umd/react.production.min.js"></script>
+<script crossorigin src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/18.2.0/umd/react-dom.production.min.js"></script>
+<script crossorigin src="https://cdnjs.cloudflare.com/ajax/libs/recharts/2.12.0/Recharts.min.js"></script>
+<script crossorigin src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/7.23.5/babel.min.js"></script>
+
+<style>
+  :root {
+    --bg-base:      #0a0a0f;
+    --bg-surface:   #111118;
+    --bg-card:      #16161f;
+    --bg-hover:     #1c1c28;
+    --border:       #2a2a3a;
+    --border-light: #333345;
+    --text-primary: #e8e8f0;
+    --text-secondary:#8888a8;
+    --text-muted:   #555568;
+    --accent-gold:  #c9a84c;
+    --accent-gold-dim:#7a5f28;
+    --accent-green: #3ddc84;
+    --accent-green-dim:#1a4a32;
+    --accent-red:   #ff5c5c;
+    --accent-red-dim:#4a1a1a;
+    --accent-blue:  #5b9cf6;
+    --accent-blue-dim:#1a2a4a;
+    --accent-purple:#9b72f5;
+    --font-display: 'Playfair Display', Georgia, serif;
+    --font-mono:    'IBM Plex Mono', monospace;
+    --font-body:    'IBM Plex Sans', sans-serif;
+    --safe-top: env(safe-area-inset-top, 0px);
+    --safe-bottom: env(safe-area-inset-bottom, 0px);
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+
+  html, body, #root {
+    height: 100%;
+    background: var(--bg-base);
+    color: var(--text-primary);
+    font-family: var(--font-body);
+    font-size: 15px;
+    -webkit-font-smoothing: antialiased;
+    overscroll-behavior: none;
+  }
+
+  body {
+    padding-top: var(--safe-top);
+    padding-bottom: var(--safe-bottom);
+  }
+
+  /* ── Layout shell ── */
+  .shell {
+    display: flex;
+    flex-direction: column;
+    height: 100dvh;
+    max-width: 520px;
+    margin: 0 auto;
+    position: relative;
+  }
+
+  /* ── Header ── */
+  .header {
+    padding: 16px 20px 0;
+    flex-shrink: 0;
+    background: linear-gradient(180deg, var(--bg-base) 70%, transparent);
+    position: relative;
+    z-index: 10;
+  }
+
+  .header-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 4px;
+  }
+
+  .masthead {
+    font-family: var(--font-display);
+    font-size: 22px;
+    font-weight: 700;
+    letter-spacing: -0.3px;
+    color: var(--text-primary);
+    line-height: 1.1;
+  }
+
+  .masthead span {
+    color: var(--accent-gold);
+  }
+
+  .date-stamp {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    color: var(--text-muted);
+    text-align: right;
+    line-height: 1.6;
+  }
+
+  .sync-btn {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    color: var(--accent-gold);
+    font-family: var(--font-mono);
+    font-size: 11px;
+    padding: 6px 12px;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.15s;
+    margin-top: 12px;
+    width: 100%;
+    justify-content: center;
+  }
+
+  .sync-btn:active { transform: scale(0.98); background: var(--bg-hover); }
+  .sync-btn.syncing { color: var(--text-muted); }
+  .sync-btn.synced { color: var(--accent-green); border-color: var(--accent-green-dim); }
+
+  /* ── Tabs ── */
+  .tabs {
+    display: flex;
+    padding: 12px 20px 0;
+    gap: 0;
+    flex-shrink: 0;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .tab-btn {
+    flex: 1;
+    padding: 8px 0 12px;
+    background: none;
+    border: none;
+    color: var(--text-muted);
+    font-family: var(--font-body);
+    font-size: 13px;
+    font-weight: 500;
+    cursor: pointer;
+    position: relative;
+    transition: color 0.2s;
+    letter-spacing: 0.3px;
+  }
+
+  .tab-btn.active {
+    color: var(--text-primary);
+  }
+
+  .tab-btn.active::after {
+    content: '';
+    position: absolute;
+    bottom: -1px;
+    left: 20%;
+    right: 20%;
+    height: 2px;
+    background: var(--accent-gold);
+    border-radius: 1px;
+  }
+
+  .tab-count {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    padding: 1px 5px;
+    border-radius: 10px;
+    margin-left: 5px;
+    color: var(--text-muted);
+  }
+
+  .tab-btn.active .tab-count {
+    border-color: var(--accent-gold-dim);
+    color: var(--accent-gold);
+  }
+
+  /* ── Scroll body ── */
+  .content {
+    flex: 1;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    padding: 16px 20px;
+    scroll-behavior: smooth;
+  }
+
+  /* ── Filter bar ── */
+  .filter-bar {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 16px;
+    flex-wrap: wrap;
+  }
+
+  .filter-chip {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    padding: 4px 10px;
+    border-radius: 20px;
+    border: 1px solid var(--border);
+    background: none;
+    color: var(--text-muted);
+    cursor: pointer;
+    transition: all 0.15s;
+    white-space: nowrap;
+  }
+
+  .filter-chip.active {
+    background: var(--accent-gold-dim);
+    border-color: var(--accent-gold);
+    color: var(--accent-gold);
+  }
+
+  .filter-chip:active { transform: scale(0.96); }
+
+  /* ── Source section ── */
+  .source-label {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .source-label::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--border);
+  }
+
+  .source-label.tikr { color: var(--accent-blue); }
+  .source-label.sa { color: var(--accent-purple); }
+
+  /* ── News card ── */
+  .news-section { margin-bottom: 24px; }
+
+  .news-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 14px 16px;
+    margin-bottom: 10px;
+    cursor: pointer;
+    transition: all 0.15s;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .news-card::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 3px;
+  }
+
+  .news-card.tikr::before { background: var(--accent-blue); }
+  .news-card.sa::before { background: var(--accent-purple); }
+  .news-card.expanded { border-color: var(--border-light); }
+  .news-card:active { background: var(--bg-hover); }
+
+  .news-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 8px;
+    margin-bottom: 6px;
+  }
+
+  .news-ticker {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    color: var(--accent-gold);
+    background: var(--accent-gold-dim);
+    padding: 2px 7px;
+    border-radius: 4px;
+    flex-shrink: 0;
+  }
+
+  .news-date {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    color: var(--text-muted);
+  }
+
+  .news-title {
+    font-family: var(--font-display);
+    font-size: 15px;
+    font-weight: 600;
+    line-height: 1.4;
+    color: var(--text-primary);
+    margin-bottom: 6px;
+  }
+
+  .news-summary {
+    font-size: 13px;
+    color: var(--text-secondary);
+    line-height: 1.6;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  .news-summary.expanded {
+    display: block;
+    -webkit-line-clamp: unset;
+    overflow: visible;
+    margin-top: 8px;
+    padding-top: 8px;
+    border-top: 1px solid var(--border);
+    white-space: pre-wrap;
+  }
+
+  .news-relevance {
+    display: flex;
+    gap: 3px;
+    margin-top: 8px;
+  }
+
+  .relevance-dot {
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: var(--border);
+  }
+
+  .relevance-dot.filled { background: var(--accent-gold); }
+
+  /* ── Empty state ── */
+  .empty-state {
+    text-align: center;
+    padding: 48px 24px;
+    color: var(--text-muted);
+  }
+
+  .empty-icon {
+    font-size: 40px;
+    margin-bottom: 12px;
+    opacity: 0.4;
+  }
+
+  .empty-title {
+    font-family: var(--font-display);
+    font-size: 17px;
+    color: var(--text-secondary);
+    margin-bottom: 6px;
+  }
+
+  .empty-sub {
+    font-size: 13px;
+    line-height: 1.6;
+    max-width: 280px;
+    margin: 0 auto 20px;
+  }
+
+  .empty-note {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    color: var(--text-muted);
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 10px 14px;
+    text-align: left;
+    line-height: 1.8;
+    max-width: 300px;
+    margin: 0 auto;
+  }
+
+  /* ── Patterns section ── */
+  .section-title {
+    font-family: var(--font-display);
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: 4px;
+  }
+
+  .section-sub {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    color: var(--text-muted);
+    margin-bottom: 16px;
+  }
+
+  .pattern-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 14px 16px;
+    margin-bottom: 10px;
+    transition: all 0.15s;
+  }
+
+  .pattern-card:active { background: var(--bg-hover); }
+
+  .pattern-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 8px;
+  }
+
+  .pattern-tipo {
+    font-family: var(--font-mono);
+    font-size: 9px;
+    letter-spacing: 1.2px;
+    text-transform: uppercase;
+    padding: 3px 8px;
+    border-radius: 4px;
+  }
+
+  .tipo-narrativa { background: rgba(91,156,246,0.15); color: var(--accent-blue); border: 1px solid rgba(91,156,246,0.3); }
+  .tipo-realidad  { background: rgba(61,220,132,0.15); color: var(--accent-green); border: 1px solid rgba(61,220,132,0.3); }
+  .tipo-tendencia { background: rgba(201,168,76,0.15);  color: var(--accent-gold); border: 1px solid rgba(201,168,76,0.3); }
+
+  .pattern-confianza {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    color: var(--text-muted);
+  }
+
+  .conf-alta  { color: var(--accent-green); }
+  .conf-media { color: var(--accent-gold); }
+  .conf-baja  { color: var(--text-muted); }
+
+  .pattern-empresa {
+    font-family: var(--font-display);
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: 4px;
+  }
+
+  .pattern-ticker-badge {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    color: var(--accent-gold);
+    background: var(--accent-gold-dim);
+    padding: 1px 6px;
+    border-radius: 3px;
+    display: inline-block;
+    margin-bottom: 6px;
+  }
+
+  .pattern-desc {
+    font-size: 13px;
+    color: var(--text-secondary);
+    line-height: 1.6;
+    margin-bottom: 10px;
+  }
+
+  .pattern-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+    margin-bottom: 10px;
+  }
+
+  .tag {
+    font-family: var(--font-mono);
+    font-size: 9px;
+    padding: 2px 7px;
+    border-radius: 3px;
+    background: var(--bg-surface);
+    border: 1px solid var(--border);
+    color: var(--text-muted);
+  }
+
+  .pattern-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 8px;
+    border-top: 1px solid var(--border);
+  }
+
+  .tendencia-badge {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    padding: 2px 8px;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+  }
+
+  .tend-alcista  { background: var(--accent-green-dim); color: var(--accent-green); }
+  .tend-bajista  { background: var(--accent-red-dim);   color: var(--accent-red); }
+  .tend-neutral  { background: var(--bg-surface); color: var(--text-muted); border: 1px solid var(--border); }
+
+  .pattern-freq {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    color: var(--text-muted);
+  }
+
+  /* ── Charts ── */
+  .chart-container {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 16px;
+    margin-bottom: 16px;
+  }
+
+  .chart-title {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-bottom: 12px;
+  }
+
+  /* ── Stats row ── */
+  .stats-row {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+    margin-bottom: 16px;
+  }
+
+  .stat-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 12px 10px;
+    text-align: center;
+  }
+
+  .stat-value {
+    font-family: var(--font-mono);
+    font-size: 22px;
+    font-weight: 500;
+    color: var(--text-primary);
+    line-height: 1;
+    margin-bottom: 4px;
+  }
+
+  .stat-label {
+    font-family: var(--font-mono);
+    font-size: 9px;
+    letter-spacing: 0.8px;
+    text-transform: uppercase;
+    color: var(--text-muted);
+  }
+
+  /* ── File input hidden ── */
+  input[type="file"] { display: none; }
+
+  /* ── Status bar ── */
+  .status-bar {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    color: var(--text-muted);
+    text-align: center;
+    padding: 8px;
+    border-top: 1px solid var(--border);
+    flex-shrink: 0;
+    background: var(--bg-base);
+    letter-spacing: 0.3px;
+  }
+
+  /* ── Recharts overrides ── */
+  .recharts-tooltip-wrapper { font-family: var(--font-mono) !important; font-size: 11px !important; }
+  .recharts-cartesian-axis-tick-value { fill: var(--text-muted) !important; font-size: 10px !important; font-family: var(--font-mono) !important; }
+  .recharts-legend-item-text { color: var(--text-secondary) !important; font-size: 10px !important; font-family: var(--font-mono) !important; }
+
+  /* ── Animations ── */
+  @keyframes fadeIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
+  .news-card, .pattern-card { animation: fadeIn 0.2s ease both; }
+
+  /* ── Scrollbar ── */
+  .content::-webkit-scrollbar { width: 3px; }
+  .content::-webkit-scrollbar-track { background: transparent; }
+  .content::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+
+  /* ── Divider ── */
+  .divider { height: 1px; background: var(--border); margin: 20px 0; }
+
+  .info-banner {
+    background: rgba(201,168,76,0.08);
+    border: 1px solid var(--accent-gold-dim);
+    border-radius: 8px;
+    padding: 10px 14px;
+    font-size: 12px;
+    color: var(--text-secondary);
+    line-height: 1.6;
+    margin-bottom: 16px;
+  }
+
+  .info-banner strong { color: var(--accent-gold); font-weight: 500; }
+</style>
+</head>
+<body>
+<div id="root"></div>
+<input type="file" id="md-input" accept=".md" multiple>
+<input type="file" id="json-input" accept=".json">
+
+<script type="text/babel">
+const { useState, useEffect, useCallback, useRef } = React;
+const {
+  LineChart, Line, BarChart, Bar, PieChart, Pie, Cell,
+  XAxis, YAxis, Tooltip, ResponsiveContainer, Legend
+} = Recharts;
+
+// ─────────────────────────────────────────────
+// PARSER: Markdown → noticias estructuradas
+// ─────────────────────────────────────────────
+function parseMarkdown(mdText, filename) {
+  const fecha = filename.match(/(\d{4}-\d{2}-\d{2})/)?.[1] || new Date().toISOString().slice(0,10);
+  const noticias = [];
+
+  // Detectar secciones TIKR y Seeking Alpha
+  const secciones = {
+    tikr: { regex: /## TIKR.*?\n([\s\S]*?)(?=## Seeking Alpha|## Patrones|$)/i, fuente: 'TIKR' },
+    sa:   { regex: /## Seeking Alpha.*?\n([\s\S]*?)(?=## TIKR|## Patrones|$)/i, fuente: 'SeekingAlpha' }
+  };
+
+  Object.values(secciones).forEach(({ regex, fuente }) => {
+    const match = mdText.match(regex);
+    if (!match) return;
+    const bloque = match[1];
+
+    // Sin noticias hoy
+    if (/sin noticias hoy/i.test(bloque)) return;
+
+    // Parsear subsecciones por ### TICKER — Empresa o ### Empresa
+    const items = bloque.split(/\n(?=###\s)/);
+    items.forEach(item => {
+      const headerMatch = item.match(/###\s+([A-Z0-9.]+)(?:\s*[—–-]\s*(.+))?/);
+      if (!headerMatch) return;
+
+      const ticker = headerMatch[1].trim();
+      const empresa = headerMatch[2]?.trim() || ticker;
+      const cuerpo = item.replace(/###.+\n/, '').trim();
+      if (!cuerpo) return;
+
+      // Extraer primer párrafo como resumen, resto como cuerpo completo
+      const lineas = cuerpo.split('\n').filter(l => l.trim());
+      const resumen = lineas[0] || '';
+
+      // Scoring de relevancia (keywords financieras)
+      const keywords = ['earnings','revenue','growth','beat','miss','guidance','buyback',
+                        'dividend','acquisition','merger','downgrade','upgrade','target',
+                        'ganancias','ingresos','beneficio','compra','fusión','dividendo'];
+      const textoLower = cuerpo.toLowerCase();
+      const hits = keywords.filter(k => textoLower.includes(k)).length;
+      const relevancia = Math.min(5, Math.max(1, hits + (ticker.length <= 5 ? 1 : 0)));
+
+      noticias.push({ id: `${fuente}-${ticker}-${fecha}`, fuente, ticker, empresa, fecha, resumen, cuerpo, relevancia });
+    });
+
+    // Si hay texto libre sin headers ###
+    if (noticias.filter(n => n.fecha === fecha && n.fuente === fuente).length === 0) {
+      const lineas = bloque.split('\n').filter(l => l.trim() && !l.startsWith('>'));
+      if (lineas.length > 0 && !/sin noticias/i.test(lineas[0])) {
+        noticias.push({
+          id: `${fuente}-misc-${fecha}`,
+          fuente, ticker: '—', empresa: 'Varios', fecha,
+          resumen: lineas[0],
+          cuerpo: lineas.join('\n'),
+          relevancia: 2
+        });
+      }
+    }
+  });
+
+  return noticias;
+}
+
+// ─────────────────────────────────────────────
+// STORAGE helpers
+// ─────────────────────────────────────────────
+const KEYS = { noticias: 'pdi_noticias', patrones: 'pdi_patrones', sync: 'pdi_last_sync' };
+
+function limpiarNoticias(noticias) {
+  const limite = new Date();
+  limite.setDate(limite.getDate() - 7);
+  const cutoff = limite.toISOString().slice(0,10);
+  return noticias.filter(n => n.fecha >= cutoff);
+}
+
+function loadLocal(key, fallback) {
+  try { return JSON.parse(localStorage.getItem(key)) || fallback; }
+  catch { return fallback; }
+}
+
+function saveLocal(key, val) {
+  try { localStorage.setItem(key, JSON.stringify(val)); } catch {}
+}
+
+// ─────────────────────────────────────────────
+// Componentes auxiliares
+// ─────────────────────────────────────────────
+function RelevanceDots({ nivel }) {
+  return (
+    <div className="news-relevance">
+      {[1,2,3,4,5].map(i => (
+        <div key={i} className={`relevance-dot ${i <= nivel ? 'filled' : ''}`}/>
+      ))}
+    </div>
+  );
+}
+
+function NewsCard({ noticia, style }) {
+  const [expanded, setExpanded] = useState(false);
+  const cls = noticia.fuente === 'TIKR' ? 'tikr' : 'sa';
+
+  return (
+    <div className={`news-card ${cls} ${expanded ? 'expanded' : ''}`}
+         style={style}
+         onClick={() => setExpanded(e => !e)}>
+      <div className="news-header">
+        {noticia.ticker !== '—' && <span className="news-ticker">{noticia.ticker}</span>}
+        <span className="news-date">{noticia.fecha}</span>
+      </div>
+      {noticia.empresa && noticia.empresa !== noticia.ticker && (
+        <div className="news-title">{noticia.empresa}</div>
+      )}
+      <div className={`news-summary ${expanded ? 'expanded' : ''}`}>
+        {expanded ? noticia.cuerpo : noticia.resumen}
+      </div>
+      <RelevanceDots nivel={noticia.relevancia} />
+    </div>
+  );
+}
+
+function EmptyNewsPaper({ meta }) {
+  return (
+    <div className="empty-state">
+      <div className="empty-icon">📰</div>
+      <div className="empty-title">Sin noticias en caché</div>
+      <div className="empty-sub">Sincroniza tus archivos .md diarios para ver las noticias</div>
+      {meta && (
+        <div className="empty-note">
+          <strong>ℹ️ Nota del sistema:</strong><br/>
+          {meta.nota || 'Sin datos disponibles.'}<br/><br/>
+          <strong>Acción:</strong> {meta.accionRecomendada}
+        </div>
+      )}
+    </div>
+  );
+}
+
+// ─────────────────────────────────────────────
+// TAB: PERIÓDICO
+// ─────────────────────────────────────────────
+function TabPeriodico({ noticias, onSyncMd, syncing, syncedMd, patronesMeta }) {
+  const [filtroFuente, setFiltroFuente] = useState('all');
+  const [filtroOrden, setFiltroOrden] = useState('fecha');
+  const [filtroTicker, setFiltroTicker] = useState('');
+
+  const tickers = [...new Set(noticias.map(n => n.ticker))].filter(t => t !== '—');
+
+  let filtradas = [...noticias];
+  if (filtroFuente !== 'all') filtradas = filtradas.filter(n => n.fuente === filtroFuente);
+  if (filtroTicker) filtradas = filtradas.filter(n => n.ticker === filtroTicker);
+  filtradas.sort((a,b) => {
+    if (filtroOrden === 'relevancia') return b.relevancia - a.relevancia;
+    return b.fecha.localeCompare(a.fecha);
+  });
+
+  const tikrNews = filtradas.filter(n => n.fuente === 'TIKR').slice(0,7);
+  const saNews   = filtradas.filter(n => n.fuente === 'SeekingAlpha').slice(0,7);
+
+  return (
+    <div className="content">
+      {/* Filter bar */}
+      <div className="filter-bar">
+        <button className={`filter-chip ${filtroFuente==='all'?'active':''}`}
+                onClick={() => setFiltroFuente('all')}>Todas</button>
+        <button className={`filter-chip ${filtroFuente==='TIKR'?'active':''}`}
+                onClick={() => setFiltroFuente('TIKR')}>TIKR</button>
+        <button className={`filter-chip ${filtroFuente==='SeekingAlpha'?'active':''}`}
+                onClick={() => setFiltroFuente('SeekingAlpha')}>Seeking Alpha</button>
+        <button className={`filter-chip ${filtroOrden==='relevancia'?'active':''}`}
+                onClick={() => setFiltroOrden(o => o==='relevancia'?'fecha':'relevancia')}>
+          {filtroOrden==='relevancia'?'▼ Relevancia':'↕ Relevancia'}
+        </button>
+      </div>
+
+      {tickers.length > 0 && (
+        <div className="filter-bar" style={{marginTop: -6}}>
+          <button className={`filter-chip ${filtroTicker===''?'active':''}`}
+                  onClick={() => setFiltroTicker('')}>Todo</button>
+          {tickers.slice(0,6).map(t => (
+            <button key={t} className={`filter-chip ${filtroTicker===t?'active':''}`}
+                    onClick={() => setFiltroTicker(f => f===t?'':t)}>{t}</button>
+          ))}
+        </div>
+      )}
+
+      {noticias.length === 0 ? (
+        <EmptyNewsPaper meta={patronesMeta} />
+      ) : (
+        <>
+          {/* TIKR section */}
+          {(filtroFuente === 'all' || filtroFuente === 'TIKR') && (
+            <div className="news-section">
+              <div className="source-label tikr">TIKR · {tikrNews.length}</div>
+              {tikrNews.length === 0
+                ? <div style={{color:'var(--text-muted)',fontSize:12,padding:'8px 0'}}>Sin noticias de TIKR en el período</div>
+                : tikrNews.map((n,i) => <NewsCard key={n.id} noticia={n} style={{animationDelay:`${i*30}ms`}}/>)
+              }
+            </div>
+          )}
+
+          {/* Seeking Alpha section */}
+          {(filtroFuente === 'all' || filtroFuente === 'SeekingAlpha') && (
+            <div className="news-section">
+              <div className="source-label sa">Seeking Alpha · {saNews.length}</div>
+              {saNews.length === 0
+                ? <div style={{color:'var(--text-muted)',fontSize:12,padding:'8px 0'}}>Sin noticias de Seeking Alpha en el período</div>
+                : saNews.map((n,i) => <NewsCard key={n.id} noticia={n} style={{animationDelay:`${i*30}ms`}}/>)
+              }
+            </div>
+          )}
+        </>
+      )}
+    </div>
+  );
+}
+
+// ─────────────────────────────────────────────
+// TAB: PATRONES
+// ─────────────────────────────────────────────
+const COLORS_CHART = ['#c9a84c','#5b9cf6','#3ddc84','#ff5c5c','#9b72f5','#ff9f43'];
+
+function CustomTooltip({ active, payload, label }) {
+  if (!active || !payload?.length) return null;
+  return (
+    <div style={{background:'var(--bg-card)',border:'1px solid var(--border)',padding:'8px 12px',borderRadius:6,fontFamily:'var(--font-mono)',fontSize:11}}>
+      <div style={{color:'var(--text-muted)',marginBottom:4}}>{label}</div>
+      {payload.map((p,i) => (
+        <div key={i} style={{color:p.color}}>{p.name}: {typeof p.value === 'number' ? p.value.toFixed(2) : p.value}</div>
+      ))}
+    </div>
+  );
+}
+
+function TabPatrones({ patrones, resumen, historial, meta }) {
+  const [ordenConf, setOrdenConf] = useState(true);
+
+  const confOrder = { alta: 3, media: 2, baja: 1 };
+  const sorted = [...patrones].sort((a,b) =>
+    ordenConf ? (confOrder[b.confianza]||0) - (confOrder[a.confianza]||0) : 0
+  );
+
+  // Datos para gráficos
+  const historialData = (historial || []).slice(-14).map(h => ({
+    fecha: h.fecha.slice(5), // MM-DD
+    TIKR: h.fuentes?.TIKR || 0,
+    SA: h.fuentes?.SeekingAlpha || 0,
+    total: h.noticias || 0
+  }));
+
+  const distribSectorial = Object.entries(
+    patrones.reduce((acc, p) => {
+      const s = p.sector || 'Otros';
+      acc[s] = (acc[s]||0) + 1;
+      return acc;
+    }, {})
+  ).map(([name, value]) => ({ name, value }));
+
+  const tendencias = {
+    alcista: patrones.filter(p => p.tendencia === 'alcista').length,
+    bajista: patrones.filter(p => p.tendencia === 'bajista').length,
+    neutral: patrones.filter(p => p.tendencia === 'neutral').length,
+  };
+
+  if (patrones.length === 0) {
+    return (
+      <div className="content">
+        <div className="empty-state">
+          <div className="empty-icon">📊</div>
+          <div className="empty-title">Sin patrones detectados</div>
+          <div className="empty-sub">Los patrones se acumulan a medida que llegan noticias durante varios días</div>
+          {meta && (
+            <div className="empty-note">
+              <strong>Estado:</strong> {meta.estado}<br/>
+              <strong>Cobertura:</strong> {meta.cobertura}<br/>
+              <strong>Archivos:</strong> {meta.archivosAnalizados}/{meta.archivosPeriodoEsperado}<br/><br/>
+              {meta.nota}
+            </div>
+          )}
+        </div>
+
+        {/* Historial aunque no haya patrones */}
+        {historialData.length > 0 && (
+          <div className="chart-container" style={{marginTop:16}}>
+            <div className="chart-title">Frecuencia de noticias · {historialData.length}d</div>
+            <ResponsiveContainer width="100%" height={140}>
+              <BarChart data={historialData} margin={{top:4,right:4,bottom:0,left:-20}}>
+                <XAxis dataKey="fecha" tick={{fill:'var(--text-muted)',fontSize:9}} />
+                <YAxis tick={{fill:'var(--text-muted)',fontSize:9}} allowDecimals={false} />
+                <Tooltip content={<CustomTooltip/>}/>
+                <Bar dataKey="TIKR" stackId="a" fill="#5b9cf6" radius={[0,0,0,0]}/>
+                <Bar dataKey="SA" stackId="a" fill="#9b72f5" radius={[2,2,0,0]}/>
+              </BarChart>
+            </ResponsiveContainer>
+          </div>
+        )}
+      </div>
+    );
+  }
+
+  return (
+    <div className="content">
+      {/* Stats */}
+      <div className="stats-row">
+        <div className="stat-card">
+          <div className="stat-value" style={{color:'var(--accent-gold)'}}>{patrones.length}</div>
+          <div className="stat-label">Patrones</div>
+        </div>
+        <div className="stat-card">
+          <div className="stat-value" style={{color:'var(--accent-green)'}}>{resumen?.porConfianza?.alta || 0}</div>
+          <div className="stat-label">Alta conf.</div>
+        </div>
+        <div className="stat-card">
+          <div className="stat-value" style={{color:'var(--accent-red)'}}>{tendencias.bajista}</div>
+          <div className="stat-label">Bajistas</div>
+        </div>
+      </div>
+
+      {/* Tendencia visual */}
+      <div className="chart-container">
+        <div className="chart-title">Distribución de tendencias</div>
+        <div style={{display:'flex',gap:8,alignItems:'center',justifyContent:'center',padding:'8px 0'}}>
+          <div className="tendencia-badge tend-alcista">▲ {tendencias.alcista} alcista{tendencias.alcista!==1?'s':''}</div>
+          <div className="tendencia-badge tend-neutral">● {tendencias.neutral} neutral{tendencias.neutral!==1?'es':''}</div>
+          <div className="tendencia-badge tend-bajista">▼ {tendencias.bajista} bajista{tendencias.bajista!==1?'s':''}</div>
+        </div>
+        {distribSectorial.length > 0 && (
+          <ResponsiveContainer width="100%" height={130}>
+            <PieChart>
+              <Pie data={distribSectorial} dataKey="value" nameKey="name"
+                   cx="50%" cy="50%" outerRadius={50} innerRadius={25}
+                   paddingAngle={2}>
+                {distribSectorial.map((_, i) => (
+                  <Cell key={i} fill={COLORS_CHART[i % COLORS_CHART.length]} stroke="none"/>
+                ))}
+              </Pie>
+              <Tooltip content={<CustomTooltip/>}/>
+              <Legend iconSize={8} formatter={(v) => v}/>
+            </PieChart>
+          </ResponsiveContainer>
+        )}
+      </div>
+
+      {/* Historial frecuencia */}
+      {historialData.length > 1 && (
+        <div className="chart-container">
+          <div className="chart-title">Frecuencia de noticias · rolling</div>
+          <ResponsiveContainer width="100%" height={120}>
+            <BarChart data={historialData} margin={{top:4,right:4,bottom:0,left:-20}}>
+              <XAxis dataKey="fecha" tick={{fill:'var(--text-muted)',fontSize:9}} />
+              <YAxis tick={{fill:'var(--text-muted)',fontSize:9}} allowDecimals={false}/>
+              <Tooltip content={<CustomTooltip/>}/>
+              <Bar dataKey="TIKR" stackId="a" fill="#5b9cf6"/>
+              <Bar dataKey="SA" stackId="a" fill="#9b72f5" radius={[2,2,0,0]}/>
+            </BarChart>
+          </ResponsiveContainer>
+        </div>
+      )}
+
+      {/* Orden */}
+      <div style={{display:'flex',justifyContent:'space-between',alignItems:'center',marginBottom:12}}>
+        <div className="section-title">Patrones detectados</div>
+        <button className="filter-chip active" onClick={() => setOrdenConf(o=>!o)}>
+          {ordenConf ? '▼ Confianza' : '↕ Orden'}
+        </button>
+      </div>
+
+      {/* Pattern cards */}
+      {sorted.map((p, i) => (
+        <div className="pattern-card" key={p.id || i} style={{animationDelay:`${i*25}ms`}}>
+          <div className="pattern-header">
+            <span className={`pattern-tipo tipo-${p.tipo?.toLowerCase() || 'tendencia'}`}>
+              {p.tipo || 'Tendencia'}
+            </span>
+            <span className={`pattern-confianza conf-${p.confianza}`}>
+              {p.confianza === 'alta' ? '●●●' : p.confianza === 'media' ? '●●○' : '●○○'} {p.confianza}
+            </span>
+          </div>
+
+          <div className="pattern-empresa">{p.empresa}</div>
+          {p.ticker && <div className="pattern-ticker-badge">{p.ticker}</div>}
+          <div className="pattern-desc">{p.descripcion}</div>
+
+          {p.tags?.length > 0 && (
+            <div className="pattern-tags">
+              {p.tags.map(t => <span key={t} className="tag">{t}</span>)}
+            </div>
+          )}
+
+          <div className="pattern-footer">
+            <span className={`tendencia-badge tend-${p.tendencia || 'neutral'}`}>
+              {p.tendencia === 'alcista' ? '▲' : p.tendencia === 'bajista' ? '▼' : '●'} {p.tendencia || 'neutral'}
+            </span>
+            <span className="pattern-freq">
+              ×{p.frecuencia || 1} apariciones
+            </span>
+          </div>
+        </div>
+      ))}
+    </div>
+  );
+}
+
+// ─────────────────────────────────────────────
+// APP PRINCIPAL
+// ─────────────────────────────────────────────
+function App() {
+  const [tab, setTab] = useState('periodico');
+  const [noticias, setNoticias] = useState([]);
+  const [patrones, setPatrones] = useState([]);
+  const [patronesMeta, setPatronesMeta] = useState(null);
+  const [resumenStats, setResumenStats] = useState(null);
+  const [historial, setHistorial] = useState([]);
+  const [lastSync, setLastSync] = useState(null);
+  const [syncingMd, setSyncingMd] = useState(false);
+  const [syncingJson, setSyncingJson] = useState(false);
+  const [syncedMd, setSyncedMd] = useState(false);
+  const [syncedJson, setSyncedJson] = useState(false);
+
+  // Load from localStorage on mount
+  useEffect(() => {
+    const cached = limpiarNoticias(loadLocal(KEYS.noticias, []));
+    setNoticias(cached);
+    const pat = loadLocal(KEYS.patrones, null);
+    if (pat) {
+      setPatrones(pat.patrones || []);
+      setPatronesMeta(pat.meta || null);
+      setResumenStats(pat.resumenEstadistico || null);
+      setHistorial(pat.historial || []);
+    }
+    setLastSync(loadLocal(KEYS.sync, null));
+  }, []);
+
+  // Sync: read MD files
+  const handleMdSync = useCallback((e) => {
+    const files = Array.from(e.target.files);
+    if (!files.length) return;
+    setSyncingMd(true);
+
+    Promise.all(files.map(f => new Promise(res => {
+      const r = new FileReader();
+      r.onload = ev => res({ name: f.name, text: ev.target.result });
+      r.readAsText(f);
+    }))).then(results => {
+      let todasNoticias = limpiarNoticias(loadLocal(KEYS.noticias, []));
+
+      results.forEach(({ name, text }) => {
+        const nuevas = parseMarkdown(text, name);
+        // Reemplazar noticias del mismo día
+        const fechaArchivo = name.match(/(\d{4}-\d{2}-\d{2})/)?.[1];
+        if (fechaArchivo) todasNoticias = todasNoticias.filter(n => n.fecha !== fechaArchivo);
+        todasNoticias = [...todasNoticias, ...nuevas];
+      });
+
+      const limpias = limpiarNoticias(todasNoticias);
+      setNoticias(limpias);
+      saveLocal(KEYS.noticias, limpias);
+
+      const now = new Date().toISOString();
+      setLastSync(now);
+      saveLocal(KEYS.sync, now);
+      setSyncingMd(false);
+      setSyncedMd(true);
+      setTimeout(() => setSyncedMd(false), 2500);
+    });
+    e.target.value = '';
+  }, []);
+
+  // Sync: read JSON
+  const handleJsonSync = useCallback((e) => {
+    const file = e.target.files[0];
+    if (!file) return;
+    setSyncingJson(true);
+    const r = new FileReader();
+    r.onload = ev => {
+      try {
+        const data = JSON.parse(ev.target.result);
+        setPatrones(data.patrones || []);
+        setPatronesMeta(data.meta || null);
+        setResumenStats(data.resumenEstadistico || null);
+        setHistorial(data.historial || []);
+        saveLocal(KEYS.patrones, data);
+        const now = new Date().toISOString();
+        setLastSync(now);
+        saveLocal(KEYS.sync, now);
+      } catch {}
+      setSyncingJson(false);
+      setSyncedJson(true);
+      setTimeout(() => setSyncedJson(false), 2500);
+    };
+    r.readAsText(file);
+    e.target.value = '';
+  }, []);
+
+  const today = new Date().toLocaleDateString('es-ES', { weekday:'long', day:'numeric', month:'long' });
+  const syncTime = lastSync ? new Date(lastSync).toLocaleTimeString('es-ES', {hour:'2-digit',minute:'2-digit'}) : null;
+
+  return (
+    <div className="shell">
+      {/* Header */}
+      <div className="header">
+        <div className="header-top">
+          <div>
+            <div className="masthead">Mi Periódico<br/><span>de Inversiones</span></div>
+          </div>
+          <div className="date-stamp">
+            {today}<br/>
+            {syncTime ? `Sync ${syncTime}` : 'Sin sincronizar'}
+          </div>
+        </div>
+
+        {/* Sync buttons */}
+        <div style={{display:'flex',gap:8,marginTop:10}}>
+          <button className={`sync-btn ${syncingMd?'syncing':''} ${syncedMd?'synced':''}`}
+                  style={{flex:1}}
+                  onClick={() => document.getElementById('md-input').click()}>
+            {syncedMd ? '✓ Noticias' : syncingMd ? '⟳ Leyendo…' : '↑ Noticias .md'}
+          </button>
+          <button className={`sync-btn ${syncingJson?'syncing':''} ${syncedJson?'synced':''}`}
+                  style={{flex:1}}
+                  onClick={() => document.getElementById('json-input').click()}>
+            {syncedJson ? '✓ Patrones' : syncingJson ? '⟳ Leyendo…' : '↑ Patrones .json'}
+          </button>
+        </div>
+      </div>
+
+      {/* Tabs */}
+      <div className="tabs">
+        <button className={`tab-btn ${tab==='periodico'?'active':''}`}
+                onClick={() => setTab('periodico')}>
+          Periódico
+          <span className="tab-count">{noticias.length}</span>
+        </button>
+        <button className={`tab-btn ${tab==='patrones'?'active':''}`}
+                onClick={() => setTab('patrones')}>
+          Patrones
+          <span className="tab-count">{patrones.length}</span>
+        </button>
+      </div>
+
+      {/* Content */}
+      {tab === 'periodico' ? (
+        <TabPeriodico
+          noticias={noticias}
+          onSyncMd={() => document.getElementById('md-input').click()}
+          syncing={syncingMd}
+          syncedMd={syncedMd}
+          patronesMeta={patronesMeta}
+        />
+      ) : (
+        <TabPatrones
+          patrones={patrones}
+          resumen={resumenStats}
+          historial={historial}
+          meta={patronesMeta}
+        />
+      )}
+
+      {/* Status bar */}
+      <div className="status-bar">
+        {noticias.length > 0
+          ? `${noticias.length} noticias · rolling 7d · ${patrones.length} patrones 30d`
+          : 'Sube los archivos .md y .json para comenzar'
+        }
+      </div>
+
+      {/* Hidden file inputs */}
+      <input id="md-input" type="file" accept=".md" multiple onChange={handleMdSync}/>
+      <input id="json-input" type="file" accept=".json" onChange={handleJsonSync}/>
+    </div>
+  );
+}
+
+// ─────────────────────────────────────────────
+// Mount + Service Worker
+// ─────────────────────────────────────────────
+ReactDOM.createRoot(document.getElementById('root')).render(<App/>);
+
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('sw.js').catch(console.error);
+  });
+}
+</script>
+</body>
+</html>
