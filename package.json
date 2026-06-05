@@ -1,0 +1,26 @@
+{
+  "name": "periodico-inversiones",
+  "version": "1.0.0",
+  "description": "``` periodico-inversiones/ ├── index.html        ← App completa (React 18 + Recharts) ├── manifest.json     ← PWA manifest ├── sw.js             ← Service Worker (offline-first) ├── icon-192.png      ← Icono iOS/Android └── icon-512.png      ← Icono splash screen ```",
+  "main": "sw.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Fungiloma/periodico-inversiones.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/Fungiloma/periodico-inversiones/issues"
+  },
+  "homepage": "https://github.com/Fungiloma/periodico-inversiones#readme",
+  "devDependencies": {
+    "@babel/cli": "^7.29.7",
+    "@babel/core": "^7.29.7",
+    "@babel/preset-react": "^7.29.7"
+  }
+}
