@@ -1,13 +1,13 @@
-// Mi Periódico de Inversiones — Service Worker v1.2
-const CACHE_NAME = 'pdi-v1.2';
+// Mi Periódico de Inversiones — Service Worker v1.3
+const CACHE_NAME = 'pdi-v1.3';
 const SHELL = [
   './',
   './index.html',
+  './app.js',
   './manifest.json',
   'https://cdnjs.cloudflare.com/ajax/libs/react/18.2.0/umd/react.production.min.js',
   'https://cdnjs.cloudflare.com/ajax/libs/react-dom/18.2.0/umd/react-dom.production.min.js',
   'https://cdnjs.cloudflare.com/ajax/libs/recharts/2.12.0/Recharts.min.js',
-  'https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/7.23.5/babel.min.js',
   'https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@300;400;500&display=swap'
 ];
 
