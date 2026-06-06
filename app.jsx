@@ -397,36 +397,284 @@ function TabPeriodico({ noticias, patronesMeta, fetchStatus }) {
 }
 
 // ─────────────────────────────────────────────
+// HISTORIAL CHART — barras simples con tooltip nota
+// ─────────────────────────────────────────────
+function HistorialChart({ data, height = 100 }) {
+  const [hov, setHov] = useState(null);
+  if (!data || data.length === 0) return null;
+
+  const W = 400, H = height;
+  const mt = 26, mr = 4, mb = 18, ml = 4;
+  const cW = W - ml - mr;
+  const cH = H - mt - mb;
+  const baseY = mt + cH;
+
+  const maxVal = Math.max(1, ...data.map(d => d.noticias || 0));
+  const slot   = cW / data.length;
+  const barW   = Math.min(slot * 0.72, 26);
+
+  let tip = null;
+  if (hov !== null && data[hov]) {
+    const d   = data[hov];
+    const raw = d.nota || `${d.noticias || 0} noticias`;
+    const txt = raw.length > 40 ? raw.slice(0, 38) + '…' : raw;
+    const bx  = ml + hov * slot + slot / 2;
+    const tx  = Math.min(Math.max(bx, 60), W - 60);
+    tip = (
+      <g style={{ pointerEvents: 'none' }}>
+        <rect x={tx - 60} y={1} width={120} height={20} fill="var(--bg-card)" stroke="var(--border)" rx="4"/>
+        <text x={tx} y={14} textAnchor="middle" fill="var(--text-secondary)" fontSize="8">{txt}</text>
+      </g>
+    );
+  }
+
+  return (
+    <svg viewBox={`0 0 ${W} ${H}`} width="100%" height={height}
+         style={{ overflow: 'visible', display: 'block' }}>
+      {data.map((d, i) => {
+        const n    = d.noticias || 0;
+        const barH = Math.max((n / maxVal) * cH, 1);
+        const x    = ml + i * slot + (slot - barW) / 2;
+        const isH  = hov === i;
+        return (
+          <g key={i} onMouseEnter={() => setHov(i)} onMouseLeave={() => setHov(null)}>
+            <rect x={x} y={baseY - barH} width={barW} height={barH}
+                  fill={isH ? 'var(--accent-gold)' : 'var(--accent-blue)'}
+                  opacity={isH ? 1 : 0.5} rx="2"/>
+            <rect x={x} y={mt} width={barW} height={cH} fill="transparent"/>
+            <text x={x + barW / 2} y={H - 2} textAnchor="middle"
+                  fill="var(--text-muted)" fontSize="7">{(d.fecha || '').slice(5)}</text>
+          </g>
+        );
+      })}
+      {tip}
+    </svg>
+  );
+}
+
+// ─────────────────────────────────────────────
+// MINI CHART — inline en cada PatronCard
+// Sin ejes, sin labels, solo forma visual
+// ─────────────────────────────────────────────
+function MiniChart({ data, tipo, ejeY, height = 60 }) {
+  if (!data || data.length === 0) return null;
+
+  const W = 200, H = height;
+  const pad = 3;
+  const cW  = W - pad * 2;
+  const cH  = H - pad * 2;
+
+  // Un solo punto → dot grande
+  if (data.length === 1) {
+    const color = ejeY === 'sentimiento'
+      ? (data[0].value >= 0 ? 'var(--accent-green)' : 'var(--accent-red)')
+      : 'var(--accent-gold)';
+    return (
+      <svg viewBox={`0 0 ${W} ${H}`} width="100%" height={height} style={{ display: 'block' }}>
+        <circle cx={W / 2} cy={H / 2} r={5} fill={color} opacity="0.9"/>
+      </svg>
+    );
+  }
+
+  // Sentimiento → línea con baseline en 0, verde arriba / rojo abajo
+  if (ejeY === 'sentimiento') {
+    const maxAbs = Math.max(1, ...data.map(d => Math.abs(d.value || 0)));
+    const midY   = pad + cH / 2;
+    const pts    = data.map((d, i) => ({
+      x: pad + (i / (data.length - 1)) * cW,
+      y: midY - ((d.value || 0) / maxAbs) * (cH / 2 - 1)
+    }));
+    const lastV  = data[data.length - 1].value || 0;
+    const color  = lastV >= 0 ? 'var(--accent-green)' : 'var(--accent-red)';
+    const ptStr  = pts.map(p => `${p.x},${p.y}`).join(' ');
+    return (
+      <svg viewBox={`0 0 ${W} ${H}`} width="100%" height={height} style={{ display: 'block' }}>
+        <line x1={pad} x2={pad + cW} y1={midY} y2={midY}
+              stroke="var(--border)" strokeWidth="0.5" strokeDasharray="3,2"/>
+        <polyline points={ptStr} fill="none" stroke={color}
+                  strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+        <circle cx={pts[pts.length - 1].x} cy={pts[pts.length - 1].y} r="2.5" fill={color}/>
+      </svg>
+    );
+  }
+
+  // Barras (tipo=bar o ejeY=frecuencia)
+  if (tipo === 'bar' || ejeY === 'frecuencia') {
+    const maxV  = Math.max(1, ...data.map(d => d.value || 0));
+    const sl    = cW / data.length;
+    const bW    = Math.max(1, sl * 0.75);
+    return (
+      <svg viewBox={`0 0 ${W} ${H}`} width="100%" height={height} style={{ display: 'block' }}>
+        {data.map((d, i) => {
+          const bH = ((d.value || 0) / maxV) * cH;
+          const x  = pad + i * sl + (sl - bW) / 2;
+          return (
+            <rect key={i} x={x} y={pad + cH - bH} width={bW}
+                  height={Math.max(bH, 1)} fill="var(--accent-gold)" rx="1" opacity="0.85"/>
+          );
+        })}
+      </svg>
+    );
+  }
+
+  // Línea por defecto
+  const maxV = Math.max(1, ...data.map(d => d.value || 0));
+  const pts  = data.map((d, i) => {
+    const x = pad + (i / (data.length - 1)) * cW;
+    const y = pad + cH - ((d.value || 0) / maxV) * cH;
+    return `${x},${y}`;
+  }).join(' ');
+  return (
+    <svg viewBox={`0 0 ${W} ${H}`} width="100%" height={height} style={{ display: 'block' }}>
+      <polyline points={pts} fill="none" stroke="var(--accent-gold)"
+                strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+    </svg>
+  );
+}
+
+// ─────────────────────────────────────────────
+// TAGS CLOUD
+// ─────────────────────────────────────────────
+function TagsCloud({ tags, activeTag, onTagClick }) {
+  if (!tags || tags.length === 0) return null;
+  const maxC  = Math.max(...tags.map(t => t.count));
+  const minC  = Math.min(...tags.map(t => t.count));
+  const range = maxC - minC || 1;
+  return (
+    <div style={{ display: 'flex', flexWrap: 'wrap', gap: 6, paddingBottom: 4 }}>
+      {tags.map((t, i) => {
+        const size     = 10 + Math.round(((t.count - minC) / range) * 6);
+        const isTop3   = i < 3;
+        const isActive = activeTag === t.tag;
+        return (
+          <button key={t.tag} onClick={() => onTagClick(t.tag)}
+                  style={{
+                    fontFamily: 'var(--font-mono)',
+                    fontSize: size,
+                    padding: '3px 9px',
+                    borderRadius: 20,
+                    border: `1px solid ${isActive ? 'var(--accent-gold)' : 'var(--border)'}`,
+                    background: isActive ? 'var(--accent-gold-dim)' : 'none',
+                    color: (isTop3 || isActive) ? 'var(--accent-gold)' : 'var(--text-secondary)',
+                    cursor: 'pointer',
+                    transition: 'all 0.15s',
+                    lineHeight: 1.4
+                  }}>
+            {t.tag}
+          </button>
+        );
+      })}
+    </div>
+  );
+}
+
+// ─────────────────────────────────────────────
+// PATRON CARD — colapsable, con mini-gráfico
+// ─────────────────────────────────────────────
+function PatronCard({ patron, onTagClick, style }) {
+  const [expanded, setExpanded] = useState(false);
+
+  const tipoRaw  = patron.tipo?.toLowerCase() || 'tendencia';
+  const tipoCSS  = tipoRaw === 'tendencias' ? 'tendencia' : tipoRaw;
+  const confDots = patron.confianza === 'alta' ? '●●●'
+    : patron.confianza === 'media' ? '●●○' : '●○○';
+  const descLines   = (patron.descripcion || '').split('\n').filter(Boolean);
+  const descPreview = descLines[0] || '';
+  const hasChart    = patron.grafico?.data?.length > 0;
+  const chartH      = expanded ? 120 : 60;
+
+  return (
+    <div className="pattern-card" style={style}
+         onClick={() => setExpanded(e => !e)}>
+      {/* Tipo + confianza */}
+      <div className="pattern-header">
+        <span className={`pattern-tipo tipo-${tipoCSS}`}>{patron.tipo || 'Tendencia'}</span>
+        <span className={`pattern-confianza conf-${patron.confianza}`}>
+          {confDots} {patron.confianza}
+        </span>
+      </div>
+
+      {/* Empresa */}
+      <div className="pattern-empresa">{patron.empresa}</div>
+
+      {/* Tags: máx 3 colapsado, todos expandido */}
+      {patron.tags?.length > 0 && (
+        <div className="pattern-tags" onClick={e => e.stopPropagation()}>
+          {(expanded ? patron.tags : patron.tags.slice(0, 3)).map(t => (
+            <span key={t} className="tag" style={{ cursor: 'pointer' }}
+                  onClick={() => onTagClick(t)}>{t}</span>
+          ))}
+          {!expanded && patron.tags.length > 3 && (
+            <span className="tag" style={{ opacity: 0.5 }}>+{patron.tags.length - 3}</span>
+          )}
+        </div>
+      )}
+
+      {/* Descripción: preview colapsado, completa expandido */}
+      <div className="pattern-desc">{expanded ? patron.descripcion : descPreview}</div>
+
+      {/* Mini chart */}
+      {hasChart && (
+        <div style={{ margin: '8px 0' }}>
+          <MiniChart data={patron.grafico.data} tipo={patron.grafico.tipo}
+                     ejeY={patron.grafico.eje_y} height={chartH}/>
+        </div>
+      )}
+
+      {/* Expandido: fechas de aparición */}
+      {expanded && patron.fechas?.length > 0 && (
+        <div style={{ display: 'flex', flexWrap: 'wrap', gap: 4, marginTop: 8 }}>
+          {patron.fechas.map(f => (
+            <span key={f} style={{
+              fontFamily: 'var(--font-mono)', fontSize: 9,
+              padding: '2px 6px', borderRadius: 3,
+              background: 'var(--bg-surface)', border: '1px solid var(--border)',
+              color: 'var(--text-muted)'
+            }}>{f}</span>
+          ))}
+        </div>
+      )}
+
+      {/* Footer: tendencia + frecuencia */}
+      <div className="pattern-footer">
+        <span className={`tendencia-badge tend-${patron.tendencia || 'neutral'}`}>
+          {patron.tendencia === 'alcista' ? '▲' : patron.tendencia === 'bajista' ? '▼' : '●'} {patron.tendencia || 'neutral'}
+        </span>
+        <span className="pattern-freq">×{patron.frecuencia || 1} apariciones</span>
+      </div>
+    </div>
+  );
+}
+
+// ─────────────────────────────────────────────
 // TAB: PATRONES
 // ─────────────────────────────────────────────
 function TabPatrones({ patrones, resumen, historial, meta }) {
-  const [ordenConf, setOrdenConf] = useState(true);
+  const [filtroTipo,      setFiltroTipo]      = useState('all');
+  const [filtroTendencia, setFiltroTendencia] = useState('all');
+  const [filtroConfianza, setFiltroConfianza] = useState('all');
+  const [filtroTag,       setFiltroTag]       = useState('');
 
+  const handleTagClick = tag => setFiltroTag(f => f === tag ? '' : tag);
+
+  const histSlice   = (historial || []).slice(-14);
+  const diasCubiertos = histSlice.length;
+  const altoConf    = resumen?.porConfianza?.alta
+    ?? patrones.filter(p => p.confianza === 'alta').length;
+
+  // Filtrado y orden
   const confOrder = { alta: 3, media: 2, baja: 1 };
-  const sorted = [...patrones].sort((a,b) =>
-    ordenConf ? (confOrder[b.confianza]||0) - (confOrder[a.confianza]||0) : 0
-  );
-
-  const historialData = (historial || []).slice(-14).map(h => ({
-    fecha: h.fecha.slice(5),
-    TIKR: h.fuentes?.TIKR || 0,
-    SA: h.fuentes?.SeekingAlpha || 0,
-    total: h.noticias || 0
-  }));
-
-  const distribSectorial = Object.entries(
-    patrones.reduce((acc, p) => {
-      const s = p.sector || 'Otros';
-      acc[s] = (acc[s]||0) + 1;
-      return acc;
-    }, {})
-  ).map(([name, value]) => ({ name, value }));
-
-  const tendencias = {
-    alcista: patrones.filter(p => p.tendencia === 'alcista').length,
-    bajista: patrones.filter(p => p.tendencia === 'bajista').length,
-    neutral: patrones.filter(p => p.tendencia === 'neutral').length,
-  };
+  let filtered = [...patrones];
+  if (filtroTipo !== 'all') {
+    filtered = filtered.filter(p => {
+      const t = p.tipo?.toLowerCase() || '';
+      return t === filtroTipo || (filtroTipo === 'tendencia' && t === 'tendencias');
+    });
+  }
+  if (filtroTendencia !== 'all') filtered = filtered.filter(p => p.tendencia === filtroTendencia);
+  if (filtroConfianza !== 'all') filtered = filtered.filter(p => p.confianza === filtroConfianza);
+  if (filtroTag)                 filtered = filtered.filter(p => p.tags?.includes(filtroTag));
+  filtered.sort((a, b) => (confOrder[b.confianza] || 0) - (confOrder[a.confianza] || 0));
 
   if (patrones.length === 0) {
     return (
@@ -437,18 +685,14 @@ function TabPatrones({ patrones, resumen, historial, meta }) {
           <div className="empty-sub">Los patrones se acumulan a medida que llegan noticias durante varios días</div>
           {meta && (
             <div className="empty-note">
-              <strong>Estado:</strong> {meta.estado}<br/>
-              <strong>Cobertura:</strong> {meta.cobertura}<br/>
-              <strong>Archivos:</strong> {meta.archivosAnalizados}/{meta.archivosPeriodoEsperado}<br/><br/>
-              {meta.nota}
+              <strong>Estado:</strong> {meta.estado}<br/>{meta.nota}
             </div>
           )}
         </div>
-
-        {historialData.length > 0 && (
-          <div className="chart-container" style={{marginTop:16}}>
-            <div className="chart-title">Frecuencia de noticias · {historialData.length}d</div>
-            <SVGBarChart data={historialData} height={140}/>
+        {histSlice.length > 0 && (
+          <div className="chart-container" style={{ marginTop: 16 }}>
+            <div className="chart-title">Actividad diaria · {diasCubiertos}d</div>
+            <HistorialChart data={histSlice} height={100}/>
           </div>
         )}
       </div>
@@ -457,70 +701,78 @@ function TabPatrones({ patrones, resumen, historial, meta }) {
 
   return (
     <div className="content">
+
+      {/* 1. HEADER ROW */}
       <div className="stats-row">
         <div className="stat-card">
-          <div className="stat-value" style={{color:'var(--accent-gold)'}}>{patrones.length}</div>
+          <div className="stat-value" style={{ color: 'var(--accent-gold)' }}>
+            {resumen?.totalPatrones ?? patrones.length}
+          </div>
           <div className="stat-label">Patrones</div>
         </div>
         <div className="stat-card">
-          <div className="stat-value" style={{color:'var(--accent-green)'}}>{resumen?.porConfianza?.alta || 0}</div>
+          <div className="stat-value" style={{ color: 'var(--accent-green)' }}>{altoConf}</div>
           <div className="stat-label">Alta conf.</div>
         </div>
         <div className="stat-card">
-          <div className="stat-value" style={{color:'var(--accent-red)'}}>{tendencias.bajista}</div>
-          <div className="stat-label">Bajistas</div>
+          <div className="stat-value" style={{ color: 'var(--accent-blue)' }}>{diasCubiertos}</div>
+          <div className="stat-label">Días</div>
         </div>
       </div>
 
-      <div className="chart-container">
-        <div className="chart-title">Distribución de tendencias</div>
-        <div style={{display:'flex',gap:8,alignItems:'center',justifyContent:'center',padding:'8px 0'}}>
-          <div className="tendencia-badge tend-alcista">▲ {tendencias.alcista} alcista{tendencias.alcista!==1?'s':''}</div>
-          <div className="tendencia-badge tend-neutral">● {tendencias.neutral} neutral{tendencias.neutral!==1?'es':''}</div>
-          <div className="tendencia-badge tend-bajista">▼ {tendencias.bajista} bajista{tendencias.bajista!==1?'s':''}</div>
-        </div>
-        {distribSectorial.length > 0 && <SVGPieChart data={distribSectorial} height={130}/>}
-      </div>
-
-      {historialData.length > 1 && (
+      {/* 2. GRÁFICO GLOBAL — actividad diaria */}
+      {histSlice.length > 0 && (
         <div className="chart-container">
-          <div className="chart-title">Frecuencia de noticias · rolling</div>
-          <SVGBarChart data={historialData} height={120}/>
+          <div className="chart-title">Actividad diaria · {diasCubiertos}d</div>
+          <HistorialChart data={histSlice} height={100}/>
         </div>
       )}
 
-      <div style={{display:'flex',justifyContent:'space-between',alignItems:'center',marginBottom:12}}>
-        <div className="section-title">Patrones detectados</div>
-        <button className="filter-chip active" onClick={() => setOrdenConf(o=>!o)}>
-          {ordenConf ? '▼ Confianza' : '↕ Orden'}
-        </button>
+      {/* 3. TAGS CLOUD */}
+      {resumen?.tagsMasFrecuentes?.length > 0 && (
+        <div className="chart-container">
+          <div className="chart-title">Tags frecuentes</div>
+          <TagsCloud tags={resumen.tagsMasFrecuentes} activeTag={filtroTag}
+                     onTagClick={handleTagClick}/>
+        </div>
+      )}
+
+      {/* 4. FILTROS */}
+      <div className="filter-bar">
+        {[['all','Todos'],['narrativa','Narrativa'],['realidad','Realidad'],['tendencia','Tendencias']].map(([v,l]) => (
+          <button key={v} className={`filter-chip ${filtroTipo===v?'active':''}`}
+                  onClick={() => setFiltroTipo(v)}>{l}</button>
+        ))}
+      </div>
+      <div className="filter-bar" style={{ marginTop: -4 }}>
+        {[['all','Tend.'],['alcista','▲'],['bajista','▼'],['neutral','●']].map(([v,l]) => (
+          <button key={v} className={`filter-chip ${filtroTendencia===v?'active':''}`}
+                  onClick={() => setFiltroTendencia(v)}>{l}</button>
+        ))}
+        {[['all','Conf.'],['alta','Alta'],['media','Media'],['baja','Baja']].map(([v,l]) => (
+          <button key={v} className={`filter-chip ${filtroConfianza===v?'active':''}`}
+                  onClick={() => setFiltroConfianza(v)}>{l}</button>
+        ))}
+      </div>
+      {filtroTag && (
+        <div style={{ marginBottom: 8, fontFamily: 'var(--font-mono)', fontSize: 10, color: 'var(--accent-gold)' }}>
+          Tag: {filtroTag}&nbsp;
+          <button onClick={() => setFiltroTag('')}
+                  style={{ background: 'none', border: 'none', color: 'var(--text-muted)', cursor: 'pointer', fontSize: 10 }}>
+            ✕
+          </button>
+        </div>
+      )}
+
+      {/* Contador */}
+      <div style={{ marginBottom: 6, fontFamily: 'var(--font-mono)', fontSize: 10, color: 'var(--text-muted)' }}>
+        {filtered.length} de {patrones.length} patrones
       </div>
 
-      {sorted.map((p, i) => (
-        <div className="pattern-card" key={p.id || i} style={{animationDelay:`${i*25}ms`}}>
-          <div className="pattern-header">
-            <span className={`pattern-tipo tipo-${p.tipo?.toLowerCase() || 'tendencia'}`}>
-              {p.tipo || 'Tendencia'}
-            </span>
-            <span className={`pattern-confianza conf-${p.confianza}`}>
-              {p.confianza === 'alta' ? '●●●' : p.confianza === 'media' ? '●●○' : '●○○'} {p.confianza}
-            </span>
-          </div>
-          <div className="pattern-empresa">{p.empresa}</div>
-          {p.ticker && <div className="pattern-ticker-badge">{p.ticker}</div>}
-          <div className="pattern-desc">{p.descripcion}</div>
-          {p.tags?.length > 0 && (
-            <div className="pattern-tags">
-              {p.tags.map(t => <span key={t} className="tag">{t}</span>)}
-            </div>
-          )}
-          <div className="pattern-footer">
-            <span className={`tendencia-badge tend-${p.tendencia || 'neutral'}`}>
-              {p.tendencia === 'alcista' ? '▲' : p.tendencia === 'bajista' ? '▼' : '●'} {p.tendencia || 'neutral'}
-            </span>
-            <span className="pattern-freq">×{p.frecuencia || 1} apariciones</span>
-          </div>
-        </div>
+      {/* 5. PATTERN CARDS */}
+      {filtered.map((p, i) => (
+        <PatronCard key={p.id || i} patron={p} onTagClick={handleTagClick}
+                    style={{ animationDelay: `${i * 20}ms` }}/>
       ))}
     </div>
   );
