@@ -8,7 +8,9 @@ const {
 // PARSER: Markdown → noticias estructuradas
 // Secciones: **TIKR** / **Seeking Alpha** (bold)
 // Bullets:   - TICKER — texto | Relevancia: alta/media/baja
-// Cuerpo:    📄 Resumen: (línea siguiente al bullet)
+//              Detalle: preview de 2-3 frases
+//            📄 Resumen: cuerpo expandible completo
+//            🔗 Link: URL externa
 // ─────────────────────────────────────────────
 function parseMarkdown(mdText, filename) {
   console.log('RAW MD:', mdText.substring(0, 500));
@@ -21,8 +23,6 @@ function parseMarkdown(mdText, filename) {
     media: 3,
     baja: 1
   };
-
-  // — = em dash explícito para evitar corrupción al compilar
   const BULLET = new RegExp('^- ([A-Z0-9.]+) — (.+?) \\| Relevancia: (alta|media|baja)', 'i');
   const parseSect = (bloque, fuente) => {
     if (!bloque) return;
@@ -30,11 +30,22 @@ function parseMarkdown(mdText, filename) {
     bloque.split('\n').forEach(raw => {
       const line = raw.trim();
       if (!line) return;
-
-      // 📄 Resumen: cuerpo expandible del ítem anterior
-      if (line.startsWith('📄') && current) {
-        current.cuerpo = line.replace(/^📄\s*Resumen:\s*/i, '').trim() || current.cuerpo;
-        return;
+      if (current) {
+        // Detalle: preview corto (2-3 frases)
+        if (/^Detalle:\s*/i.test(line)) {
+          current.detalle = line.replace(/^Detalle:\s*/i, '').trim();
+          return;
+        }
+        // 📄 Resumen: cuerpo expandible completo
+        if (line.startsWith('📄')) {
+          current.cuerpo = line.replace(/^📄\s*Resumen:\s*/i, '').trim() || current.cuerpo;
+          return;
+        }
+        // 🔗 Link: URL externa
+        if (line.startsWith('🔗')) {
+          current.link = line.replace(/^🔗\s*Link:\s*/i, '').trim();
+          return;
+        }
       }
       const m = line.match(BULLET);
       if (m) {
@@ -49,6 +60,8 @@ function parseMarkdown(mdText, filename) {
           fecha,
           resumen: titulo,
           cuerpo: titulo,
+          detalle: null,
+          link: null,
           relevancia: relevanciaMap[m[3].toLowerCase()] || 3
         };
       }
@@ -343,6 +356,9 @@ function NewsCard({
 }) {
   const [expanded, setExpanded] = useState(false);
   const cls = noticia.fuente === 'TIKR' ? 'tikr' : 'sa';
+
+  // Collapsed preview: Detalle > primeras 2 líneas del cuerpo > título
+  const preview = noticia.detalle || noticia.cuerpo.split('\n').filter(Boolean).slice(0, 2).join(' ') || noticia.empresa;
   return /*#__PURE__*/React.createElement("div", {
     className: `news-card ${cls} ${expanded ? 'expanded' : ''}`,
     style: style,
@@ -357,7 +373,24 @@ function NewsCard({
     className: "news-title"
   }, noticia.empresa), /*#__PURE__*/React.createElement("div", {
     className: `news-summary ${expanded ? 'expanded' : ''}`
-  }, expanded ? noticia.cuerpo : noticia.resumen), /*#__PURE__*/React.createElement(RelevanceDots, {
+  }, expanded ? noticia.cuerpo : preview), expanded && noticia.link && /*#__PURE__*/React.createElement("a", {
+    href: noticia.link,
+    target: "_blank",
+    rel: "noopener noreferrer",
+    onClick: e => e.stopPropagation(),
+    style: {
+      display: 'inline-block',
+      marginTop: 10,
+      padding: '6px 14px',
+      background: 'var(--accent-gold-dim)',
+      color: 'var(--accent-gold)',
+      fontFamily: 'var(--font-mono)',
+      fontSize: 11,
+      borderRadius: 6,
+      textDecoration: 'none',
+      border: '1px solid var(--accent-gold-dim)'
+    }
+  }, "Leer art\xEDculo \u2192"), /*#__PURE__*/React.createElement(RelevanceDots, {
     nivel: noticia.relevancia
   }));
 }
