@@ -190,7 +190,7 @@ function SVGPieChart({ data, height = 160 }) {
   let angle = 0;
   const sectors = data.map((d, i) => {
     const sweep = Math.max(0, (d.value / total) * 360 - padAngle);
-    const s = { ...d, start: angle, end: angle + sweep, color: COLORS_CHART[i % COLORS_CHART.length] };
+    const s = { ...d, start: angle, end: angle + sweep, color: d.color || COLORS_CHART[i % COLORS_CHART.length] };
     angle += sweep + padAngle;
     return s;
   });
@@ -409,7 +409,8 @@ function HistorialChart({ data, height = 100 }) {
   const cH = H - mt - mb;
   const baseY = mt + cH;
 
-  const maxVal = Math.max(1, ...data.map(d => d.noticias || 0));
+  const vals   = data.map(d => Number(d.noticias) || 0);
+  const maxVal = Math.max(1, ...vals);
   const slot   = cW / data.length;
   const barW   = Math.min(slot * 0.72, 26);
 
@@ -432,7 +433,7 @@ function HistorialChart({ data, height = 100 }) {
     <svg viewBox={`0 0 ${W} ${H}`} width="100%" height={height}
          style={{ overflow: 'visible', display: 'block' }}>
       {data.map((d, i) => {
-        const n    = d.noticias || 0;
+        const n    = Number(d.noticias) || 0;
         const barH = Math.max((n / maxVal) * cH, 1);
         const x    = ml + i * slot + (slot - barW) / 2;
         const isH  = hov === i;
@@ -464,27 +465,31 @@ function MiniChart({ data, tipo, ejeY, height = 60 }) {
   const cW  = W - pad * 2;
   const cH  = H - pad * 2;
 
-  // Un solo punto → dot grande
+  // Normaliza valores a números (data puede tener strings)
+  const nums = data.map(d => Number(d.value) || 0);
+
+  // Un solo punto → dot grande centrado
   if (data.length === 1) {
+    const v     = nums[0];
     const color = ejeY === 'sentimiento'
-      ? (data[0].value >= 0 ? 'var(--accent-green)' : 'var(--accent-red)')
+      ? (v >= 0 ? 'var(--accent-green)' : 'var(--accent-red)')
       : 'var(--accent-gold)';
     return (
       <svg viewBox={`0 0 ${W} ${H}`} width="100%" height={height} style={{ display: 'block' }}>
-        <circle cx={W / 2} cy={H / 2} r={5} fill={color} opacity="0.9"/>
+        <circle cx={W / 2} cy={H / 2} r={6} fill={color} opacity="0.9"/>
       </svg>
     );
   }
 
-  // Sentimiento → línea con baseline en 0, verde arriba / rojo abajo
+  // Sentimiento → línea con baseline en y=0 (centro), verde arriba / rojo abajo
   if (ejeY === 'sentimiento') {
-    const maxAbs = Math.max(1, ...data.map(d => Math.abs(d.value || 0)));
+    const maxAbs = Math.max(1, ...nums.map(Math.abs));
     const midY   = pad + cH / 2;
-    const pts    = data.map((d, i) => ({
-      x: pad + (i / (data.length - 1)) * cW,
-      y: midY - ((d.value || 0) / maxAbs) * (cH / 2 - 1)
+    const pts    = nums.map((v, i) => ({
+      x: pad + (i / (nums.length - 1)) * cW,
+      y: midY - (v / maxAbs) * (cH / 2 - 1)
     }));
-    const lastV  = data[data.length - 1].value || 0;
+    const lastV  = nums[nums.length - 1];
     const color  = lastV >= 0 ? 'var(--accent-green)' : 'var(--accent-red)';
     const ptStr  = pts.map(p => `${p.x},${p.y}`).join(' ');
     return (
@@ -500,13 +505,13 @@ function MiniChart({ data, tipo, ejeY, height = 60 }) {
 
   // Barras (tipo=bar o ejeY=frecuencia)
   if (tipo === 'bar' || ejeY === 'frecuencia') {
-    const maxV  = Math.max(1, ...data.map(d => d.value || 0));
-    const sl    = cW / data.length;
-    const bW    = Math.max(1, sl * 0.75);
+    const maxV = Math.max(1, ...nums);
+    const sl   = cW / nums.length;
+    const bW   = Math.max(1, sl * 0.75);
     return (
       <svg viewBox={`0 0 ${W} ${H}`} width="100%" height={height} style={{ display: 'block' }}>
-        {data.map((d, i) => {
-          const bH = ((d.value || 0) / maxV) * cH;
+        {nums.map((v, i) => {
+          const bH = (v / maxV) * cH;
           const x  = pad + i * sl + (sl - bW) / 2;
           return (
             <rect key={i} x={x} y={pad + cH - bH} width={bW}
@@ -518,10 +523,10 @@ function MiniChart({ data, tipo, ejeY, height = 60 }) {
   }
 
   // Línea por defecto
-  const maxV = Math.max(1, ...data.map(d => d.value || 0));
-  const pts  = data.map((d, i) => {
-    const x = pad + (i / (data.length - 1)) * cW;
-    const y = pad + cH - ((d.value || 0) / maxV) * cH;
+  const maxV = Math.max(1, ...nums);
+  const pts  = nums.map((v, i) => {
+    const x = pad + (i / (nums.length - 1)) * cW;
+    const y = pad + cH - (v / maxV) * cH;
     return `${x},${y}`;
   }).join(' ');
   return (
@@ -610,8 +615,15 @@ function PatronCard({ patron, onTagClick, style }) {
         </div>
       )}
 
-      {/* Descripción: preview colapsado, completa expandido */}
-      <div className="pattern-desc">{expanded ? patron.descripcion : descPreview}</div>
+      {/* Descripción: 2 líneas colapsado, completa expandido */}
+      <div className="pattern-desc" style={!expanded ? {
+        display: '-webkit-box',
+        WebkitLineClamp: 2,
+        WebkitBoxOrient: 'vertical',
+        overflow: 'hidden'
+      } : {}}>
+        {patron.descripcion}
+      </div>
 
       {/* Mini chart */}
       {hasChart && (
@@ -657,10 +669,17 @@ function TabPatrones({ patrones, resumen, historial, meta }) {
 
   const handleTagClick = tag => setFiltroTag(f => f === tag ? '' : tag);
 
-  const histSlice   = (historial || []).slice(-14);
+  const histSlice     = (historial || []).slice(-14);
   const diasCubiertos = histSlice.length;
-  const altoConf    = resumen?.porConfianza?.alta
+  const altoConf      = resumen?.porConfianza?.alta
     ?? patrones.filter(p => p.confianza === 'alta').length;
+
+  const TIPO_COLORS = { 'Narrativa': '#5b9cf6', 'Realidad': '#3ddc84', 'Tendencias': '#c9a84c' };
+  const tipoData = resumen?.porTipo
+    ? Object.entries(resumen.porTipo)
+        .filter(([, v]) => v > 0)
+        .map(([name, value]) => ({ name, value, color: TIPO_COLORS[name] || '#888' }))
+    : [];
 
   // Filtrado y orden
   const confOrder = { alta: 3, media: 2, baja: 1 };
@@ -728,7 +747,15 @@ function TabPatrones({ patrones, resumen, historial, meta }) {
         </div>
       )}
 
-      {/* 3. TAGS CLOUD */}
+      {/* 3. PIE CHART — distribución por tipo */}
+      {tipoData.length > 0 && (
+        <div className="chart-container">
+          <div className="chart-title">Distribución por tipo</div>
+          <SVGPieChart data={tipoData} height={130}/>
+        </div>
+      )}
+
+      {/* 4. TAGS CLOUD */}
       {resumen?.tagsMasFrecuentes?.length > 0 && (
         <div className="chart-container">
           <div className="chart-title">Tags frecuentes</div>
@@ -737,7 +764,7 @@ function TabPatrones({ patrones, resumen, historial, meta }) {
         </div>
       )}
 
-      {/* 4. FILTROS */}
+      {/* 5. FILTROS */}
       <div className="filter-bar">
         {[['all','Todos'],['narrativa','Narrativa'],['realidad','Realidad'],['tendencia','Tendencias']].map(([v,l]) => (
           <button key={v} className={`filter-chip ${filtroTipo===v?'active':''}`}
@@ -769,7 +796,7 @@ function TabPatrones({ patrones, resumen, historial, meta }) {
         {filtered.length} de {patrones.length} patrones
       </div>
 
-      {/* 5. PATTERN CARDS */}
+      {/* 6. PATTERN CARDS */}
       {filtered.map((p, i) => (
         <PatronCard key={p.id || i} patron={p} onTagClick={handleTagClick}
                     style={{ animationDelay: `${i * 20}ms` }}/>

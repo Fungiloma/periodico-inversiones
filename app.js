@@ -267,7 +267,7 @@ function SVGPieChart({
       ...d,
       start: angle,
       end: angle + sweep,
-      color: COLORS_CHART[i % COLORS_CHART.length]
+      color: d.color || COLORS_CHART[i % COLORS_CHART.length]
     };
     angle += sweep + padAngle;
     return s;
@@ -529,7 +529,8 @@ function HistorialChart({
   const cW = W - ml - mr;
   const cH = H - mt - mb;
   const baseY = mt + cH;
-  const maxVal = Math.max(1, ...data.map(d => d.noticias || 0));
+  const vals = data.map(d => Number(d.noticias) || 0);
+  const maxVal = Math.max(1, ...vals);
   const slot = cW / data.length;
   const barW = Math.min(slot * 0.72, 26);
   let tip = null;
@@ -568,7 +569,7 @@ function HistorialChart({
       display: 'block'
     }
   }, data.map((d, i) => {
-    const n = d.noticias || 0;
+    const n = Number(d.noticias) || 0;
     const barH = Math.max(n / maxVal * cH, 1);
     const x = ml + i * slot + (slot - barW) / 2;
     const isH = hov === i;
@@ -617,9 +618,13 @@ function MiniChart({
   const cW = W - pad * 2;
   const cH = H - pad * 2;
 
-  // Un solo punto → dot grande
+  // Normaliza valores a números (data puede tener strings)
+  const nums = data.map(d => Number(d.value) || 0);
+
+  // Un solo punto → dot grande centrado
   if (data.length === 1) {
-    const color = ejeY === 'sentimiento' ? data[0].value >= 0 ? 'var(--accent-green)' : 'var(--accent-red)' : 'var(--accent-gold)';
+    const v = nums[0];
+    const color = ejeY === 'sentimiento' ? v >= 0 ? 'var(--accent-green)' : 'var(--accent-red)' : 'var(--accent-gold)';
     return /*#__PURE__*/React.createElement("svg", {
       viewBox: `0 0 ${W} ${H}`,
       width: "100%",
@@ -630,21 +635,21 @@ function MiniChart({
     }, /*#__PURE__*/React.createElement("circle", {
       cx: W / 2,
       cy: H / 2,
-      r: 5,
+      r: 6,
       fill: color,
       opacity: "0.9"
     }));
   }
 
-  // Sentimiento → línea con baseline en 0, verde arriba / rojo abajo
+  // Sentimiento → línea con baseline en y=0 (centro), verde arriba / rojo abajo
   if (ejeY === 'sentimiento') {
-    const maxAbs = Math.max(1, ...data.map(d => Math.abs(d.value || 0)));
+    const maxAbs = Math.max(1, ...nums.map(Math.abs));
     const midY = pad + cH / 2;
-    const pts = data.map((d, i) => ({
-      x: pad + i / (data.length - 1) * cW,
-      y: midY - (d.value || 0) / maxAbs * (cH / 2 - 1)
+    const pts = nums.map((v, i) => ({
+      x: pad + i / (nums.length - 1) * cW,
+      y: midY - v / maxAbs * (cH / 2 - 1)
     }));
-    const lastV = data[data.length - 1].value || 0;
+    const lastV = nums[nums.length - 1];
     const color = lastV >= 0 ? 'var(--accent-green)' : 'var(--accent-red)';
     const ptStr = pts.map(p => `${p.x},${p.y}`).join(' ');
     return /*#__PURE__*/React.createElement("svg", {
@@ -679,8 +684,8 @@ function MiniChart({
 
   // Barras (tipo=bar o ejeY=frecuencia)
   if (tipo === 'bar' || ejeY === 'frecuencia') {
-    const maxV = Math.max(1, ...data.map(d => d.value || 0));
-    const sl = cW / data.length;
+    const maxV = Math.max(1, ...nums);
+    const sl = cW / nums.length;
     const bW = Math.max(1, sl * 0.75);
     return /*#__PURE__*/React.createElement("svg", {
       viewBox: `0 0 ${W} ${H}`,
@@ -689,8 +694,8 @@ function MiniChart({
       style: {
         display: 'block'
       }
-    }, data.map((d, i) => {
-      const bH = (d.value || 0) / maxV * cH;
+    }, nums.map((v, i) => {
+      const bH = v / maxV * cH;
       const x = pad + i * sl + (sl - bW) / 2;
       return /*#__PURE__*/React.createElement("rect", {
         key: i,
@@ -706,10 +711,10 @@ function MiniChart({
   }
 
   // Línea por defecto
-  const maxV = Math.max(1, ...data.map(d => d.value || 0));
-  const pts = data.map((d, i) => {
-    const x = pad + i / (data.length - 1) * cW;
-    const y = pad + cH - (d.value || 0) / maxV * cH;
+  const maxV = Math.max(1, ...nums);
+  const pts = nums.map((v, i) => {
+    const x = pad + i / (nums.length - 1) * cW;
+    const y = pad + cH - v / maxV * cH;
     return `${x},${y}`;
   }).join(' ');
   return /*#__PURE__*/React.createElement("svg", {
@@ -815,8 +820,14 @@ function PatronCard({
       opacity: 0.5
     }
   }, "+", patron.tags.length - 3)), /*#__PURE__*/React.createElement("div", {
-    className: "pattern-desc"
-  }, expanded ? patron.descripcion : descPreview), hasChart && /*#__PURE__*/React.createElement("div", {
+    className: "pattern-desc",
+    style: !expanded ? {
+      display: '-webkit-box',
+      WebkitLineClamp: 2,
+      WebkitBoxOrient: 'vertical',
+      overflow: 'hidden'
+    } : {}
+  }, patron.descripcion), hasChart && /*#__PURE__*/React.createElement("div", {
     style: {
       margin: '8px 0'
     }
@@ -869,6 +880,16 @@ function TabPatrones({
   const histSlice = (historial || []).slice(-14);
   const diasCubiertos = histSlice.length;
   const altoConf = resumen?.porConfianza?.alta ?? patrones.filter(p => p.confianza === 'alta').length;
+  const TIPO_COLORS = {
+    'Narrativa': '#5b9cf6',
+    'Realidad': '#3ddc84',
+    'Tendencias': '#c9a84c'
+  };
+  const tipoData = resumen?.porTipo ? Object.entries(resumen.porTipo).filter(([, v]) => v > 0).map(([name, value]) => ({
+    name,
+    value,
+    color: TIPO_COLORS[name] || '#888'
+  })) : [];
 
   // Filtrado y orden
   const confOrder = {
@@ -950,6 +971,13 @@ function TabPatrones({
   }, "Actividad diaria \xB7 ", diasCubiertos, "d"), /*#__PURE__*/React.createElement(HistorialChart, {
     data: histSlice,
     height: 100
+  })), tipoData.length > 0 && /*#__PURE__*/React.createElement("div", {
+    className: "chart-container"
+  }, /*#__PURE__*/React.createElement("div", {
+    className: "chart-title"
+  }, "Distribuci\xF3n por tipo"), /*#__PURE__*/React.createElement(SVGPieChart, {
+    data: tipoData,
+    height: 130
   })), resumen?.tagsMasFrecuentes?.length > 0 && /*#__PURE__*/React.createElement("div", {
     className: "chart-container"
   }, /*#__PURE__*/React.createElement("div", {
