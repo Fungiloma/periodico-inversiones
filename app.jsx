@@ -1,54 +1,59 @@
-const { useState, useEffect, useCallback } = React;
+﻿const { useState, useEffect, useCallback } = React;
 
 // ─────────────────────────────────────────────
 // PARSER: Markdown → noticias estructuradas
-// Formato: **TIKR** / **Seeking Alpha** (bold)
-// Líneas: - TICKER — texto | Relevancia: alta/media/baja
-// Cuerpo:  📄 Resumen: texto expandible
+// Secciones: **TIKR** / **Seeking Alpha** (bold)
+// Bullets:   - TICKER — texto | Relevancia: alta/media/baja
+// Cuerpo:    📄 Resumen: (línea siguiente al bullet)
 // ─────────────────────────────────────────────
 function parseMarkdown(mdText, filename) {
-  const fecha = filename.match(/(\d{4}-\d{2}-\d{2})/)?.[1] || new Date().toISOString().slice(0,10);
+  console.log('RAW MD:', mdText.substring(0, 500));
+  console.log('TIKR match:', mdText.match(/\*\*TIKR\*\*/));
+  console.log('bullets:', mdText.match(/^- .+/gm));
+
+  const fecha = filename.match(/(\d{4}-\d{2}-\d{2})/)?.[1] || new Date().toISOString().slice(0, 10);
   const noticias = [];
   const relevanciaMap = { alta: 5, media: 3, baja: 1 };
 
-  const secciones = [
-    { regex: /\*\*TIKR\*\*[^\n]*\n([\s\S]*?)(?=\*\*Seeking Alpha\*\*|\*\*TIKR\*\*|$)/i, fuente: 'TIKR' },
-    { regex: /\*\*Seeking Alpha\*\*[^\n]*\n([\s\S]*?)(?=\*\*TIKR\*\*|\*\*Seeking Alpha\*\*|$)/i, fuente: 'SeekingAlpha' }
-  ];
+  // — = em dash explícito para evitar corrupción al compilar
+  const BULLET = new RegExp('^- ([A-Z0-9.]+) — (.+?) \\| Relevancia: (alta|media|baja)', 'i');
 
-  secciones.forEach(({ regex, fuente }) => {
-    const match = mdText.match(regex);
-    if (!match) return;
-
+  const parseSect = (bloque, fuente) => {
+    if (!bloque) return;
     let current = null;
-    match[1].split('\n').forEach(line => {
-      const t = line.trim();
-      if (!t) return;
 
-      // 📄 Resumen: → cuerpo expandible del ítem anterior
-      if (t.startsWith('📄') && current) {
-        current.cuerpo = t.replace(/^📄\s*Resumen:\s*/i, '').trim() || current.cuerpo;
+    bloque.split('\n').forEach(raw => {
+      const line = raw.trim();
+      if (!line) return;
+
+      // 📄 Resumen: cuerpo expandible del ítem anterior
+      if (line.startsWith('📄') && current) {
+        current.cuerpo = line.replace(/^📄\s*Resumen:\s*/i, '').trim() || current.cuerpo;
         return;
       }
 
-      // - TICKER — texto | Relevancia: alta/media/baja
-      const m = t.match(/^-?\s*([A-Z0-9.]+)\s*[—–-]+\s*(.+?)\s*\|\s*Relevancia:\s*(alta|media|baja)/i);
+      const m = line.match(BULLET);
       if (m) {
         if (current) noticias.push(current);
-        const ticker  = m[1].trim();
-        const titulo  = m[2].trim();
-        const relStr  = m[3].toLowerCase();
+        const ticker = m[1];
+        const titulo = m[2].trim();
         current = {
-          id: `${fuente}-${ticker}-${fecha}`,
-          fuente, ticker, empresa: titulo,
-          fecha, resumen: titulo, cuerpo: titulo,
-          relevancia: relevanciaMap[relStr] || 3
+          id:        `${fuente}-${ticker}-${fecha}`,
+          fuente,    ticker,     empresa: titulo,
+          fecha,     resumen:    titulo,  cuerpo: titulo,
+          relevancia: relevanciaMap[m[3].toLowerCase()] || 3
         };
       }
     });
 
     if (current) noticias.push(current);
-  });
+  };
+
+  const tikrBloque = mdText.match(/\*\*TIKR\*\*[^\n]*\n([\s\S]*?)(?=\*\*Seeking Alpha\*\*|\*\*TIKR\*\*|$)/i);
+  const saBloque   = mdText.match(/\*\*Seeking Alpha\*\*[^\n]*\n([\s\S]*?)(?=\*\*TIKR\*\*|\*\*Seeking Alpha\*\*|$)/i);
+
+  parseSect(tikrBloque?.[1], 'TIKR');
+  parseSect(saBloque?.[1],   'SeekingAlpha');
 
   return noticias;
 }
