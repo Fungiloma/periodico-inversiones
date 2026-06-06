@@ -2,7 +2,9 @@
   "name": "Mi Periódico de Inversiones",
   "short_name": "Periódico",
   "description": "Noticias financieras y patrones de inversión — 7 días rolling",
-  "start_url": "./index.html",
+  "id": "/periodico-inversiones/",
+  "start_url": "/periodico-inversiones/",
+  "scope": "/periodico-inversiones/",
   "display": "standalone",
   "background_color": "#0a0a0f",
   "theme_color": "#0a0a0f",
@@ -23,6 +25,5 @@
   ],
   "categories": ["finance", "news"],
   "lang": "es",
-  "dir": "ltr",
-  "scope": "./"
+  "dir": "ltr"
 }
