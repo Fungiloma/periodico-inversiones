@@ -685,7 +685,6 @@ function PatronCard({ patron, cambiado, style }) {
 function TabPatrones({ patrones, resumen, historial, meta }) {
   const [filtroTendencia, setFiltroTendencia] = useState('all');
   const [filtroConfianza, setFiltroConfianza] = useState('all');
-  const [sortMode,        setSortMode]        = useState('confianza'); // 'confianza' | 'apariciones'
   const [changedIds,      setChangedIds]      = useState(new Set());
 
   // Detector de cambios bruscos de confianza
@@ -718,14 +717,14 @@ function TabPatrones({ patrones, resumen, historial, meta }) {
   if (filtroTendencia !== 'all') filtered = filtered.filter(p => p.tendencia === filtroTendencia);
   if (filtroConfianza !== 'all') filtered = filtered.filter(p => p.confianza === filtroConfianza);
 
-  // Cambios siempre primero; luego el modo de orden elegido
+  // Cambios siempre primero; luego confianza desc, luego frecuencia desc
   filtered.sort((a, b) => {
     const aC = changedIds.has(a.id) ? 1 : 0;
     const bC = changedIds.has(b.id) ? 1 : 0;
     if (bC !== aC) return bC - aC;
-    return sortMode === 'apariciones'
-      ? (b.frecuencia || 1) - (a.frecuencia || 1)
-      : (confOrder[b.confianza] || 0) - (confOrder[a.confianza] || 0);
+    const confDiff = (confOrder[b.confianza] || 0) - (confOrder[a.confianza] || 0);
+    if (confDiff !== 0) return confDiff;
+    return (b.frecuencia || 1) - (a.frecuencia || 1);
   });
 
   if (patrones.length === 0) {
@@ -798,10 +797,6 @@ function TabPatrones({ patrones, resumen, historial, meta }) {
           <button key={v} className={`filter-chip ${filtroConfianza===v?'active':''}`}
                   onClick={() => setFiltroConfianza(v)}>{l}</button>
         ))}
-        <button className={`filter-chip ${sortMode==='confianza'?'active':''}`}
-                onClick={() => setSortMode('confianza')}>↓ Confianza</button>
-        <button className={`filter-chip ${sortMode==='apariciones'?'active':''}`}
-                onClick={() => setSortMode('apariciones')}>↓ Apariciones</button>
       </div>
 
       {/* Contador */}
