@@ -777,71 +777,80 @@ function TagsCloud({
 }
 
 // ─────────────────────────────────────────────
-// PATRON CARD — colapsable, con mini-gráfico
+// PATRON CARD — colapsable, diseño esencial
 // ─────────────────────────────────────────────
 function PatronCard({
   patron,
-  onTagClick,
+  cambiado,
   style
 }) {
   const [expanded, setExpanded] = useState(false);
-  const tipoRaw = patron.tipo?.toLowerCase() || 'tendencia';
-  const tipoCSS = tipoRaw === 'tendencias' ? 'tendencia' : tipoRaw;
   const confDots = patron.confianza === 'alta' ? '●●●' : patron.confianza === 'media' ? '●●○' : '●○○';
-  const descLines = (patron.descripcion || '').split('\n').filter(Boolean);
-  const descPreview = descLines[0] || '';
-  const hasChart = patron.grafico?.data?.length > 0;
-  const chartH = expanded ? 120 : 60;
+  const tendIcon = patron.tendencia === 'alcista' ? '▲' : patron.tendencia === 'bajista' ? '▼' : '●';
+  const hasChart = (patron.grafico?.data?.length || 0) >= 3;
+
+  // Fechas: YYYY-MM-DD → DD/MM
+  const fechaFmt = f => {
+    const p = (f || '').split('-');
+    return p.length === 3 ? `${p[2]}/${p[1]}` : f;
+  };
   return /*#__PURE__*/React.createElement("div", {
     className: "pattern-card",
     style: style,
     onClick: () => setExpanded(e => !e)
   }, /*#__PURE__*/React.createElement("div", {
-    className: "pattern-header"
-  }, /*#__PURE__*/React.createElement("span", {
-    className: `pattern-tipo tipo-${tipoCSS}`
-  }, patron.tipo || 'Tendencia'), /*#__PURE__*/React.createElement("span", {
+    style: {
+      display: 'flex',
+      justifyContent: 'space-between',
+      alignItems: 'center',
+      marginBottom: 4
+    }
+  }, /*#__PURE__*/React.createElement("span", null, cambiado && /*#__PURE__*/React.createElement("span", {
+    style: {
+      fontFamily: 'var(--font-mono)',
+      fontSize: 9,
+      fontWeight: 'bold',
+      background: 'rgba(201,168,76,0.15)',
+      border: '1px solid var(--accent-gold)',
+      color: 'var(--accent-gold)',
+      padding: '2px 7px',
+      borderRadius: 4
+    }
+  }, "\u26A1 cambio")), /*#__PURE__*/React.createElement("span", {
     className: `pattern-confianza conf-${patron.confianza}`
   }, confDots, " ", patron.confianza)), /*#__PURE__*/React.createElement("div", {
     className: "pattern-empresa"
-  }, patron.empresa), patron.tags?.length > 0 && /*#__PURE__*/React.createElement("div", {
-    className: "pattern-tags",
-    onClick: e => e.stopPropagation()
-  }, (expanded ? patron.tags : patron.tags.slice(0, 3)).map(t => /*#__PURE__*/React.createElement("span", {
-    key: t,
-    className: "tag",
-    style: {
-      cursor: 'pointer'
-    },
-    onClick: () => onTagClick(t)
-  }, t)), !expanded && patron.tags.length > 3 && /*#__PURE__*/React.createElement("span", {
-    className: "tag",
-    style: {
-      opacity: 0.5
-    }
-  }, "+", patron.tags.length - 3)), /*#__PURE__*/React.createElement("div", {
+  }, patron.empresa), /*#__PURE__*/React.createElement("div", {
     className: "pattern-desc",
     style: !expanded ? {
       display: '-webkit-box',
-      WebkitLineClamp: 2,
+      WebkitLineClamp: 1,
       WebkitBoxOrient: 'vertical',
-      overflow: 'hidden'
-    } : {}
-  }, patron.descripcion), hasChart && /*#__PURE__*/React.createElement("div", {
-    style: {
-      margin: '8px 0'
+      overflow: 'hidden',
+      marginBottom: 8
+    } : {
+      marginBottom: 8
     }
-  }, /*#__PURE__*/React.createElement(MiniChart, {
-    data: patron.grafico.data,
-    tipo: patron.grafico.tipo,
-    ejeY: patron.grafico.eje_y,
-    height: chartH
-  })), expanded && patron.fechas?.length > 0 && /*#__PURE__*/React.createElement("div", {
+  }, patron.descripcion), !expanded && /*#__PURE__*/React.createElement("div", {
+    style: {
+      display: 'flex',
+      gap: 10,
+      alignItems: 'center'
+    }
+  }, /*#__PURE__*/React.createElement("span", {
+    style: {
+      fontFamily: 'var(--font-mono)',
+      fontSize: 10,
+      color: 'var(--text-muted)'
+    }
+  }, "\xD7", patron.frecuencia || 1, " apariciones"), /*#__PURE__*/React.createElement("span", {
+    className: `tendencia-badge tend-${patron.tendencia || 'neutral'}`
+  }, tendIcon, " ", patron.tendencia || 'neutral')), expanded && /*#__PURE__*/React.createElement(React.Fragment, null, patron.fechas?.length > 0 && /*#__PURE__*/React.createElement("div", {
     style: {
       display: 'flex',
       flexWrap: 'wrap',
       gap: 4,
-      marginTop: 8
+      marginBottom: 8
     }
   }, patron.fechas.map(f => /*#__PURE__*/React.createElement("span", {
     key: f,
@@ -854,13 +863,29 @@ function PatronCard({
       border: '1px solid var(--border)',
       color: 'var(--text-muted)'
     }
-  }, f))), /*#__PURE__*/React.createElement("div", {
+  }, fechaFmt(f)))), patron.tipo && /*#__PURE__*/React.createElement("div", {
+    style: {
+      fontFamily: 'var(--font-mono)',
+      fontSize: 9,
+      color: 'var(--text-muted)',
+      marginBottom: 6
+    }
+  }, patron.tipo), hasChart && /*#__PURE__*/React.createElement("div", {
+    style: {
+      marginBottom: 8
+    }
+  }, /*#__PURE__*/React.createElement(MiniChart, {
+    data: patron.grafico.data,
+    tipo: patron.grafico.tipo,
+    ejeY: patron.grafico.eje_y,
+    height: 80
+  })), /*#__PURE__*/React.createElement("div", {
     className: "pattern-footer"
   }, /*#__PURE__*/React.createElement("span", {
     className: `tendencia-badge tend-${patron.tendencia || 'neutral'}`
-  }, patron.tendencia === 'alcista' ? '▲' : patron.tendencia === 'bajista' ? '▼' : '●', " ", patron.tendencia || 'neutral'), /*#__PURE__*/React.createElement("span", {
+  }, tendIcon, " ", patron.tendencia || 'neutral'), /*#__PURE__*/React.createElement("span", {
     className: "pattern-freq"
-  }, "\xD7", patron.frecuencia || 1, " apariciones")));
+  }, "\xD7", patron.frecuencia || 1, " apariciones"))));
 }
 
 // ─────────────────────────────────────────────
@@ -872,42 +897,54 @@ function TabPatrones({
   historial,
   meta
 }) {
-  const [filtroTipo, setFiltroTipo] = useState('all');
   const [filtroTendencia, setFiltroTendencia] = useState('all');
   const [filtroConfianza, setFiltroConfianza] = useState('all');
-  const [filtroTag, setFiltroTag] = useState('');
-  const handleTagClick = tag => setFiltroTag(f => f === tag ? '' : tag);
+  const [sortMode, setSortMode] = useState('confianza'); // 'confianza' | 'apariciones'
+  const [changedIds, setChangedIds] = useState(new Set());
+
+  // Detector de cambios bruscos de confianza
+  useEffect(() => {
+    if (!patrones.length) return;
+    const SNAP_KEY = 'pdi_patrones_snap';
+    try {
+      const prev = JSON.parse(localStorage.getItem(SNAP_KEY) || 'null');
+      if (prev) {
+        const changed = new Set();
+        patrones.forEach(p => {
+          if (prev[p.id] && prev[p.id].confianza !== p.confianza) changed.add(p.id);
+        });
+        setChangedIds(changed);
+      }
+      const snap = {};
+      patrones.forEach(p => {
+        snap[p.id] = {
+          confianza: p.confianza,
+          frecuencia: p.frecuencia
+        };
+      });
+      localStorage.setItem(SNAP_KEY, JSON.stringify(snap));
+    } catch {}
+  }, [patrones]);
   const histSlice = (historial || []).slice(-14);
   const diasCubiertos = histSlice.length;
   const altoConf = resumen?.porConfianza?.alta ?? patrones.filter(p => p.confianza === 'alta').length;
-  const TIPO_COLORS = {
-    'Narrativa': '#5b9cf6',
-    'Realidad': '#3ddc84',
-    'Tendencias': '#c9a84c'
-  };
-  const tipoData = resumen?.porTipo ? Object.entries(resumen.porTipo).filter(([, v]) => v > 0).map(([name, value]) => ({
-    name,
-    value,
-    color: TIPO_COLORS[name] || '#888'
-  })) : [];
-
-  // Filtrado y orden
+  const nCambios = changedIds.size;
   const confOrder = {
     alta: 3,
     media: 2,
     baja: 1
   };
   let filtered = [...patrones];
-  if (filtroTipo !== 'all') {
-    filtered = filtered.filter(p => {
-      const t = p.tipo?.toLowerCase() || '';
-      return t === filtroTipo || filtroTipo === 'tendencia' && t === 'tendencias';
-    });
-  }
   if (filtroTendencia !== 'all') filtered = filtered.filter(p => p.tendencia === filtroTendencia);
   if (filtroConfianza !== 'all') filtered = filtered.filter(p => p.confianza === filtroConfianza);
-  if (filtroTag) filtered = filtered.filter(p => p.tags?.includes(filtroTag));
-  filtered.sort((a, b) => (confOrder[b.confianza] || 0) - (confOrder[a.confianza] || 0));
+
+  // Cambios siempre primero; luego el modo de orden elegido
+  filtered.sort((a, b) => {
+    const aC = changedIds.has(a.id) ? 1 : 0;
+    const bC = changedIds.has(b.id) ? 1 : 0;
+    if (bC !== aC) return bC - aC;
+    return sortMode === 'apariciones' ? (b.frecuencia || 1) - (a.frecuencia || 1) : (confOrder[b.confianza] || 0) - (confOrder[a.confianza] || 0);
+  });
   if (patrones.length === 0) {
     return /*#__PURE__*/React.createElement("div", {
       className: "content"
@@ -936,7 +973,10 @@ function TabPatrones({
   return /*#__PURE__*/React.createElement("div", {
     className: "content"
   }, /*#__PURE__*/React.createElement("div", {
-    className: "stats-row"
+    className: "stats-row",
+    style: nCambios > 0 ? {
+      gridTemplateColumns: 'repeat(4, 1fr)'
+    } : {}
   }, /*#__PURE__*/React.createElement("div", {
     className: "stat-card"
   }, /*#__PURE__*/React.createElement("div", {
@@ -964,64 +1004,48 @@ function TabPatrones({
     }
   }, diasCubiertos), /*#__PURE__*/React.createElement("div", {
     className: "stat-label"
-  }, "D\xEDas"))), histSlice.length > 0 && /*#__PURE__*/React.createElement("div", {
+  }, "D\xEDas")), nCambios > 0 && /*#__PURE__*/React.createElement("div", {
+    className: "stat-card",
+    style: {
+      border: '1px solid var(--accent-gold-dim)'
+    }
+  }, /*#__PURE__*/React.createElement("div", {
+    className: "stat-value",
+    style: {
+      color: 'var(--accent-gold)',
+      fontSize: 18
+    }
+  }, "\u26A1 ", nCambios), /*#__PURE__*/React.createElement("div", {
+    className: "stat-label"
+  }, "cambios"))), histSlice.length > 0 && /*#__PURE__*/React.createElement("div", {
     className: "chart-container"
   }, /*#__PURE__*/React.createElement("div", {
     className: "chart-title"
   }, "Actividad diaria \xB7 ", diasCubiertos, "d"), /*#__PURE__*/React.createElement(HistorialChart, {
     data: histSlice,
     height: 100
-  })), tipoData.length > 0 && /*#__PURE__*/React.createElement("div", {
-    className: "chart-container"
-  }, /*#__PURE__*/React.createElement("div", {
-    className: "chart-title"
-  }, "Distribuci\xF3n por tipo"), /*#__PURE__*/React.createElement(SVGPieChart, {
-    data: tipoData,
-    height: 130
-  })), resumen?.tagsMasFrecuentes?.length > 0 && /*#__PURE__*/React.createElement("div", {
-    className: "chart-container"
-  }, /*#__PURE__*/React.createElement("div", {
-    className: "chart-title"
-  }, "Tags frecuentes"), /*#__PURE__*/React.createElement(TagsCloud, {
-    tags: resumen.tagsMasFrecuentes,
-    activeTag: filtroTag,
-    onTagClick: handleTagClick
   })), /*#__PURE__*/React.createElement("div", {
     className: "filter-bar"
-  }, [['all', 'Todos'], ['narrativa', 'Narrativa'], ['realidad', 'Realidad'], ['tendencia', 'Tendencias']].map(([v, l]) => /*#__PURE__*/React.createElement("button", {
+  }, [['all', 'Tend.'], ['alcista', '▲ Alcista'], ['bajista', '▼ Bajista'], ['neutral', '● Neutral']].map(([v, l]) => /*#__PURE__*/React.createElement("button", {
     key: v,
-    className: `filter-chip ${filtroTipo === v ? 'active' : ''}`,
-    onClick: () => setFiltroTipo(v)
+    className: `filter-chip ${filtroTendencia === v ? 'active' : ''}`,
+    onClick: () => setFiltroTendencia(v)
   }, l))), /*#__PURE__*/React.createElement("div", {
     className: "filter-bar",
     style: {
       marginTop: -4
     }
-  }, [['all', 'Tend.'], ['alcista', '▲'], ['bajista', '▼'], ['neutral', '●']].map(([v, l]) => /*#__PURE__*/React.createElement("button", {
-    key: v,
-    className: `filter-chip ${filtroTendencia === v ? 'active' : ''}`,
-    onClick: () => setFiltroTendencia(v)
-  }, l)), [['all', 'Conf.'], ['alta', 'Alta'], ['media', 'Media'], ['baja', 'Baja']].map(([v, l]) => /*#__PURE__*/React.createElement("button", {
+  }, [['all', 'Conf.'], ['alta', 'Alta'], ['media', 'Media'], ['baja', 'Baja']].map(([v, l]) => /*#__PURE__*/React.createElement("button", {
     key: v,
     className: `filter-chip ${filtroConfianza === v ? 'active' : ''}`,
     onClick: () => setFiltroConfianza(v)
-  }, l))), filtroTag && /*#__PURE__*/React.createElement("div", {
-    style: {
-      marginBottom: 8,
-      fontFamily: 'var(--font-mono)',
-      fontSize: 10,
-      color: 'var(--accent-gold)'
-    }
-  }, "Tag: ", filtroTag, "\xA0", /*#__PURE__*/React.createElement("button", {
-    onClick: () => setFiltroTag(''),
-    style: {
-      background: 'none',
-      border: 'none',
-      color: 'var(--text-muted)',
-      cursor: 'pointer',
-      fontSize: 10
-    }
-  }, "\u2715")), /*#__PURE__*/React.createElement("div", {
+  }, l)), /*#__PURE__*/React.createElement("button", {
+    className: `filter-chip ${sortMode === 'confianza' ? 'active' : ''}`,
+    onClick: () => setSortMode('confianza')
+  }, "\u2193 Confianza"), /*#__PURE__*/React.createElement("button", {
+    className: `filter-chip ${sortMode === 'apariciones' ? 'active' : ''}`,
+    onClick: () => setSortMode('apariciones')
+  }, "\u2193 Apariciones")), /*#__PURE__*/React.createElement("div", {
     style: {
       marginBottom: 6,
       fontFamily: 'var(--font-mono)',
@@ -1031,7 +1055,7 @@ function TabPatrones({
   }, filtered.length, " de ", patrones.length, " patrones"), filtered.map((p, i) => /*#__PURE__*/React.createElement(PatronCard, {
     key: p.id || i,
     patron: p,
-    onTagClick: handleTagClick,
+    cambiado: changedIds.has(p.id),
     style: {
       animationDelay: `${i * 20}ms`
     }

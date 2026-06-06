@@ -574,26 +574,38 @@ function TagsCloud({ tags, activeTag, onTagClick }) {
 }
 
 // ─────────────────────────────────────────────
-// PATRON CARD — colapsable, con mini-gráfico
+// PATRON CARD — colapsable, diseño esencial
 // ─────────────────────────────────────────────
-function PatronCard({ patron, onTagClick, style }) {
+function PatronCard({ patron, cambiado, style }) {
   const [expanded, setExpanded] = useState(false);
 
-  const tipoRaw  = patron.tipo?.toLowerCase() || 'tendencia';
-  const tipoCSS  = tipoRaw === 'tendencias' ? 'tendencia' : tipoRaw;
   const confDots = patron.confianza === 'alta' ? '●●●'
     : patron.confianza === 'media' ? '●●○' : '●○○';
-  const descLines   = (patron.descripcion || '').split('\n').filter(Boolean);
-  const descPreview = descLines[0] || '';
-  const hasChart    = patron.grafico?.data?.length > 0;
-  const chartH      = expanded ? 120 : 60;
+  const tendIcon = patron.tendencia === 'alcista' ? '▲'
+    : patron.tendencia === 'bajista' ? '▼' : '●';
+  const hasChart  = (patron.grafico?.data?.length || 0) >= 3;
+
+  // Fechas: YYYY-MM-DD → DD/MM
+  const fechaFmt = f => {
+    const p = (f || '').split('-');
+    return p.length === 3 ? `${p[2]}/${p[1]}` : f;
+  };
 
   return (
     <div className="pattern-card" style={style}
          onClick={() => setExpanded(e => !e)}>
-      {/* Tipo + confianza */}
-      <div className="pattern-header">
-        <span className={`pattern-tipo tipo-${tipoCSS}`}>{patron.tipo || 'Tendencia'}</span>
+
+      {/* Fila 1: badge cambio (izq) + confianza (der) */}
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 4 }}>
+        <span>
+          {cambiado && (
+            <span style={{
+              fontFamily: 'var(--font-mono)', fontSize: 9, fontWeight: 'bold',
+              background: 'rgba(201,168,76,0.15)', border: '1px solid var(--accent-gold)',
+              color: 'var(--accent-gold)', padding: '2px 7px', borderRadius: 4
+            }}>⚡ cambio</span>
+          )}
+        </span>
         <span className={`pattern-confianza conf-${patron.confianza}`}>
           {confDots} {patron.confianza}
         </span>
@@ -602,58 +614,67 @@ function PatronCard({ patron, onTagClick, style }) {
       {/* Empresa */}
       <div className="pattern-empresa">{patron.empresa}</div>
 
-      {/* Tags: máx 3 colapsado, todos expandido */}
-      {patron.tags?.length > 0 && (
-        <div className="pattern-tags" onClick={e => e.stopPropagation()}>
-          {(expanded ? patron.tags : patron.tags.slice(0, 3)).map(t => (
-            <span key={t} className="tag" style={{ cursor: 'pointer' }}
-                  onClick={() => onTagClick(t)}>{t}</span>
-          ))}
-          {!expanded && patron.tags.length > 3 && (
-            <span className="tag" style={{ opacity: 0.5 }}>+{patron.tags.length - 3}</span>
-          )}
-        </div>
-      )}
-
-      {/* Descripción: 2 líneas colapsado, completa expandido */}
+      {/* Descripción: 1 línea colapsado, completa expandido */}
       <div className="pattern-desc" style={!expanded ? {
-        display: '-webkit-box',
-        WebkitLineClamp: 2,
-        WebkitBoxOrient: 'vertical',
-        overflow: 'hidden'
-      } : {}}>
+        display: '-webkit-box', WebkitLineClamp: 1,
+        WebkitBoxOrient: 'vertical', overflow: 'hidden', marginBottom: 8
+      } : { marginBottom: 8 }}>
         {patron.descripcion}
       </div>
 
-      {/* Mini chart */}
-      {hasChart && (
-        <div style={{ margin: '8px 0' }}>
-          <MiniChart data={patron.grafico.data} tipo={patron.grafico.tipo}
-                     ejeY={patron.grafico.eje_y} height={chartH}/>
+      {/* Colapsado: apariciones + tendencia en línea */}
+      {!expanded && (
+        <div style={{ display: 'flex', gap: 10, alignItems: 'center' }}>
+          <span style={{ fontFamily: 'var(--font-mono)', fontSize: 10, color: 'var(--text-muted)' }}>
+            ×{patron.frecuencia || 1} apariciones
+          </span>
+          <span className={`tendencia-badge tend-${patron.tendencia || 'neutral'}`}>
+            {tendIcon} {patron.tendencia || 'neutral'}
+          </span>
         </div>
       )}
 
-      {/* Expandido: fechas de aparición */}
-      {expanded && patron.fechas?.length > 0 && (
-        <div style={{ display: 'flex', flexWrap: 'wrap', gap: 4, marginTop: 8 }}>
-          {patron.fechas.map(f => (
-            <span key={f} style={{
-              fontFamily: 'var(--font-mono)', fontSize: 9,
-              padding: '2px 6px', borderRadius: 3,
-              background: 'var(--bg-surface)', border: '1px solid var(--border)',
-              color: 'var(--text-muted)'
-            }}>{f}</span>
-          ))}
-        </div>
-      )}
+      {/* Expandido: descripción ya visible, + fechas + tipo + gráfico + footer */}
+      {expanded && (
+        <>
+          {/* Fechas DD/MM */}
+          {patron.fechas?.length > 0 && (
+            <div style={{ display: 'flex', flexWrap: 'wrap', gap: 4, marginBottom: 8 }}>
+              {patron.fechas.map(f => (
+                <span key={f} style={{
+                  fontFamily: 'var(--font-mono)', fontSize: 9,
+                  padding: '2px 6px', borderRadius: 3,
+                  background: 'var(--bg-surface)', border: '1px solid var(--border)',
+                  color: 'var(--text-muted)'
+                }}>{fechaFmt(f)}</span>
+              ))}
+            </div>
+          )}
 
-      {/* Footer: tendencia + frecuencia */}
-      <div className="pattern-footer">
-        <span className={`tendencia-badge tend-${patron.tendencia || 'neutral'}`}>
-          {patron.tendencia === 'alcista' ? '▲' : patron.tendencia === 'bajista' ? '▼' : '●'} {patron.tendencia || 'neutral'}
-        </span>
-        <span className="pattern-freq">×{patron.frecuencia || 1} apariciones</span>
-      </div>
+          {/* Tipo discreto */}
+          {patron.tipo && (
+            <div style={{ fontFamily: 'var(--font-mono)', fontSize: 9, color: 'var(--text-muted)', marginBottom: 6 }}>
+              {patron.tipo}
+            </div>
+          )}
+
+          {/* Mini-gráfico solo si ≥3 puntos */}
+          {hasChart && (
+            <div style={{ marginBottom: 8 }}>
+              <MiniChart data={patron.grafico.data} tipo={patron.grafico.tipo}
+                         ejeY={patron.grafico.eje_y} height={80}/>
+            </div>
+          )}
+
+          {/* Footer expandido */}
+          <div className="pattern-footer">
+            <span className={`tendencia-badge tend-${patron.tendencia || 'neutral'}`}>
+              {tendIcon} {patron.tendencia || 'neutral'}
+            </span>
+            <span className="pattern-freq">×{patron.frecuencia || 1} apariciones</span>
+          </div>
+        </>
+      )}
     </div>
   );
 }
@@ -662,38 +683,50 @@ function PatronCard({ patron, onTagClick, style }) {
 // TAB: PATRONES
 // ─────────────────────────────────────────────
 function TabPatrones({ patrones, resumen, historial, meta }) {
-  const [filtroTipo,      setFiltroTipo]      = useState('all');
   const [filtroTendencia, setFiltroTendencia] = useState('all');
   const [filtroConfianza, setFiltroConfianza] = useState('all');
-  const [filtroTag,       setFiltroTag]       = useState('');
+  const [sortMode,        setSortMode]        = useState('confianza'); // 'confianza' | 'apariciones'
+  const [changedIds,      setChangedIds]      = useState(new Set());
 
-  const handleTagClick = tag => setFiltroTag(f => f === tag ? '' : tag);
+  // Detector de cambios bruscos de confianza
+  useEffect(() => {
+    if (!patrones.length) return;
+    const SNAP_KEY = 'pdi_patrones_snap';
+    try {
+      const prev = JSON.parse(localStorage.getItem(SNAP_KEY) || 'null');
+      if (prev) {
+        const changed = new Set();
+        patrones.forEach(p => {
+          if (prev[p.id] && prev[p.id].confianza !== p.confianza) changed.add(p.id);
+        });
+        setChangedIds(changed);
+      }
+      const snap = {};
+      patrones.forEach(p => { snap[p.id] = { confianza: p.confianza, frecuencia: p.frecuencia }; });
+      localStorage.setItem(SNAP_KEY, JSON.stringify(snap));
+    } catch {}
+  }, [patrones]);
 
   const histSlice     = (historial || []).slice(-14);
   const diasCubiertos = histSlice.length;
   const altoConf      = resumen?.porConfianza?.alta
     ?? patrones.filter(p => p.confianza === 'alta').length;
+  const nCambios      = changedIds.size;
 
-  const TIPO_COLORS = { 'Narrativa': '#5b9cf6', 'Realidad': '#3ddc84', 'Tendencias': '#c9a84c' };
-  const tipoData = resumen?.porTipo
-    ? Object.entries(resumen.porTipo)
-        .filter(([, v]) => v > 0)
-        .map(([name, value]) => ({ name, value, color: TIPO_COLORS[name] || '#888' }))
-    : [];
-
-  // Filtrado y orden
   const confOrder = { alta: 3, media: 2, baja: 1 };
   let filtered = [...patrones];
-  if (filtroTipo !== 'all') {
-    filtered = filtered.filter(p => {
-      const t = p.tipo?.toLowerCase() || '';
-      return t === filtroTipo || (filtroTipo === 'tendencia' && t === 'tendencias');
-    });
-  }
   if (filtroTendencia !== 'all') filtered = filtered.filter(p => p.tendencia === filtroTendencia);
   if (filtroConfianza !== 'all') filtered = filtered.filter(p => p.confianza === filtroConfianza);
-  if (filtroTag)                 filtered = filtered.filter(p => p.tags?.includes(filtroTag));
-  filtered.sort((a, b) => (confOrder[b.confianza] || 0) - (confOrder[a.confianza] || 0));
+
+  // Cambios siempre primero; luego el modo de orden elegido
+  filtered.sort((a, b) => {
+    const aC = changedIds.has(a.id) ? 1 : 0;
+    const bC = changedIds.has(b.id) ? 1 : 0;
+    if (bC !== aC) return bC - aC;
+    return sortMode === 'apariciones'
+      ? (b.frecuencia || 1) - (a.frecuencia || 1)
+      : (confOrder[b.confianza] || 0) - (confOrder[a.confianza] || 0);
+  });
 
   if (patrones.length === 0) {
     return (
@@ -721,8 +754,8 @@ function TabPatrones({ patrones, resumen, historial, meta }) {
   return (
     <div className="content">
 
-      {/* 1. HEADER ROW */}
-      <div className="stats-row">
+      {/* 1. STAT CARDS */}
+      <div className="stats-row" style={nCambios > 0 ? { gridTemplateColumns: 'repeat(4, 1fr)' } : {}}>
         <div className="stat-card">
           <div className="stat-value" style={{ color: 'var(--accent-gold)' }}>
             {resumen?.totalPatrones ?? patrones.length}
@@ -737,9 +770,15 @@ function TabPatrones({ patrones, resumen, historial, meta }) {
           <div className="stat-value" style={{ color: 'var(--accent-blue)' }}>{diasCubiertos}</div>
           <div className="stat-label">Días</div>
         </div>
+        {nCambios > 0 && (
+          <div className="stat-card" style={{ border: '1px solid var(--accent-gold-dim)' }}>
+            <div className="stat-value" style={{ color: 'var(--accent-gold)', fontSize: 18 }}>⚡ {nCambios}</div>
+            <div className="stat-label">cambios</div>
+          </div>
+        )}
       </div>
 
-      {/* 2. GRÁFICO GLOBAL — actividad diaria */}
+      {/* 2. ACTIVIDAD DIARIA */}
       {histSlice.length > 0 && (
         <div className="chart-container">
           <div className="chart-title">Actividad diaria · {diasCubiertos}d</div>
@@ -747,58 +786,33 @@ function TabPatrones({ patrones, resumen, historial, meta }) {
         </div>
       )}
 
-      {/* 3. PIE CHART — distribución por tipo */}
-      {tipoData.length > 0 && (
-        <div className="chart-container">
-          <div className="chart-title">Distribución por tipo</div>
-          <SVGPieChart data={tipoData} height={130}/>
-        </div>
-      )}
-
-      {/* 4. TAGS CLOUD */}
-      {resumen?.tagsMasFrecuentes?.length > 0 && (
-        <div className="chart-container">
-          <div className="chart-title">Tags frecuentes</div>
-          <TagsCloud tags={resumen.tagsMasFrecuentes} activeTag={filtroTag}
-                     onTagClick={handleTagClick}/>
-        </div>
-      )}
-
-      {/* 5. FILTROS */}
+      {/* 3. FILTROS + ORDEN */}
       <div className="filter-bar">
-        {[['all','Todos'],['narrativa','Narrativa'],['realidad','Realidad'],['tendencia','Tendencias']].map(([v,l]) => (
-          <button key={v} className={`filter-chip ${filtroTipo===v?'active':''}`}
-                  onClick={() => setFiltroTipo(v)}>{l}</button>
-        ))}
-      </div>
-      <div className="filter-bar" style={{ marginTop: -4 }}>
-        {[['all','Tend.'],['alcista','▲'],['bajista','▼'],['neutral','●']].map(([v,l]) => (
+        {[['all','Tend.'],['alcista','▲ Alcista'],['bajista','▼ Bajista'],['neutral','● Neutral']].map(([v,l]) => (
           <button key={v} className={`filter-chip ${filtroTendencia===v?'active':''}`}
                   onClick={() => setFiltroTendencia(v)}>{l}</button>
         ))}
+      </div>
+      <div className="filter-bar" style={{ marginTop: -4 }}>
         {[['all','Conf.'],['alta','Alta'],['media','Media'],['baja','Baja']].map(([v,l]) => (
           <button key={v} className={`filter-chip ${filtroConfianza===v?'active':''}`}
                   onClick={() => setFiltroConfianza(v)}>{l}</button>
         ))}
+        <button className={`filter-chip ${sortMode==='confianza'?'active':''}`}
+                onClick={() => setSortMode('confianza')}>↓ Confianza</button>
+        <button className={`filter-chip ${sortMode==='apariciones'?'active':''}`}
+                onClick={() => setSortMode('apariciones')}>↓ Apariciones</button>
       </div>
-      {filtroTag && (
-        <div style={{ marginBottom: 8, fontFamily: 'var(--font-mono)', fontSize: 10, color: 'var(--accent-gold)' }}>
-          Tag: {filtroTag}&nbsp;
-          <button onClick={() => setFiltroTag('')}
-                  style={{ background: 'none', border: 'none', color: 'var(--text-muted)', cursor: 'pointer', fontSize: 10 }}>
-            ✕
-          </button>
-        </div>
-      )}
 
       {/* Contador */}
       <div style={{ marginBottom: 6, fontFamily: 'var(--font-mono)', fontSize: 10, color: 'var(--text-muted)' }}>
         {filtered.length} de {patrones.length} patrones
       </div>
 
-      {/* 6. PATTERN CARDS */}
+      {/* 4. PATTERN CARDS */}
       {filtered.map((p, i) => (
-        <PatronCard key={p.id || i} patron={p} onTagClick={handleTagClick}
+        <PatronCard key={p.id || i} patron={p}
+                    cambiado={changedIds.has(p.id)}
                     style={{ animationDelay: `${i * 20}ms` }}/>
       ))}
     </div>
