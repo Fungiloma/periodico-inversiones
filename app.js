@@ -933,19 +933,18 @@ function TabPatrones({
     media: 2,
     baja: 1
   };
-  let filtered = [...patrones];
-  if (filtroTendencia !== 'all') filtered = filtered.filter(p => p.tendencia === filtroTendencia);
-  if (filtroConfianza !== 'all') filtered = filtered.filter(p => p.confianza === filtroConfianza);
 
-  // Cambios siempre primero; luego confianza desc, luego frecuencia desc
-  filtered.sort((a, b) => {
-    const aC = changedIds.has(a.id) ? 1 : 0;
-    const bC = changedIds.has(b.id) ? 1 : 0;
-    if (bC !== aC) return bC - aC;
+  // Orden fijo: confianza desc, luego frecuencia desc
+  const sorted = [...patrones].sort((a, b) => {
     const confDiff = (confOrder[b.confianza] || 0) - (confOrder[a.confianza] || 0);
     if (confDiff !== 0) return confDiff;
-    return (b.frecuencia || 1) - (a.frecuencia || 1);
+    return (b.frecuencia || 0) - (a.frecuencia || 0);
   });
+
+  // Filtros sobre el array ya ordenado
+  let filtered = sorted;
+  if (filtroTendencia !== 'all') filtered = filtered.filter(p => p.tendencia === filtroTendencia);
+  if (filtroConfianza !== 'all') filtered = filtered.filter(p => p.confianza === filtroConfianza);
   if (patrones.length === 0) {
     return /*#__PURE__*/React.createElement("div", {
       className: "content"
