@@ -787,8 +787,6 @@ function PatronCard({
   const [expanded, setExpanded] = useState(false);
   const confDots = patron.confianza === 'alta' ? '●●●' : patron.confianza === 'media' ? '●●○' : '●○○';
   const tendIcon = patron.tendencia === 'alcista' ? '▲' : patron.tendencia === 'bajista' ? '▼' : '●';
-  const hasChart = (patron.grafico?.data?.length || 0) >= 3;
-
   // Fechas: YYYY-MM-DD → DD/MM
   const fechaFmt = f => {
     const p = (f || '').split('-');
@@ -870,16 +868,7 @@ function PatronCard({
       color: 'var(--text-muted)',
       marginBottom: 6
     }
-  }, patron.tipo), hasChart && /*#__PURE__*/React.createElement("div", {
-    style: {
-      marginBottom: 8
-    }
-  }, /*#__PURE__*/React.createElement(MiniChart, {
-    data: patron.grafico.data,
-    tipo: patron.grafico.tipo,
-    ejeY: patron.grafico.eje_y,
-    height: 80
-  })), /*#__PURE__*/React.createElement("div", {
+  }, patron.tipo), /*#__PURE__*/React.createElement("div", {
     className: "pattern-footer"
   }, /*#__PURE__*/React.createElement("span", {
     className: `tendencia-badge tend-${patron.tendencia || 'neutral'}`

@@ -583,8 +583,6 @@ function PatronCard({ patron, cambiado, style }) {
     : patron.confianza === 'media' ? '●●○' : '●○○';
   const tendIcon = patron.tendencia === 'alcista' ? '▲'
     : patron.tendencia === 'bajista' ? '▼' : '●';
-  const hasChart  = (patron.grafico?.data?.length || 0) >= 3;
-
   // Fechas: YYYY-MM-DD → DD/MM
   const fechaFmt = f => {
     const p = (f || '').split('-');
@@ -655,14 +653,6 @@ function PatronCard({ patron, cambiado, style }) {
           {patron.tipo && (
             <div style={{ fontFamily: 'var(--font-mono)', fontSize: 9, color: 'var(--text-muted)', marginBottom: 6 }}>
               {patron.tipo}
-            </div>
-          )}
-
-          {/* Mini-gráfico solo si ≥3 puntos */}
-          {hasChart && (
-            <div style={{ marginBottom: 8 }}>
-              <MiniChart data={patron.grafico.data} tipo={patron.grafico.tipo}
-                         ejeY={patron.grafico.eje_y} height={80}/>
             </div>
           )}
 
