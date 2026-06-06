@@ -1,0 +1,17 @@
+{
+  "patrones": [],
+  "meta": {
+    "estado": "sin datos",
+    "cobertura": "0 días",
+    "archivosAnalizados": 0,
+    "archivosPeriodoEsperado": 0,
+    "accionRecomendada": "Añade archivos de resumen diario para generar patrones",
+    "nota": "Archivo placeholder — reemplazar con datos reales generados por el pipeline"
+  },
+  "resumenEstadistico": {
+    "total": 0,
+    "porConfianza": { "alta": 0, "media": 0, "baja": 0 },
+    "porTendencia": { "alcista": 0, "bajista": 0, "neutral": 0 }
+  },
+  "historial": []
+}

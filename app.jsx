@@ -1,59 +1,53 @@
-const { useState, useEffect, useCallback, useRef } = React;
+const { useState, useEffect, useCallback } = React;
 
 // ─────────────────────────────────────────────
 // PARSER: Markdown → noticias estructuradas
+// Formato: **TIKR** / **Seeking Alpha** (bold)
+// Líneas: - TICKER — texto | Relevancia: alta/media/baja
+// Cuerpo:  📄 Resumen: texto expandible
 // ─────────────────────────────────────────────
 function parseMarkdown(mdText, filename) {
   const fecha = filename.match(/(\d{4}-\d{2}-\d{2})/)?.[1] || new Date().toISOString().slice(0,10);
   const noticias = [];
+  const relevanciaMap = { alta: 5, media: 3, baja: 1 };
 
-  const secciones = {
-    tikr: { regex: /## TIKR.*?\n([\s\S]*?)(?=## Seeking Alpha|## Patrones|$)/i, fuente: 'TIKR' },
-    sa:   { regex: /## Seeking Alpha.*?\n([\s\S]*?)(?=## TIKR|## Patrones|$)/i, fuente: 'SeekingAlpha' }
-  };
+  const secciones = [
+    { regex: /\*\*TIKR\*\*[^\n]*\n([\s\S]*?)(?=\*\*Seeking Alpha\*\*|\*\*TIKR\*\*|$)/i, fuente: 'TIKR' },
+    { regex: /\*\*Seeking Alpha\*\*[^\n]*\n([\s\S]*?)(?=\*\*TIKR\*\*|\*\*Seeking Alpha\*\*|$)/i, fuente: 'SeekingAlpha' }
+  ];
 
-  Object.values(secciones).forEach(({ regex, fuente }) => {
+  secciones.forEach(({ regex, fuente }) => {
     const match = mdText.match(regex);
     if (!match) return;
-    const bloque = match[1];
 
-    if (/sin noticias hoy/i.test(bloque)) return;
+    let current = null;
+    match[1].split('\n').forEach(line => {
+      const t = line.trim();
+      if (!t) return;
 
-    const items = bloque.split(/\n(?=###\s)/);
-    items.forEach(item => {
-      const headerMatch = item.match(/###\s+([A-Z0-9.]+)(?:\s*[—–-]\s*(.+))?/);
-      if (!headerMatch) return;
+      // 📄 Resumen: → cuerpo expandible del ítem anterior
+      if (t.startsWith('📄') && current) {
+        current.cuerpo = t.replace(/^📄\s*Resumen:\s*/i, '').trim() || current.cuerpo;
+        return;
+      }
 
-      const ticker = headerMatch[1].trim();
-      const empresa = headerMatch[2]?.trim() || ticker;
-      const cuerpo = item.replace(/###.+\n/, '').trim();
-      if (!cuerpo) return;
-
-      const lineas = cuerpo.split('\n').filter(l => l.trim());
-      const resumen = lineas[0] || '';
-
-      const keywords = ['earnings','revenue','growth','beat','miss','guidance','buyback',
-                        'dividend','acquisition','merger','downgrade','upgrade','target',
-                        'ganancias','ingresos','beneficio','compra','fusión','dividendo'];
-      const textoLower = cuerpo.toLowerCase();
-      const hits = keywords.filter(k => textoLower.includes(k)).length;
-      const relevancia = Math.min(5, Math.max(1, hits + (ticker.length <= 5 ? 1 : 0)));
-
-      noticias.push({ id: `${fuente}-${ticker}-${fecha}`, fuente, ticker, empresa, fecha, resumen, cuerpo, relevancia });
+      // - TICKER — texto | Relevancia: alta/media/baja
+      const m = t.match(/^-?\s*([A-Z0-9.]+)\s*[—–-]+\s*(.+?)\s*\|\s*Relevancia:\s*(alta|media|baja)/i);
+      if (m) {
+        if (current) noticias.push(current);
+        const ticker  = m[1].trim();
+        const titulo  = m[2].trim();
+        const relStr  = m[3].toLowerCase();
+        current = {
+          id: `${fuente}-${ticker}-${fecha}`,
+          fuente, ticker, empresa: titulo,
+          fecha, resumen: titulo, cuerpo: titulo,
+          relevancia: relevanciaMap[relStr] || 3
+        };
+      }
     });
 
-    if (noticias.filter(n => n.fecha === fecha && n.fuente === fuente).length === 0) {
-      const lineas = bloque.split('\n').filter(l => l.trim() && !l.startsWith('>'));
-      if (lineas.length > 0 && !/sin noticias/i.test(lineas[0])) {
-        noticias.push({
-          id: `${fuente}-misc-${fecha}`,
-          fuente, ticker: '—', empresa: 'Varios', fecha,
-          resumen: lineas[0],
-          cuerpo: lineas.join('\n'),
-          relevancia: 2
-        });
-      }
-    }
+    if (current) noticias.push(current);
   });
 
   return noticias;
@@ -85,7 +79,6 @@ function saveLocal(key, val) {
 // ─────────────────────────────────────────────
 const COLORS_CHART = ['#c9a84c','#5b9cf6','#3ddc84','#ff5c5c','#9b72f5','#ff9f43'];
 
-// BarChart apilado TIKR (abajo, azul) + SA (arriba, púrpura)
 function SVGBarChart({ data, height = 140 }) {
   const [hovered, setHovered] = useState(null);
   if (!data || data.length === 0) return null;
@@ -99,7 +92,6 @@ function SVGBarChart({ data, height = 140 }) {
   const maxVal = Math.max(1, ...data.map(d => (d.TIKR || 0) + (d.SA || 0)));
   const barSlot = cW / data.length;
   const barW = Math.min(barSlot * 0.65, 28);
-
   const yTicks = [0, Math.ceil(maxVal / 2), Math.ceil(maxVal)];
 
   let tipEl = null;
@@ -110,12 +102,9 @@ function SVGBarChart({ data, height = 140 }) {
       <g style={{ pointerEvents: 'none' }}>
         <rect x={tx - 34} y={ty - 40} width={68} height={38}
               fill="var(--bg-card)" stroke="var(--border)" rx="4"/>
-        <text x={tx} y={ty - 27} textAnchor="middle"
-              fill="var(--text-muted)" fontSize="8">{hovered.d.fecha}</text>
-        <text x={tx} y={ty - 15} textAnchor="middle"
-              fill="#5b9cf6" fontSize="9">TIKR {hovered.d.TIKR}</text>
-        <text x={tx} y={ty - 4} textAnchor="middle"
-              fill="#9b72f5" fontSize="9">SA {hovered.d.SA}</text>
+        <text x={tx} y={ty - 27} textAnchor="middle" fill="var(--text-muted)" fontSize="8">{hovered.d.fecha}</text>
+        <text x={tx} y={ty - 15} textAnchor="middle" fill="#5b9cf6" fontSize="9">TIKR {hovered.d.TIKR}</text>
+        <text x={tx} y={ty - 4}  textAnchor="middle" fill="#9b72f5" fontSize="9">SA {hovered.d.SA}</text>
       </g>
     );
   }
@@ -123,56 +112,38 @@ function SVGBarChart({ data, height = 140 }) {
   return (
     <svg viewBox={`0 0 ${W} ${H}`} width="100%" height={height}
          style={{ overflow: 'visible', display: 'block' }}>
-      {/* Grid + Y labels */}
       {yTicks.map(v => {
         const y = baseY - (v / maxVal) * cH;
         return (
           <g key={v}>
-            <line x1={ml} x2={ml + cW} y1={y} y2={y}
-                  stroke="var(--border)" strokeWidth="0.5"/>
-            <text x={ml - 3} y={y + 3} textAnchor="end"
-                  fill="var(--text-muted)" fontSize="8">{v}</text>
+            <line x1={ml} x2={ml + cW} y1={y} y2={y} stroke="var(--border)" strokeWidth="0.5"/>
+            <text x={ml - 3} y={y + 3} textAnchor="end" fill="var(--text-muted)" fontSize="8">{v}</text>
           </g>
         );
       })}
 
-      {/* Bars + X labels */}
       {data.map((d, i) => {
-        const tikr = d.TIKR || 0;
-        const sa   = d.SA   || 0;
+        const tikr  = d.TIKR || 0;
+        const sa    = d.SA   || 0;
         const tikrH = (tikr / maxVal) * cH;
         const saH   = (sa   / maxVal) * cH;
-        const x = ml + i * barSlot + (barSlot - barW) / 2;
-
+        const x     = ml + i * barSlot + (barSlot - barW) / 2;
         return (
           <g key={i}
              onMouseEnter={() => setHovered({ d, px: x + barW / 2, py: baseY - tikrH - saH })}
              onMouseLeave={() => setHovered(null)}>
-            {/* TIKR — porción inferior */}
-            {tikrH > 0 && (
-              <rect x={x} y={baseY - tikrH} width={barW} height={tikrH}
-                    fill="#5b9cf6" rx="1"/>
-            )}
-            {/* SA — porción superior */}
-            {saH > 0 && (
-              <rect x={x} y={baseY - tikrH - saH} width={barW} height={saH}
-                    fill="#9b72f5" rx="2"/>
-            )}
-            {/* zona hover invisible */}
+            {tikrH > 0 && <rect x={x} y={baseY - tikrH} width={barW} height={tikrH} fill="#5b9cf6" rx="1"/>}
+            {saH   > 0 && <rect x={x} y={baseY - tikrH - saH} width={barW} height={saH} fill="#9b72f5" rx="2"/>}
             <rect x={x} y={mt} width={barW} height={cH} fill="transparent"/>
-            {/* etiqueta X */}
-            <text x={x + barW / 2} y={H - 4} textAnchor="middle"
-                  fill="var(--text-muted)" fontSize="8">{d.fecha}</text>
+            <text x={x + barW / 2} y={H - 4} textAnchor="middle" fill="var(--text-muted)" fontSize="8">{d.fecha}</text>
           </g>
         );
       })}
-
       {tipEl}
     </svg>
   );
 }
 
-// Donut chart con leyenda
 function polarToCartesian(cx, cy, r, angleDeg) {
   const rad = (angleDeg - 90) * Math.PI / 180;
   return { x: cx + r * Math.cos(rad), y: cy + r * Math.sin(rad) };
@@ -195,8 +166,7 @@ function SVGPieChart({ data, height = 160 }) {
 
   const W = 300, H = height;
   const cx = 72, cy = H / 2;
-  const outerR = 54, innerR = 26;
-  const padAngle = 2;
+  const outerR = 54, innerR = 26, padAngle = 2;
 
   let angle = 0;
   const sectors = data.map((d, i) => {
@@ -217,10 +187,8 @@ function SVGPieChart({ data, height = 160 }) {
     const ty = Math.min(Math.max(tp.y, 18), H - 10);
     tipEl = (
       <g style={{ pointerEvents: 'none' }}>
-        <rect x={tx - 38} y={ty - 22} width={76} height={20}
-              fill="var(--bg-card)" stroke="var(--border)" rx="4"/>
-        <text x={tx} y={ty - 8} textAnchor="middle"
-              fill={hovered.color} fontSize="10">{hovered.name}: {hovered.value}</text>
+        <rect x={tx - 38} y={ty - 22} width={76} height={20} fill="var(--bg-card)" stroke="var(--border)" rx="4"/>
+        <text x={tx} y={ty - 8} textAnchor="middle" fill={hovered.color} fontSize="10">{hovered.name}: {hovered.value}</text>
       </g>
     );
   }
@@ -229,16 +197,12 @@ function SVGPieChart({ data, height = 160 }) {
     <svg viewBox={`0 0 ${W} ${H}`} width="100%" height={height}
          style={{ overflow: 'visible', display: 'block' }}>
       {sectors.map((s, i) => (
-        <path key={i}
-              d={donutPath(cx, cy, innerR, outerR, s.start, s.end)}
-              fill={s.color}
-              stroke="var(--bg-card)"
-              strokeWidth="1.5"
+        <path key={i} d={donutPath(cx, cy, innerR, outerR, s.start, s.end)}
+              fill={s.color} stroke="var(--bg-card)" strokeWidth="1.5"
               style={{ cursor: 'default' }}
               onMouseEnter={() => setHovered(s)}
               onMouseLeave={() => setHovered(null)}/>
       ))}
-
       {sectors.map((s, i) => (
         <g key={i} transform={`translate(${legendX}, ${legendStartY + i * 15})`}>
           <rect x={0} y={-6} width={8} height={8} fill={s.color} rx="1"/>
@@ -247,7 +211,6 @@ function SVGPieChart({ data, height = 160 }) {
           </text>
         </g>
       ))}
-
       {tipEl}
     </svg>
   );
@@ -269,11 +232,9 @@ function RelevanceDots({ nivel }) {
 function NewsCard({ noticia, style }) {
   const [expanded, setExpanded] = useState(false);
   const cls = noticia.fuente === 'TIKR' ? 'tikr' : 'sa';
-
   return (
     <div className={`news-card ${cls} ${expanded ? 'expanded' : ''}`}
-         style={style}
-         onClick={() => setExpanded(e => !e)}>
+         style={style} onClick={() => setExpanded(e => !e)}>
       <div className="news-header">
         {noticia.ticker !== '—' && <span className="news-ticker">{noticia.ticker}</span>}
         <span className="news-date">{noticia.fecha}</span>
@@ -289,19 +250,29 @@ function NewsCard({ noticia, style }) {
   );
 }
 
-function EmptyNewsPaper({ meta }) {
+function EmptyState({ fetchStatus }) {
+  if (fetchStatus === 'error') {
+    return (
+      <div className="empty-state">
+        <div className="empty-icon">📡</div>
+        <div className="empty-title">Sin datos</div>
+        <div className="empty-sub">Conecta a internet para cargar el periódico</div>
+      </div>
+    );
+  }
+  if (fetchStatus === 'loading') {
+    return (
+      <div className="empty-state">
+        <div className="empty-icon">⟳</div>
+        <div className="empty-title">Cargando...</div>
+      </div>
+    );
+  }
   return (
     <div className="empty-state">
       <div className="empty-icon">📰</div>
-      <div className="empty-title">Sin noticias en caché</div>
-      <div className="empty-sub">Sincroniza tus archivos .md diarios para ver las noticias</div>
-      {meta && (
-        <div className="empty-note">
-          <strong>ℹ️ Nota del sistema:</strong><br/>
-          {meta.nota || 'Sin datos disponibles.'}<br/><br/>
-          <strong>Acción:</strong> {meta.accionRecomendada}
-        </div>
-      )}
+      <div className="empty-title">Sin noticias disponibles</div>
+      <div className="empty-sub">Pulsa ↻ Actualizar para intentarlo de nuevo</div>
     </div>
   );
 }
@@ -309,7 +280,7 @@ function EmptyNewsPaper({ meta }) {
 // ─────────────────────────────────────────────
 // TAB: PERIÓDICO
 // ─────────────────────────────────────────────
-function TabPeriodico({ noticias, onSyncMd, syncing, syncedMd, patronesMeta }) {
+function TabPeriodico({ noticias, patronesMeta, fetchStatus }) {
   const [filtroFuente, setFiltroFuente] = useState('all');
   const [filtroOrden, setFiltroOrden] = useState('fecha');
   const [filtroTicker, setFiltroTicker] = useState('');
@@ -319,10 +290,9 @@ function TabPeriodico({ noticias, onSyncMd, syncing, syncedMd, patronesMeta }) {
   let filtradas = [...noticias];
   if (filtroFuente !== 'all') filtradas = filtradas.filter(n => n.fuente === filtroFuente);
   if (filtroTicker) filtradas = filtradas.filter(n => n.ticker === filtroTicker);
-  filtradas.sort((a,b) => {
-    if (filtroOrden === 'relevancia') return b.relevancia - a.relevancia;
-    return b.fecha.localeCompare(a.fecha);
-  });
+  filtradas.sort((a,b) =>
+    filtroOrden === 'relevancia' ? b.relevancia - a.relevancia : b.fecha.localeCompare(a.fecha)
+  );
 
   const tikrNews = filtradas.filter(n => n.fuente === 'TIKR').slice(0,7);
   const saNews   = filtradas.filter(n => n.fuente === 'SeekingAlpha').slice(0,7);
@@ -354,7 +324,7 @@ function TabPeriodico({ noticias, onSyncMd, syncing, syncedMd, patronesMeta }) {
       )}
 
       {noticias.length === 0 ? (
-        <EmptyNewsPaper meta={patronesMeta} />
+        <EmptyState fetchStatus={fetchStatus}/>
       ) : (
         <>
           {(filtroFuente === 'all' || filtroFuente === 'TIKR') && (
@@ -366,7 +336,6 @@ function TabPeriodico({ noticias, onSyncMd, syncing, syncedMd, patronesMeta }) {
               }
             </div>
           )}
-
           {(filtroFuente === 'all' || filtroFuente === 'SeekingAlpha') && (
             <div className="news-section">
               <div className="source-label sa">Seeking Alpha · {saNews.length}</div>
@@ -443,7 +412,6 @@ function TabPatrones({ patrones, resumen, historial, meta }) {
 
   return (
     <div className="content">
-      {/* Stats */}
       <div className="stats-row">
         <div className="stat-card">
           <div className="stat-value" style={{color:'var(--accent-gold)'}}>{patrones.length}</div>
@@ -459,7 +427,6 @@ function TabPatrones({ patrones, resumen, historial, meta }) {
         </div>
       </div>
 
-      {/* Tendencia visual — HTML puro, no tocar */}
       <div className="chart-container">
         <div className="chart-title">Distribución de tendencias</div>
         <div style={{display:'flex',gap:8,alignItems:'center',justifyContent:'center',padding:'8px 0'}}>
@@ -467,12 +434,9 @@ function TabPatrones({ patrones, resumen, historial, meta }) {
           <div className="tendencia-badge tend-neutral">● {tendencias.neutral} neutral{tendencias.neutral!==1?'es':''}</div>
           <div className="tendencia-badge tend-bajista">▼ {tendencias.bajista} bajista{tendencias.bajista!==1?'s':''}</div>
         </div>
-        {distribSectorial.length > 0 && (
-          <SVGPieChart data={distribSectorial} height={130}/>
-        )}
+        {distribSectorial.length > 0 && <SVGPieChart data={distribSectorial} height={130}/>}
       </div>
 
-      {/* Historial frecuencia */}
       {historialData.length > 1 && (
         <div className="chart-container">
           <div className="chart-title">Frecuencia de noticias · rolling</div>
@@ -480,7 +444,6 @@ function TabPatrones({ patrones, resumen, historial, meta }) {
         </div>
       )}
 
-      {/* Orden */}
       <div style={{display:'flex',justifyContent:'space-between',alignItems:'center',marginBottom:12}}>
         <div className="section-title">Patrones detectados</div>
         <button className="filter-chip active" onClick={() => setOrdenConf(o=>!o)}>
@@ -488,7 +451,6 @@ function TabPatrones({ patrones, resumen, historial, meta }) {
         </button>
       </div>
 
-      {/* Pattern cards */}
       {sorted.map((p, i) => (
         <div className="pattern-card" key={p.id || i} style={{animationDelay:`${i*25}ms`}}>
           <div className="pattern-header">
@@ -499,24 +461,19 @@ function TabPatrones({ patrones, resumen, historial, meta }) {
               {p.confianza === 'alta' ? '●●●' : p.confianza === 'media' ? '●●○' : '●○○'} {p.confianza}
             </span>
           </div>
-
           <div className="pattern-empresa">{p.empresa}</div>
           {p.ticker && <div className="pattern-ticker-badge">{p.ticker}</div>}
           <div className="pattern-desc">{p.descripcion}</div>
-
           {p.tags?.length > 0 && (
             <div className="pattern-tags">
               {p.tags.map(t => <span key={t} className="tag">{t}</span>)}
             </div>
           )}
-
           <div className="pattern-footer">
             <span className={`tendencia-badge tend-${p.tendencia || 'neutral'}`}>
               {p.tendencia === 'alcista' ? '▲' : p.tendencia === 'bajista' ? '▼' : '●'} {p.tendencia || 'neutral'}
             </span>
-            <span className="pattern-freq">
-              ×{p.frecuencia || 1} apariciones
-            </span>
+            <span className="pattern-freq">×{p.frecuencia || 1} apariciones</span>
           </div>
         </div>
       ))}
@@ -528,18 +485,55 @@ function TabPatrones({ patrones, resumen, historial, meta }) {
 // APP PRINCIPAL
 // ─────────────────────────────────────────────
 function App() {
-  const [tab, setTab] = useState('periodico');
-  const [noticias, setNoticias] = useState([]);
-  const [patrones, setPatrones] = useState([]);
+  const [tab,          setTab]          = useState('periodico');
+  const [noticias,     setNoticias]     = useState([]);
+  const [patrones,     setPatrones]     = useState([]);
   const [patronesMeta, setPatronesMeta] = useState(null);
   const [resumenStats, setResumenStats] = useState(null);
-  const [historial, setHistorial] = useState([]);
-  const [lastSync, setLastSync] = useState(null);
-  const [syncingMd, setSyncingMd] = useState(false);
-  const [syncingJson, setSyncingJson] = useState(false);
-  const [syncedMd, setSyncedMd] = useState(false);
-  const [syncedJson, setSyncedJson] = useState(false);
+  const [historial,    setHistorial]    = useState([]);
+  const [lastFetch,    setLastFetch]    = useState(null);
+  // 'idle' | 'loading' | 'done' | 'error'
+  const [fetchStatus,  setFetchStatus]  = useState('idle');
 
+  const fetchData = useCallback(async () => {
+    setFetchStatus('loading');
+    try {
+      // 1. Leer índice
+      const idxRes = await fetch('./data/index.json');
+      if (!idxRes.ok) throw new Error('index.json no disponible');
+      const idx = await idxRes.json();
+
+      // 2. Resumen diario MD
+      const mdRes = await fetch(`./data/resumen-diario-${idx.ultimo_resumen}.md`);
+      if (mdRes.ok) {
+        const mdText = await mdRes.text();
+        const nuevas = parseMarkdown(mdText, `resumen-diario-${idx.ultimo_resumen}.md`);
+        const limpias = limpiarNoticias(nuevas);
+        setNoticias(limpias);
+        saveLocal(KEYS.noticias, limpias);
+      }
+
+      // 3. Patrones acumulados
+      const patRes = await fetch('./data/patrones-acumulados.json');
+      if (patRes.ok) {
+        const patData = await patRes.json();
+        setPatrones(patData.patrones || []);
+        setPatronesMeta(patData.meta || null);
+        setResumenStats(patData.resumenEstadistico || null);
+        setHistorial(patData.historial || []);
+        saveLocal(KEYS.patrones, patData);
+      }
+
+      const now = new Date().toISOString();
+      setLastFetch(now);
+      saveLocal(KEYS.sync, now);
+      setFetchStatus('done');
+    } catch {
+      setFetchStatus('error');
+    }
+  }, []);
+
+  // Carga localStorage al instante, luego fetch remoto
   useEffect(() => {
     const cached = limpiarNoticias(loadLocal(KEYS.noticias, []));
     setNoticias(cached);
@@ -550,69 +544,33 @@ function App() {
       setResumenStats(pat.resumenEstadistico || null);
       setHistorial(pat.historial || []);
     }
-    setLastSync(loadLocal(KEYS.sync, null));
-  }, []);
-
-  const handleMdSync = useCallback((e) => {
-    const files = Array.from(e.target.files);
-    if (!files.length) return;
-    setSyncingMd(true);
-
-    Promise.all(files.map(f => new Promise(res => {
-      const r = new FileReader();
-      r.onload = ev => res({ name: f.name, text: ev.target.result });
-      r.readAsText(f);
-    }))).then(results => {
-      let todasNoticias = limpiarNoticias(loadLocal(KEYS.noticias, []));
-
-      results.forEach(({ name, text }) => {
-        const nuevas = parseMarkdown(text, name);
-        const fechaArchivo = name.match(/(\d{4}-\d{2}-\d{2})/)?.[1];
-        if (fechaArchivo) todasNoticias = todasNoticias.filter(n => n.fecha !== fechaArchivo);
-        todasNoticias = [...todasNoticias, ...nuevas];
-      });
-
-      const limpias = limpiarNoticias(todasNoticias);
-      setNoticias(limpias);
-      saveLocal(KEYS.noticias, limpias);
-
-      const now = new Date().toISOString();
-      setLastSync(now);
-      saveLocal(KEYS.sync, now);
-      setSyncingMd(false);
-      setSyncedMd(true);
-      setTimeout(() => setSyncedMd(false), 2500);
-    });
-    e.target.value = '';
-  }, []);
-
-  const handleJsonSync = useCallback((e) => {
-    const file = e.target.files[0];
-    if (!file) return;
-    setSyncingJson(true);
-    const r = new FileReader();
-    r.onload = ev => {
-      try {
-        const data = JSON.parse(ev.target.result);
-        setPatrones(data.patrones || []);
-        setPatronesMeta(data.meta || null);
-        setResumenStats(data.resumenEstadistico || null);
-        setHistorial(data.historial || []);
-        saveLocal(KEYS.patrones, data);
-        const now = new Date().toISOString();
-        setLastSync(now);
-        saveLocal(KEYS.sync, now);
-      } catch {}
-      setSyncingJson(false);
-      setSyncedJson(true);
-      setTimeout(() => setSyncedJson(false), 2500);
-    };
-    r.readAsText(file);
-    e.target.value = '';
-  }, []);
+    setLastFetch(loadLocal(KEYS.sync, null));
+    fetchData();
+  }, [fetchData]);
 
   const today = new Date().toLocaleDateString('es-ES', { weekday:'long', day:'numeric', month:'long' });
-  const syncTime = lastSync ? new Date(lastSync).toLocaleTimeString('es-ES', {hour:'2-digit',minute:'2-digit'}) : null;
+  const lastFetchTime = lastFetch
+    ? new Date(lastFetch).toLocaleTimeString('es-ES', {hour:'2-digit', minute:'2-digit'})
+    : null;
+
+  const statusText =
+    fetchStatus === 'loading' ? 'Actualizando...' :
+    fetchStatus === 'error'   ? 'Sin conexión (caché)' :
+    lastFetchTime             ? `Actualizado ${lastFetchTime}` : '—';
+
+  const statusColor =
+    fetchStatus === 'loading' ? 'var(--text-muted)' :
+    fetchStatus === 'error'   ? 'var(--accent-gold)' :
+    'var(--accent-green)';
+
+  const statusBarText =
+    noticias.length > 0
+      ? `${noticias.length} noticias · rolling 7d · ${patrones.length} patrones 30d`
+      : fetchStatus === 'error'
+        ? 'Sin datos — conecta a internet para cargar'
+        : fetchStatus === 'loading'
+          ? 'Cargando datos...'
+          : 'Sin datos disponibles';
 
   return (
     <div className="shell">
@@ -623,22 +581,16 @@ function App() {
           </div>
           <div className="date-stamp">
             {today}<br/>
-            {syncTime ? `Sync ${syncTime}` : 'Sin sincronizar'}
+            <span style={{color: statusColor}}>{statusText}</span>
           </div>
         </div>
 
-        <div style={{display:'flex',gap:8,marginTop:10}}>
-          <button className={`sync-btn ${syncingMd?'syncing':''} ${syncedMd?'synced':''}`}
-                  style={{flex:1}}
-                  onClick={() => document.getElementById('md-input').click()}>
-            {syncedMd ? '✓ Noticias' : syncingMd ? '⟳ Leyendo…' : '↑ Noticias .md'}
-          </button>
-          <button className={`sync-btn ${syncingJson?'syncing':''} ${syncedJson?'synced':''}`}
-                  style={{flex:1}}
-                  onClick={() => document.getElementById('json-input').click()}>
-            {syncedJson ? '✓ Patrones' : syncingJson ? '⟳ Leyendo…' : '↑ Patrones .json'}
-          </button>
-        </div>
+        <button
+          className={`sync-btn${fetchStatus === 'loading' ? ' syncing' : fetchStatus === 'done' ? ' synced' : ''}`}
+          onClick={fetchData}
+          disabled={fetchStatus === 'loading'}>
+          {fetchStatus === 'loading' ? '⟳ Actualizando...' : '↻ Actualizar'}
+        </button>
       </div>
 
       <div className="tabs">
@@ -657,10 +609,8 @@ function App() {
       {tab === 'periodico' ? (
         <TabPeriodico
           noticias={noticias}
-          onSyncMd={() => document.getElementById('md-input').click()}
-          syncing={syncingMd}
-          syncedMd={syncedMd}
           patronesMeta={patronesMeta}
+          fetchStatus={fetchStatus}
         />
       ) : (
         <TabPatrones
@@ -671,15 +621,7 @@ function App() {
         />
       )}
 
-      <div className="status-bar">
-        {noticias.length > 0
-          ? `${noticias.length} noticias · rolling 7d · ${patrones.length} patrones 30d`
-          : 'Sube los archivos .md y .json para comenzar'
-        }
-      </div>
-
-      <input id="md-input" type="file" accept=".md" multiple onChange={handleMdSync}/>
-      <input id="json-input" type="file" accept=".json" onChange={handleJsonSync}/>
+      <div className="status-bar">{statusBarText}</div>
     </div>
   );
 }

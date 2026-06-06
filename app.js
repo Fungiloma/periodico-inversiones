@@ -1,74 +1,67 @@
 const {
   useState,
   useEffect,
-  useCallback,
-  useRef
+  useCallback
 } = React;
 
 // ─────────────────────────────────────────────
 // PARSER: Markdown → noticias estructuradas
+// Formato: **TIKR** / **Seeking Alpha** (bold)
+// Líneas: - TICKER — texto | Relevancia: alta/media/baja
+// Cuerpo:  📄 Resumen: texto expandible
 // ─────────────────────────────────────────────
 function parseMarkdown(mdText, filename) {
   const fecha = filename.match(/(\d{4}-\d{2}-\d{2})/)?.[1] || new Date().toISOString().slice(0, 10);
   const noticias = [];
-  const secciones = {
-    tikr: {
-      regex: /## TIKR.*?\n([\s\S]*?)(?=## Seeking Alpha|## Patrones|$)/i,
-      fuente: 'TIKR'
-    },
-    sa: {
-      regex: /## Seeking Alpha.*?\n([\s\S]*?)(?=## TIKR|## Patrones|$)/i,
-      fuente: 'SeekingAlpha'
-    }
+  const relevanciaMap = {
+    alta: 5,
+    media: 3,
+    baja: 1
   };
-  Object.values(secciones).forEach(({
+  const secciones = [{
+    regex: /\*\*TIKR\*\*[^\n]*\n([\s\S]*?)(?=\*\*Seeking Alpha\*\*|\*\*TIKR\*\*|$)/i,
+    fuente: 'TIKR'
+  }, {
+    regex: /\*\*Seeking Alpha\*\*[^\n]*\n([\s\S]*?)(?=\*\*TIKR\*\*|\*\*Seeking Alpha\*\*|$)/i,
+    fuente: 'SeekingAlpha'
+  }];
+  secciones.forEach(({
     regex,
     fuente
   }) => {
     const match = mdText.match(regex);
     if (!match) return;
-    const bloque = match[1];
-    if (/sin noticias hoy/i.test(bloque)) return;
-    const items = bloque.split(/\n(?=###\s)/);
-    items.forEach(item => {
-      const headerMatch = item.match(/###\s+([A-Z0-9.]+)(?:\s*[—–-]\s*(.+))?/);
-      if (!headerMatch) return;
-      const ticker = headerMatch[1].trim();
-      const empresa = headerMatch[2]?.trim() || ticker;
-      const cuerpo = item.replace(/###.+\n/, '').trim();
-      if (!cuerpo) return;
-      const lineas = cuerpo.split('\n').filter(l => l.trim());
-      const resumen = lineas[0] || '';
-      const keywords = ['earnings', 'revenue', 'growth', 'beat', 'miss', 'guidance', 'buyback', 'dividend', 'acquisition', 'merger', 'downgrade', 'upgrade', 'target', 'ganancias', 'ingresos', 'beneficio', 'compra', 'fusión', 'dividendo'];
-      const textoLower = cuerpo.toLowerCase();
-      const hits = keywords.filter(k => textoLower.includes(k)).length;
-      const relevancia = Math.min(5, Math.max(1, hits + (ticker.length <= 5 ? 1 : 0)));
-      noticias.push({
-        id: `${fuente}-${ticker}-${fecha}`,
-        fuente,
-        ticker,
-        empresa,
-        fecha,
-        resumen,
-        cuerpo,
-        relevancia
-      });
-    });
-    if (noticias.filter(n => n.fecha === fecha && n.fuente === fuente).length === 0) {
-      const lineas = bloque.split('\n').filter(l => l.trim() && !l.startsWith('>'));
-      if (lineas.length > 0 && !/sin noticias/i.test(lineas[0])) {
-        noticias.push({
-          id: `${fuente}-misc-${fecha}`,
-          fuente,
-          ticker: '—',
-          empresa: 'Varios',
-          fecha,
-          resumen: lineas[0],
-          cuerpo: lineas.join('\n'),
-          relevancia: 2
-        });
+    let current = null;
+    match[1].split('\n').forEach(line => {
+      const t = line.trim();
+      if (!t) return;
+
+      // 📄 Resumen: → cuerpo expandible del ítem anterior
+      if (t.startsWith('📄') && current) {
+        current.cuerpo = t.replace(/^📄\s*Resumen:\s*/i, '').trim() || current.cuerpo;
+        return;
       }
-    }
+
+      // - TICKER — texto | Relevancia: alta/media/baja
+      const m = t.match(/^-?\s*([A-Z0-9.]+)\s*[—–-]+\s*(.+?)\s*\|\s*Relevancia:\s*(alta|media|baja)/i);
+      if (m) {
+        if (current) noticias.push(current);
+        const ticker = m[1].trim();
+        const titulo = m[2].trim();
+        const relStr = m[3].toLowerCase();
+        current = {
+          id: `${fuente}-${ticker}-${fecha}`,
+          fuente,
+          ticker,
+          empresa: titulo,
+          fecha,
+          resumen: titulo,
+          cuerpo: titulo,
+          relevancia: relevanciaMap[relStr] || 3
+        };
+      }
+    });
+    if (current) noticias.push(current);
   });
   return noticias;
 }
@@ -104,8 +97,6 @@ function saveLocal(key, val) {
 // SVG CHARTS — sin librerías externas
 // ─────────────────────────────────────────────
 const COLORS_CHART = ['#c9a84c', '#5b9cf6', '#3ddc84', '#ff5c5c', '#9b72f5', '#ff9f43'];
-
-// BarChart apilado TIKR (abajo, azul) + SA (arriba, púrpura)
 function SVGBarChart({
   data,
   height = 140
@@ -230,8 +221,6 @@ function SVGBarChart({
     }, d.fecha));
   }), tipEl);
 }
-
-// Donut chart con leyenda
 function polarToCartesian(cx, cy, r, angleDeg) {
   const rad = (angleDeg - 90) * Math.PI / 180;
   return {
@@ -260,8 +249,8 @@ function SVGPieChart({
   const cx = 72,
     cy = H / 2;
   const outerR = 54,
-    innerR = 26;
-  const padAngle = 2;
+    innerR = 26,
+    padAngle = 2;
   let angle = 0;
   const sectors = data.map((d, i) => {
     const sweep = Math.max(0, d.value / total * 360 - padAngle);
@@ -376,20 +365,38 @@ function NewsCard({
     nivel: noticia.relevancia
   }));
 }
-function EmptyNewsPaper({
-  meta
+function EmptyState({
+  fetchStatus
 }) {
+  if (fetchStatus === 'error') {
+    return /*#__PURE__*/React.createElement("div", {
+      className: "empty-state"
+    }, /*#__PURE__*/React.createElement("div", {
+      className: "empty-icon"
+    }, "\uD83D\uDCE1"), /*#__PURE__*/React.createElement("div", {
+      className: "empty-title"
+    }, "Sin datos"), /*#__PURE__*/React.createElement("div", {
+      className: "empty-sub"
+    }, "Conecta a internet para cargar el peri\xF3dico"));
+  }
+  if (fetchStatus === 'loading') {
+    return /*#__PURE__*/React.createElement("div", {
+      className: "empty-state"
+    }, /*#__PURE__*/React.createElement("div", {
+      className: "empty-icon"
+    }, "\u27F3"), /*#__PURE__*/React.createElement("div", {
+      className: "empty-title"
+    }, "Cargando..."));
+  }
   return /*#__PURE__*/React.createElement("div", {
     className: "empty-state"
   }, /*#__PURE__*/React.createElement("div", {
     className: "empty-icon"
   }, "\uD83D\uDCF0"), /*#__PURE__*/React.createElement("div", {
     className: "empty-title"
-  }, "Sin noticias en cach\xE9"), /*#__PURE__*/React.createElement("div", {
+  }, "Sin noticias disponibles"), /*#__PURE__*/React.createElement("div", {
     className: "empty-sub"
-  }, "Sincroniza tus archivos .md diarios para ver las noticias"), meta && /*#__PURE__*/React.createElement("div", {
-    className: "empty-note"
-  }, /*#__PURE__*/React.createElement("strong", null, "\u2139\uFE0F Nota del sistema:"), /*#__PURE__*/React.createElement("br", null), meta.nota || 'Sin datos disponibles.', /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement("strong", null, "Acci\xF3n:"), " ", meta.accionRecomendada));
+  }, "Pulsa \u21BB Actualizar para intentarlo de nuevo"));
 }
 
 // ─────────────────────────────────────────────
@@ -397,10 +404,8 @@ function EmptyNewsPaper({
 // ─────────────────────────────────────────────
 function TabPeriodico({
   noticias,
-  onSyncMd,
-  syncing,
-  syncedMd,
-  patronesMeta
+  patronesMeta,
+  fetchStatus
 }) {
   const [filtroFuente, setFiltroFuente] = useState('all');
   const [filtroOrden, setFiltroOrden] = useState('fecha');
@@ -409,10 +414,7 @@ function TabPeriodico({
   let filtradas = [...noticias];
   if (filtroFuente !== 'all') filtradas = filtradas.filter(n => n.fuente === filtroFuente);
   if (filtroTicker) filtradas = filtradas.filter(n => n.ticker === filtroTicker);
-  filtradas.sort((a, b) => {
-    if (filtroOrden === 'relevancia') return b.relevancia - a.relevancia;
-    return b.fecha.localeCompare(a.fecha);
-  });
+  filtradas.sort((a, b) => filtroOrden === 'relevancia' ? b.relevancia - a.relevancia : b.fecha.localeCompare(a.fecha));
   const tikrNews = filtradas.filter(n => n.fuente === 'TIKR').slice(0, 7);
   const saNews = filtradas.filter(n => n.fuente === 'SeekingAlpha').slice(0, 7);
   return /*#__PURE__*/React.createElement("div", {
@@ -443,8 +445,8 @@ function TabPeriodico({
     key: t,
     className: `filter-chip ${filtroTicker === t ? 'active' : ''}`,
     onClick: () => setFiltroTicker(f => f === t ? '' : t)
-  }, t))), noticias.length === 0 ? /*#__PURE__*/React.createElement(EmptyNewsPaper, {
-    meta: patronesMeta
+  }, t))), noticias.length === 0 ? /*#__PURE__*/React.createElement(EmptyState, {
+    fetchStatus: fetchStatus
   }) : /*#__PURE__*/React.createElement(React.Fragment, null, (filtroFuente === 'all' || filtroFuente === 'TIKR') && /*#__PURE__*/React.createElement("div", {
     className: "news-section"
   }, /*#__PURE__*/React.createElement("div", {
@@ -653,11 +655,47 @@ function App() {
   const [patronesMeta, setPatronesMeta] = useState(null);
   const [resumenStats, setResumenStats] = useState(null);
   const [historial, setHistorial] = useState([]);
-  const [lastSync, setLastSync] = useState(null);
-  const [syncingMd, setSyncingMd] = useState(false);
-  const [syncingJson, setSyncingJson] = useState(false);
-  const [syncedMd, setSyncedMd] = useState(false);
-  const [syncedJson, setSyncedJson] = useState(false);
+  const [lastFetch, setLastFetch] = useState(null);
+  // 'idle' | 'loading' | 'done' | 'error'
+  const [fetchStatus, setFetchStatus] = useState('idle');
+  const fetchData = useCallback(async () => {
+    setFetchStatus('loading');
+    try {
+      // 1. Leer índice
+      const idxRes = await fetch('./data/index.json');
+      if (!idxRes.ok) throw new Error('index.json no disponible');
+      const idx = await idxRes.json();
+
+      // 2. Resumen diario MD
+      const mdRes = await fetch(`./data/resumen-diario-${idx.ultimo_resumen}.md`);
+      if (mdRes.ok) {
+        const mdText = await mdRes.text();
+        const nuevas = parseMarkdown(mdText, `resumen-diario-${idx.ultimo_resumen}.md`);
+        const limpias = limpiarNoticias(nuevas);
+        setNoticias(limpias);
+        saveLocal(KEYS.noticias, limpias);
+      }
+
+      // 3. Patrones acumulados
+      const patRes = await fetch('./data/patrones-acumulados.json');
+      if (patRes.ok) {
+        const patData = await patRes.json();
+        setPatrones(patData.patrones || []);
+        setPatronesMeta(patData.meta || null);
+        setResumenStats(patData.resumenEstadistico || null);
+        setHistorial(patData.historial || []);
+        saveLocal(KEYS.patrones, patData);
+      }
+      const now = new Date().toISOString();
+      setLastFetch(now);
+      saveLocal(KEYS.sync, now);
+      setFetchStatus('done');
+    } catch {
+      setFetchStatus('error');
+    }
+  }, []);
+
+  // Carga localStorage al instante, luego fetch remoto
   useEffect(() => {
     const cached = limpiarNoticias(loadLocal(KEYS.noticias, []));
     setNoticias(cached);
@@ -668,75 +706,21 @@ function App() {
       setResumenStats(pat.resumenEstadistico || null);
       setHistorial(pat.historial || []);
     }
-    setLastSync(loadLocal(KEYS.sync, null));
-  }, []);
-  const handleMdSync = useCallback(e => {
-    const files = Array.from(e.target.files);
-    if (!files.length) return;
-    setSyncingMd(true);
-    Promise.all(files.map(f => new Promise(res => {
-      const r = new FileReader();
-      r.onload = ev => res({
-        name: f.name,
-        text: ev.target.result
-      });
-      r.readAsText(f);
-    }))).then(results => {
-      let todasNoticias = limpiarNoticias(loadLocal(KEYS.noticias, []));
-      results.forEach(({
-        name,
-        text
-      }) => {
-        const nuevas = parseMarkdown(text, name);
-        const fechaArchivo = name.match(/(\d{4}-\d{2}-\d{2})/)?.[1];
-        if (fechaArchivo) todasNoticias = todasNoticias.filter(n => n.fecha !== fechaArchivo);
-        todasNoticias = [...todasNoticias, ...nuevas];
-      });
-      const limpias = limpiarNoticias(todasNoticias);
-      setNoticias(limpias);
-      saveLocal(KEYS.noticias, limpias);
-      const now = new Date().toISOString();
-      setLastSync(now);
-      saveLocal(KEYS.sync, now);
-      setSyncingMd(false);
-      setSyncedMd(true);
-      setTimeout(() => setSyncedMd(false), 2500);
-    });
-    e.target.value = '';
-  }, []);
-  const handleJsonSync = useCallback(e => {
-    const file = e.target.files[0];
-    if (!file) return;
-    setSyncingJson(true);
-    const r = new FileReader();
-    r.onload = ev => {
-      try {
-        const data = JSON.parse(ev.target.result);
-        setPatrones(data.patrones || []);
-        setPatronesMeta(data.meta || null);
-        setResumenStats(data.resumenEstadistico || null);
-        setHistorial(data.historial || []);
-        saveLocal(KEYS.patrones, data);
-        const now = new Date().toISOString();
-        setLastSync(now);
-        saveLocal(KEYS.sync, now);
-      } catch {}
-      setSyncingJson(false);
-      setSyncedJson(true);
-      setTimeout(() => setSyncedJson(false), 2500);
-    };
-    r.readAsText(file);
-    e.target.value = '';
-  }, []);
+    setLastFetch(loadLocal(KEYS.sync, null));
+    fetchData();
+  }, [fetchData]);
   const today = new Date().toLocaleDateString('es-ES', {
     weekday: 'long',
     day: 'numeric',
     month: 'long'
   });
-  const syncTime = lastSync ? new Date(lastSync).toLocaleTimeString('es-ES', {
+  const lastFetchTime = lastFetch ? new Date(lastFetch).toLocaleTimeString('es-ES', {
     hour: '2-digit',
     minute: '2-digit'
   }) : null;
+  const statusText = fetchStatus === 'loading' ? 'Actualizando...' : fetchStatus === 'error' ? 'Sin conexión (caché)' : lastFetchTime ? `Actualizado ${lastFetchTime}` : '—';
+  const statusColor = fetchStatus === 'loading' ? 'var(--text-muted)' : fetchStatus === 'error' ? 'var(--accent-gold)' : 'var(--accent-green)';
+  const statusBarText = noticias.length > 0 ? `${noticias.length} noticias · rolling 7d · ${patrones.length} patrones 30d` : fetchStatus === 'error' ? 'Sin datos — conecta a internet para cargar' : fetchStatus === 'loading' ? 'Cargando datos...' : 'Sin datos disponibles';
   return /*#__PURE__*/React.createElement("div", {
     className: "shell"
   }, /*#__PURE__*/React.createElement("div", {
@@ -747,25 +731,15 @@ function App() {
     className: "masthead"
   }, "Mi Peri\xF3dico", /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement("span", null, "de Inversiones"))), /*#__PURE__*/React.createElement("div", {
     className: "date-stamp"
-  }, today, /*#__PURE__*/React.createElement("br", null), syncTime ? `Sync ${syncTime}` : 'Sin sincronizar')), /*#__PURE__*/React.createElement("div", {
+  }, today, /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement("span", {
     style: {
-      display: 'flex',
-      gap: 8,
-      marginTop: 10
+      color: statusColor
     }
-  }, /*#__PURE__*/React.createElement("button", {
-    className: `sync-btn ${syncingMd ? 'syncing' : ''} ${syncedMd ? 'synced' : ''}`,
-    style: {
-      flex: 1
-    },
-    onClick: () => document.getElementById('md-input').click()
-  }, syncedMd ? '✓ Noticias' : syncingMd ? '⟳ Leyendo…' : '↑ Noticias .md'), /*#__PURE__*/React.createElement("button", {
-    className: `sync-btn ${syncingJson ? 'syncing' : ''} ${syncedJson ? 'synced' : ''}`,
-    style: {
-      flex: 1
-    },
-    onClick: () => document.getElementById('json-input').click()
-  }, syncedJson ? '✓ Patrones' : syncingJson ? '⟳ Leyendo…' : '↑ Patrones .json'))), /*#__PURE__*/React.createElement("div", {
+  }, statusText))), /*#__PURE__*/React.createElement("button", {
+    className: `sync-btn${fetchStatus === 'loading' ? ' syncing' : fetchStatus === 'done' ? ' synced' : ''}`,
+    onClick: fetchData,
+    disabled: fetchStatus === 'loading'
+  }, fetchStatus === 'loading' ? '⟳ Actualizando...' : '↻ Actualizar')), /*#__PURE__*/React.createElement("div", {
     className: "tabs"
   }, /*#__PURE__*/React.createElement("button", {
     className: `tab-btn ${tab === 'periodico' ? 'active' : ''}`,
@@ -779,10 +753,8 @@ function App() {
     className: "tab-count"
   }, patrones.length))), tab === 'periodico' ? /*#__PURE__*/React.createElement(TabPeriodico, {
     noticias: noticias,
-    onSyncMd: () => document.getElementById('md-input').click(),
-    syncing: syncingMd,
-    syncedMd: syncedMd,
-    patronesMeta: patronesMeta
+    patronesMeta: patronesMeta,
+    fetchStatus: fetchStatus
   }) : /*#__PURE__*/React.createElement(TabPatrones, {
     patrones: patrones,
     resumen: resumenStats,
@@ -790,18 +762,7 @@ function App() {
     meta: patronesMeta
   }), /*#__PURE__*/React.createElement("div", {
     className: "status-bar"
-  }, noticias.length > 0 ? `${noticias.length} noticias · rolling 7d · ${patrones.length} patrones 30d` : 'Sube los archivos .md y .json para comenzar'), /*#__PURE__*/React.createElement("input", {
-    id: "md-input",
-    type: "file",
-    accept: ".md",
-    multiple: true,
-    onChange: handleMdSync
-  }), /*#__PURE__*/React.createElement("input", {
-    id: "json-input",
-    type: "file",
-    accept: ".json",
-    onChange: handleJsonSync
-  }));
+  }, statusBarText));
 }
 
 // ─────────────────────────────────────────────
