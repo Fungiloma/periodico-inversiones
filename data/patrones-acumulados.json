@@ -1,17 +1,1065 @@
 {
-  "patrones": [],
+  "generatedAt": "2026-06-06",
+  "periodo": "últimos 30 días",
   "meta": {
-    "estado": "sin datos",
-    "cobertura": "0 días",
-    "archivosAnalizados": 0,
-    "archivosPeriodoEsperado": 0,
-    "accionRecomendada": "Añade archivos de resumen diario para generar patrones",
-    "nota": "Archivo placeholder — reemplazar con datos reales generados por el pipeline"
+    "archivosAnalizados": 14,
+    "estado": "activo",
+    "fuentes": [
+      "TIKR (newsletter@tikr.com)",
+      "Seeking Alpha (account@seekingalpha.com)"
+    ],
+    "nota_tikr": "TIKR no envió newsletters entre el 23/05 y el 01/06/2026. Solo hay emails de TIKR el 02/06 y 03/06. Verificar suscripción activa en tikr.com."
   },
+  "patrones": [
+    {
+      "id": "pattern_001",
+      "tipo": "Tendencias",
+      "empresa": "Macro (Energy, Financials, Income)",
+      "tags": [
+        "#RatesUp",
+        "#DefensivePlay",
+        "#Macro",
+        "#Energy"
+      ],
+      "descripcion": "El entorno 'higher-for-longer' de tipos de interés sigue siendo el marco macro dominante en múltiples sesiones. Siete menciones en cuatro días convergen en la misma tesis: inflación persistente, Fed sin recortes inminentes y tensiones geopolíticas benefician a sectores de income (energía, REITs, financieros con yields sostenibles, preferred stocks, baby bonds, FCF alto). La narrativa defensiva está ganando tracción frente a activos de crecimiento puro. El 27-May un artículo 'black swan bonds' matizó que los yields altos no son inherentemente negativos si el driver es crecimiento nominal —refuerza la tesis de renta variable vs renta fija en este entorno. El 31-May un artículo de asset allocation refuerza REITs e income como base de cartera en entorno de disrupción AI.",
+      "confianza": "alta",
+      "tendencia": "neutral",
+      "frecuencia": 10,
+      "fechas": [
+        "2026-05-24",
+        "2026-05-25",
+        "2026-05-27",
+        "2026-05-28",
+        "2026-05-29",
+        "2026-05-31",
+        "2026-06-05"
+      ],
+      "grafico": {
+        "tipo": "bar",
+        "eje_x": "fecha",
+        "eje_y": "frecuencia",
+        "data": [
+          {
+            "date": "2026-05-24",
+            "value": 2
+          },
+          {
+            "date": "2026-05-25",
+            "value": 2
+          },
+          {
+            "date": "2026-05-27",
+            "value": 2
+          },
+          {
+            "date": "2026-05-28",
+            "value": 1
+          },
+          {
+            "date": "2026-05-29",
+            "value": 1
+          },
+          {
+            "date": "2026-05-31",
+            "value": 1
+          },
+          {
+            "date": "2026-06-05",
+            "value": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "pattern_002",
+      "tipo": "Narrativa",
+      "empresa": "SpaceX ecosystem (RKLB, GOOGL)",
+      "tags": [
+        "#Tech",
+        "#RevenueBeats"
+      ],
+      "descripcion": "El ecosistema SpaceX está generando narrativa de re-rating sectorial. Dos artículos independientes el 24-May apuntan a SpaceX desde ángulos distintos: RKLB como competidor/beneficiario alcanzando escala operativa ('SpaceX moment'), y GOOGL como proxy pre-IPO más eficiente vía su stake del 5-6% vs. vehículos alternativos con primas irracionales >150% sobre NAV. La anticipación del IPO de SpaceX está funcionando como catalizador narrativo para activos relacionados.",
+      "confianza": "media",
+      "tendencia": "alcista",
+      "frecuencia": 2,
+      "fechas": [
+        "2026-05-24"
+      ],
+      "grafico": {
+        "tipo": "bar",
+        "eje_x": "fecha",
+        "eje_y": "frecuencia",
+        "data": [
+          {
+            "date": "2026-05-24",
+            "value": 2
+          }
+        ]
+      }
+    },
+    {
+      "id": "pattern_003",
+      "tipo": "Narrativa",
+      "empresa": "AI infra / Semis (MU, RKLB)",
+      "tags": [
+        "#CapexAI",
+        "#Semis",
+        "#Tech"
+      ],
+      "descripcion": "La tesis de 'cuello de botella de IA' se está aplicando a activos no-obvios más allá de NVDA. Dos artículos el 24-May posicionan a MU (memoria HBM/CXL/PCIe Gen6) y RKLB (lanzamiento satelital) bajo el mismo denominador: capas de stack de IA infrautilizadas por el mercado. El 29-May los resultados de MU Q2 FY2026 ($23.9B +196% YoY, guidance Q3 $33.5B) confirman empíricamente que la escasez de memoria HBM es real y acelerada. Confianza upgrade a alta: tesis narrativa validada por datos duros de earnings con guidance de aceleración adicional. El patrón 'comprar la infraestructura, no la aplicación' tiene ahora respaldo fundamental sólido.",
+      "confianza": "alta",
+      "tendencia": "alcista",
+      "frecuencia": 3,
+      "fechas": [
+        "2026-05-24",
+        "2026-05-29"
+      ],
+      "grafico": {
+        "tipo": "bar",
+        "eje_x": "fecha",
+        "eje_y": "sentimiento",
+        "data": [
+          {
+            "date": "2026-05-24",
+            "value": 0.7
+          },
+          {
+            "date": "2026-05-29",
+            "value": 0.9
+          }
+        ]
+      }
+    },
+    {
+      "id": "pattern_004",
+      "tipo": "Realidad",
+      "empresa": "RKLB",
+      "tags": [
+        "#RevenueBeats",
+        "#Tech"
+      ],
+      "descripcion": "Rocket Lab Q1 2026: ingresos $200.3M (+63.5% YoY), primer trimestre por encima de $200M en su historia. Backlog duplicado a $2.2B; DoD adjudica pedido de $190M por 20 vuelos hipersónicos HASTE. Guidance Q2: $225–$240M. El mercado respondió con +34% en el día, superando $100/acción por primera vez. Dato duro confirmado: este es un hito de inflexión real en la escala operativa de la compañía, no solo narrativa.",
+      "confianza": "alta",
+      "tendencia": "alcista",
+      "frecuencia": 1,
+      "fechas": [
+        "2026-05-24"
+      ],
+      "grafico": {
+        "tipo": "line",
+        "eje_x": "fecha",
+        "eje_y": "sentimiento",
+        "data": [
+          {
+            "date": "2026-05-24",
+            "value": 0.9
+          }
+        ]
+      }
+    },
+    {
+      "id": "pattern_005",
+      "tipo": "Realidad",
+      "empresa": "GOOGL",
+      "tags": [
+        "#CapexAI",
+        "#Earnings-pressure",
+        "#MarginCompression",
+        "#DebtConcern",
+        "#Tech"
+      ],
+      "descripcion": "Alphabet concentró dos análisis diametralmente opuestos el 25-May (SELL $172.85 vs STRONG BUY $574), con la dispersión de consenso siendo el dato más relevante en sí mismo. El 28-May el artículo 'outperformance ya capturada' rebajó el rating implícito a Hold, sugiriendo que el mercado empieza a discriminar dentro del Mag7 y la oportunidad de outperformance se ha trasladado a otro nombre. La secuencia coherente a lo largo de cuatro días: primero debate polarizado, luego downgrade silencioso —patrón consistente con techo de corto plazo para GOOGL. El 03-Jun, el evento central del periodo: GOOGL anuncia emisión de $80B en acciones (primera desde 2010) para financiar un CapEx de $190B en 2026 —casi el doble del ejercicio anterior. La señal más relevante: Berkshire Hathaway invierte $10B en GOOGL, primer movimiento de Greg Abel como CEO, validando la tesis de asignación de capital. La dilución es real pero el aval de Berkshire cambia el marco narrativo de 'gasto irresponsable' a 'inversión con credibilidad institucional'. Confianza upgrade a alta: evento de primera magnitud con implicaciones estructurales para toda la cadena de infraestructura AI. El 04-Jun, artículo adicional 'Why Alphabet's $85B Stock Sale Is A Game Changer' (SA) reafirma la lectura positiva: el tamaño de la emisión ($85B, primer equity raise desde 2010) y el respaldo de Berkshire ($10B) como señal de calidad del capital asignado al CapEx AI de $190B. Cuarta fecha de seguimiento para GOOGL, narrativa consolidada en torno al giro de 'gasto agresivo' a 'inversión institucional'.",
+      "confianza": "alta",
+      "tendencia": "neutral",
+      "frecuencia": 5,
+      "fechas": [
+        "2026-05-25",
+        "2026-05-28",
+        "2026-06-03",
+        "2026-06-04"
+      ],
+      "grafico": {
+        "tipo": "line",
+        "eje_x": "fecha",
+        "eje_y": "sentimiento",
+        "data": [
+          {
+            "date": "2026-05-25",
+            "value": -0.3
+          },
+          {
+            "date": "2026-05-28",
+            "value": -0.2
+          },
+          {
+            "date": "2026-06-03",
+            "value": 0.3
+          },
+          {
+            "date": "2026-06-04",
+            "value": 0.4
+          }
+        ]
+      }
+    },
+    {
+      "id": "pattern_006",
+      "tipo": "Tendencias",
+      "empresa": "Macro (crédito corporativo)",
+      "tags": [
+        "#Macro",
+        "#DebtConcern",
+        "#RatesUp"
+      ],
+      "descripcion": "Señal emergente de estrés en crédito corporativo: el endurecimiento monetario post-COVID está comenzando a materializar quiebras en empresas sobreendeudadas que se financiaron a tipos bajos. Señal de confianza baja por ahora (1 artículo), pero complementa el patrón #001 de 'higher-for-longer' con una dimensión de riesgo de cola relevante para posiciones en high-yield o empresas con deuda flotante.",
+      "confianza": "baja",
+      "tendencia": "bajista",
+      "frecuencia": 1,
+      "fechas": [
+        "2026-05-25"
+      ],
+      "grafico": {
+        "tipo": "line",
+        "eje_x": "fecha",
+        "eje_y": "sentimiento",
+        "data": [
+          {
+            "date": "2026-05-25",
+            "value": -0.6
+          }
+        ]
+      }
+    },
+    {
+      "id": "pattern_007",
+      "tipo": "Realidad",
+      "empresa": "NVDA",
+      "tags": [
+        "#RevenueBeats",
+        "#CapexAI",
+        "#Tech",
+        "#Semis"
+      ],
+      "descripcion": "Nvidia Q1 FY2027: revenue $81.6B (+85% YoY), EPS non-GAAP $1.87 vs $1.78 consenso, net income $58.3B (+211% YoY), Data Center $75.2B (+92% YoY). El trimestre más rentable de cualquier chipmaker en la historia. Se proyecta crecimiento triple dígito en EPS y FCF para FY2027 completo (+143% FCF estimado). Paradoja relevante: a pesar del beat claro, la acción underperformó peers post-anuncio —tensión entre fundamentales excepcionales y posible 'sell the news'. El 03-Jun, nuevo hito: NVDA presenta RTX Spark, su primer chip Arm para PC, desarrollado en colaboración con Microsoft y MediaTek, dirigido a portátiles Dell, Lenovo y HP. La acción subió +6% en el día mientras Intel cayó -5% —señal de que el mercado interpreta esto como una amenaza directa al territorio histórico de INTC. Dato duro inapelable sobre la expansión del TAM de Nvidia más allá del data center.",
+      "confianza": "alta",
+      "tendencia": "alcista",
+      "frecuencia": 2,
+      "fechas": [
+        "2026-05-27",
+        "2026-06-03"
+      ],
+      "grafico": {
+        "tipo": "line",
+        "eje_x": "fecha",
+        "eje_y": "sentimiento",
+        "data": [
+          {
+            "date": "2026-05-27",
+            "value": 0.85
+          },
+          {
+            "date": "2026-06-03",
+            "value": 0.9
+          }
+        ]
+      }
+    },
+    {
+      "id": "pattern_008",
+      "tipo": "Narrativa",
+      "empresa": "NVDA",
+      "tags": [
+        "#CapexAI",
+        "#Tech"
+      ],
+      "descripcion": "Nvidia está ejecutando un reposicionamiento narrativo multidimensional desde 'vendedor de GPUs' hacia 'plataforma de AI'. El 27-May, reestructuración de reporting con sub-segmentos dentro de Data Center (analogía Apple 2018: si el mercado acepta el nuevo marco, el múltiplo puede re-ratear). El 31-May, segunda capa narrativa: Physical AI (robótica, sistemas autónomos) como siguiente wave de crecimiento más allá de data centers —'Data Centers Made It Great, Physical AI Could Make It Generational'. El 03-Jun, tercera capa: RTX Spark, primer chip Arm para PC, desarrollado con Microsoft y MediaTek —entrada en el mercado de computación personal AI y amenaza directa a Intel (INTC -5% el mismo día). La narrativa de expansión de TAM acumula tres hitos en tres semanas: Data Center → Physical AI → PC. Confianza media: la narrativa se consolida como intención estratégica, pero la ejecución en PC es nueva y sin datos de ventas.",
+      "confianza": "media",
+      "tendencia": "alcista",
+      "frecuencia": 3,
+      "fechas": [
+        "2026-05-27",
+        "2026-05-31",
+        "2026-06-03"
+      ],
+      "grafico": {
+        "tipo": "line",
+        "eje_x": "fecha",
+        "eje_y": "sentimiento",
+        "data": [
+          {
+            "date": "2026-05-27",
+            "value": 0.5
+          },
+          {
+            "date": "2026-05-31",
+            "value": 0.65
+          },
+          {
+            "date": "2026-06-03",
+            "value": 0.9
+          }
+        ]
+      }
+    },
+    {
+      "id": "pattern_009",
+      "tipo": "Narrativa",
+      "empresa": "NVDA",
+      "tags": [
+        "#Earnings-pressure",
+        "#Tech",
+        "#CapexAI"
+      ],
+      "descripcion": "Dos artículos publicados el 28-May argumentan que Nvidia está sobrevalorada a pesar del beat fundamental del Q1 FY2027: el precio cayó post-earnings ('sell the news') y los autores cuestionan los múltiplos actuales ajustados por la ciclicidad del negocio de semiconductores y la normalización eventual del capex en AI. La tesis no ataca el negocio sino la valoración —el mercado puede estar descontando escenarios demasiado optimistas. Confianza media: dos artículos alineados en el mismo día con evidencia de precio (caída post-earnings sólidos como señal técnica de distribución).",
+      "confianza": "media",
+      "tendencia": "bajista",
+      "frecuencia": 3,
+      "fechas": [
+        "2026-05-28",
+        "2026-05-30"
+      ],
+      "grafico": {
+        "tipo": "line",
+        "eje_x": "fecha",
+        "eje_y": "sentimiento",
+        "data": [
+          {
+            "date": "2026-05-28",
+            "value": -0.65
+          },
+          {
+            "date": "2026-05-30",
+            "value": -0.6
+          }
+        ]
+      }
+    },
+    {
+      "id": "pattern_010",
+      "tipo": "Tendencias",
+      "empresa": "MU",
+      "tags": [
+        "#Semis",
+        "#Tech",
+        "#Earnings-pressure"
+      ],
+      "descripcion": "Dos ángulos bajistas complementarios sobre Micron. (1) Agotamiento técnico 28-May: gamma squeeze extremo +700% en 12 meses, +19% en sesión, concentraciones de gamma en $900 y $1.000 como resistencias clave —si IV se normaliza, el unwind puede ser violento. (2) Tesis fundamental bajista 02-Jun: el ramp masivo de capex de todos los grandes productores de DRAM (mega-fabs) resolverá los cuellos de botella HBM y generará sobreoferta hacia 2028-2029, hundiendo precios. FCF yield del 5% y múltiplos de doble dígito no justificados dado el riesgo cíclico histórico de DRAM. Autor con posición corta. La tesis fundamental de largo plazo de pattern_003 (AI infra bottleneck) sigue intacta para el ciclo 2025-2027, pero el horizonte 2028-2029 añade un riesgo de ciclo clásico de semis. Confianza upgrade a media: dos artículos en fechas distintas con bear cases complementarios (técnico + fundamental). El 05-Jun, tercer artículo bajista sobre MU: 'Micron: Beware Of The $1 Trillion Bubble' —el precio de la acción muestra comportamiento de burbuja especulativa desacoplado de una re-valoración justificada. Con tres artículos bajistas (gamma técnico, sobreoferta estructural DRAM 2028-29, burbuja especulativa), upgrade confianza a alta.",
+      "confianza": "alta",
+      "tendencia": "bajista",
+      "frecuencia": 3,
+      "fechas": [
+        "2026-05-28",
+        "2026-06-02",
+        "2026-06-05"
+      ],
+      "grafico": {
+        "tipo": "line",
+        "eje_x": "fecha",
+        "eje_y": "sentimiento",
+        "data": [
+          {
+            "date": "2026-05-28",
+            "value": -0.6
+          },
+          {
+            "date": "2026-06-02",
+            "value": -0.65
+          },
+          {
+            "date": "2026-06-05",
+            "value": -0.75
+          }
+        ]
+      }
+    },
+    {
+      "id": "pattern_011",
+      "tipo": "Realidad",
+      "empresa": "MU",
+      "tags": [
+        "#RevenueBeats",
+        "#Semis",
+        "#CapexAI",
+        "#MarginExpansion",
+        "#Tech"
+      ],
+      "descripcion": "Micron Q2 FY2026: ingresos $23.9B (+196% YoY), EPS $12.20 vs $1.56 hace un año, segmento cloud $7.7B, margen bruto 74.4%. Guidance Q3: revenue $33.5B y EPS $19.15 con margen bruto ~81%. El trimestre confirma que la demanda de memoria HBM para AI no es narrativa —es aceleración real y estructural. La capacidad HBM está agotada para 2026. La aceleración secuencial del guidance (+40% QoQ en revenue) es excepcional para un negocio de la escala de Micron y sugiere que el ciclo AI de memoria está en fases iniciales, no en madurez. Dato duro de primera magnitud para la tesis de AI infra. El 04-Jun, SA publica 'Micron: The Market Is Right (Rating Upgrade)': upgrade a cautious buy en correcciones, tesis apoyada en demanda estructural de AI y supply constraints de memoria. La coexistencia de un upgrade alcista (pattern_011) y un artículo de burbuja bajista (pattern_010) en días consecutivos refleja la polarización de consenso sobre MU —señal de incertidumbre estructural, no resolución.",
+      "confianza": "alta",
+      "tendencia": "alcista",
+      "frecuencia": 2,
+      "fechas": [
+        "2026-05-29",
+        "2026-06-04"
+      ],
+      "grafico": {
+        "tipo": "line",
+        "eje_x": "fecha",
+        "eje_y": "sentimiento",
+        "data": [
+          {
+            "date": "2026-05-29",
+            "value": 0.95
+          },
+          {
+            "date": "2026-06-04",
+            "value": 0.65
+          }
+        ]
+      }
+    },
+    {
+      "id": "pattern_012",
+      "tipo": "Realidad",
+      "empresa": "PLTR",
+      "tags": [
+        "#RevenueBeats",
+        "#MarginExpansion",
+        "#Tech",
+        "#CapexAI"
+      ],
+      "descripcion": "Palantir acumula cuatro coberturas alcistas en tres días (29-May, 30-May, 01-Jun), constituyendo la empresa con más atención editorial consecutiva en el tracker. Métricas Q1 2026: revenue +85% YoY (máximo histórico), US commercial +104% YoY (133% en artículo del 01-Jun), Rule of 40 en 145%, FCF margin 57-60%, Net Dollar Retention 150%, US Commercial RDV +112% YoY, RDV total +98% a $11.8B, caja $8B. Guidance FY2026: $7.66B revenue + $4.4B FCF. El artículo del 01-Jun añade la dimensión de que una corrección reciente ('selloff') mejoró la relación riesgo/rentabilidad. Riesgo principal no modificado: valoración extrema (93-98x earnings forward, EV/EBITDA 67x, EV/Sales 40-43x) sin margen de error. Confianza alta: cuatro artículos independientes con datos fundamentales consistentes, todos alcistas.",
+      "confianza": "alta",
+      "tendencia": "alcista",
+      "frecuencia": 3,
+      "fechas": [
+        "2026-05-29",
+        "2026-05-30",
+        "2026-06-01"
+      ],
+      "grafico": {
+        "tipo": "line",
+        "eje_x": "fecha",
+        "eje_y": "sentimiento",
+        "data": [
+          {
+            "date": "2026-05-29",
+            "value": 0.6
+          },
+          {
+            "date": "2026-05-30",
+            "value": 0.65
+          },
+          {
+            "date": "2026-06-01",
+            "value": 0.7
+          }
+        ]
+      }
+    },
+    {
+      "id": "pattern_013",
+      "tipo": "Realidad",
+      "empresa": "NBIS",
+      "tags": [
+        "#RevenueBeats",
+        "#CapexAI",
+        "#Tech"
+      ],
+      "descripcion": "Nebius Group (NBIS) Q1 2026: ingresos $399M (+684% YoY), AI cloud +841% YoY y +82% QoQ a $390M, EBITDA ajustado positivo por primera vez ($129.5M vs pérdida -$53.7M hace un año), margen EBITDA AI cloud 45%. Capacidad contratada: 3.5 GW con target revisado a +4 GW a cierre 2026, incluyendo 1.2 GW nuevo en Pennsylvania. NBIS es pure play de infraestructura AI post-reestructuración —la escala y velocidad de crecimiento no tienen precedente fuera de los hyperscalers. El riesgo central: la valoración ya asume ejecución perfecta en un entorno de supply de capacidad AI que se está normalizando (ver pattern_015: GPU prices -30%). Confianza media: 1 artículo, perfil high-risk/high-reward. Seguimiento obligatorio.",
+      "confianza": "media",
+      "tendencia": "alcista",
+      "frecuencia": 1,
+      "fechas": [
+        "2026-05-29"
+      ],
+      "grafico": {
+        "tipo": "line",
+        "eje_x": "fecha",
+        "eje_y": "sentimiento",
+        "data": [
+          {
+            "date": "2026-05-29",
+            "value": 0.8
+          }
+        ]
+      }
+    },
+    {
+      "id": "pattern_014",
+      "tipo": "Tendencias",
+      "empresa": "REITs (sector)",
+      "tags": [
+        "#DefensivePlay",
+        "#Rotation",
+        "#Macro"
+      ],
+      "descripcion": "Los REITs están emergiendo como 'AI immunity trade' —capital rotando desde sectores directamente disrumpidos por AI hacia activos reales con yields sostenibles. REITs +10% YTD 2026. La tesis de recuperación cíclica tiene fundamento en compresión de oferta: self-storage supply growth cae de 2.9% (2025) a ~1.5% anual (2025-2027), y los costes de nueva construcción (+50% vs. pre-pandemia) desincentivan nuevos proyectos. Sub-sectores de interés: self-storage y Sunbelt residencial con re-rating esperado hacia 2027. El 31-May un segundo artículo de asset allocation respalda REITs e income como base de cartera diversificada frente a la disrupción AI, añadiendo la dimensión de protección inflación. Confianza upgrade a media-alta: dos artículos en días distintos con la misma tesis, reforzada por datos de supply concretos.",
+      "confianza": "media",
+      "tendencia": "alcista",
+      "frecuencia": 2,
+      "fechas": [
+        "2026-05-29",
+        "2026-05-31"
+      ],
+      "grafico": {
+        "tipo": "bar",
+        "eje_x": "fecha",
+        "eje_y": "frecuencia",
+        "data": [
+          {
+            "date": "2026-05-29",
+            "value": 1
+          },
+          {
+            "date": "2026-05-31",
+            "value": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "pattern_015",
+      "tipo": "Narrativa",
+      "empresa": "Macro (AI burbuja / GPU cycle)",
+      "tags": [
+        "#Macro",
+        "#GrowthSelloff",
+        "#Earnings-pressure"
+      ],
+      "descripcion": "Señal de alerta macro consolidada: cinco artículos en cinco días con perspectivas de riesgo sistémico desde ángulos distintos. El 29-May trazó paralelismos con la burbuja dot-com de 1999. El 30-May: GPU rental prices -30% genera presión en AI cloud economics y cuestiona el capex billonario de los hyperscalers. El 31-May: artículo explícito sobre 'The 3 Things That Could Pop The AI Bubble' —(1) LLMs chinos más baratos erosionan pricing power, (2) ROI de hyperscalers en cuestión con $700B+ comprometidos, (3) restricciones de infraestructura. El 02-Jun: SPCE +81% en una semana por confusión retail con el IPO de SpaceX —señal de exuberancia irracional y apetito de riesgo indiscriminado (ver pattern_018). El 03-Jun: artículo 'The Massive AI Lie' y predicción de corrección del S&P con valoraciones en máximos históricos —quinta señal consecutiva de advertencia sistémica. La convergencia de cinco ángulos analíticos independientes en cinco días eleva y mantiene la confianza en alta. Relevancia directa para el portfolio en posiciones AI con múltiplos elevados (PLTR 93-98x, NBIS, NVDA). No es señal de salida, es señal de gestión de sizing y stops. El 05-Jun, sexta señal consecutiva: 'Time To Cash In The Chips' —S&P cotiza en CAPE y market cap-to-GDP cercanos a máximos históricos, con ganancias concentradas en pocos nombres. El título del artículo es directamente opuesto al 'Buy The Chip Dip' del mismo día: la divergencia editorial refleja el debate activo en el mercado. Seis artículos en seis días distintos manteniendo la tesis bajista sistémica.",
+      "confianza": "alta",
+      "tendencia": "bajista",
+      "frecuencia": 6,
+      "fechas": [
+        "2026-05-29",
+        "2026-05-30",
+        "2026-05-31",
+        "2026-06-02",
+        "2026-06-03",
+        "2026-06-05"
+      ],
+      "grafico": {
+        "tipo": "line",
+        "eje_x": "fecha",
+        "eje_y": "sentimiento",
+        "data": [
+          {
+            "date": "2026-05-29",
+            "value": -0.65
+          },
+          {
+            "date": "2026-05-30",
+            "value": -0.7
+          },
+          {
+            "date": "2026-05-31",
+            "value": -0.75
+          },
+          {
+            "date": "2026-06-02",
+            "value": -0.7
+          },
+          {
+            "date": "2026-06-03",
+            "value": -0.8
+          },
+          {
+            "date": "2026-06-05",
+            "value": -0.8
+          }
+        ]
+      }
+    },
+    {
+      "id": "pattern_016",
+      "tipo": "Narrativa",
+      "empresa": "DELL",
+      "tags": [
+        "#CapexAI",
+        "#Tech",
+        "#RevenueBeats"
+      ],
+      "descripcion": "Dell Technologies emerge como nuevo protagonista de la narrativa de infraestructura AI bajo el frame 'Dell Is The New Intel': así como Intel dominó la ola de la computación personal, Dell posicionándose como el proveedor central de servidores, storage y networking para el ciclo AI (picks & shovels approach). El artículo del 31-May es el primer registro en el tracker; el timing coincide con el momentum de Q1 results destacados mencionados en el título. La analogía histórica con Intel implica un potencial de re-rating de múltiplo si el mercado acepta el nuevo marco narrativo. Confianza baja: 1 artículo, empresa nueva en el tracker. Requiere seguimiento para confirmar si la narrativa gana consistencia editorial.",
+      "confianza": "baja",
+      "tendencia": "alcista",
+      "frecuencia": 1,
+      "fechas": [
+        "2026-05-31"
+      ],
+      "grafico": {
+        "tipo": "line",
+        "eje_x": "fecha",
+        "eje_y": "sentimiento",
+        "data": [
+          {
+            "date": "2026-05-31",
+            "value": 0.6
+          }
+        ]
+      }
+    },
+    {
+      "id": "pattern_017",
+      "tipo": "Narrativa",
+      "empresa": "Software AI (DDOG, CRWD, NOW, SAIL, ACN)",
+      "tags": [
+        "#Tech",
+        "#Rotation",
+        "#RevenueBeats"
+      ],
+      "descripcion": "Señal emergente de rotación dentro del sector tech AI: el software está superando a los semiconductores en las últimas semanas, y el mercado empieza a discriminar entre beneficiarios reales de IA vs. rezagados. Las tres apuestas del artículo (02-Jun): DDOG como capa de datos de Agentic AI con márgenes superiores a Snowflake/MongoDB; CRWD como consolidador enterprise en ciberseguridad con runway de crecimiento de 10 años; NOW con catalizador AI pero pendiente de validación técnica. Esta narrativa de 'suelo en software' es complementaria y contraria simultáneamente a pattern_009/pattern_003: mientras semis (MU) acumulan presión bajista por sobreoferta futura, el software beneficiario de AI puede capturar flujos. Confianza baja: 1 artículo, primera mención. Seguimiento necesario para confirmar si la rotación semis→software tiene continuidad editorial. El 04-Jun, SAIL (SailPoint, identidad corporativa AI) añade una cuarta empresa al patrón: identidades no-humanas (agentes AI, bots, cuentas de máquina) ya superan a las humanas en muchas empresas, generando TAM expansivo para identity security software. El 05-Jun, ACN (Accenture) emerge como 'Once-In-A-Decade Opportunity' gracias a sus relaciones profundas con AWS y Microsoft como capa de implementación enterprise de AI —tres artículos en tres días distintos consolidan la tesis de rotación hacia software AI como capa de valor por encima del hardware. Upgrade confianza baja→media.",
+      "confianza": "media",
+      "tendencia": "alcista",
+      "frecuencia": 3,
+      "fechas": [
+        "2026-06-02",
+        "2026-06-04",
+        "2026-06-05"
+      ],
+      "grafico": {
+        "tipo": "line",
+        "eje_x": "fecha",
+        "eje_y": "sentimiento",
+        "data": [
+          {
+            "date": "2026-06-02",
+            "value": 0.6
+          },
+          {
+            "date": "2026-06-04",
+            "value": 0.65
+          },
+          {
+            "date": "2026-06-05",
+            "value": 0.7
+          }
+        ]
+      }
+    },
+    {
+      "id": "pattern_018",
+      "tipo": "Narrativa",
+      "empresa": "SPCE / Macro (retail sentiment)",
+      "tags": [
+        "#GrowthSelloff",
+        "#Macro"
+      ],
+      "descripcion": "SPCE (Virgin Galactic) subió ~81% en una semana impulsado por confusión retail con el IPO de SpaceX y especulación en Reddit/redes sociales. Los fundamentales son críticos: $219M en activos líquidos con burn de ~$90M/trimestre (<3 trimestres de runway), R&D recortado gravemente, cotiza a 293x ventas, riesgo de going concern y dilución elevado. El fenómeno tiene doble lectura: (1) advierte del riesgo de 'ticker confusion' para holders del ecosistema SpaceX real (RKLB, GOOGL); (2) confirma que el apetito retail por riesgo está activo —los errores de compra masiva de activos equivocados son señal de exuberancia. Como indicador de sentimiento, esta señal es coherente con la preocupación de burbuja AI (pattern_015): el retail está comprando sin discriminar. Confianza baja: 1 artículo, señal de sentimiento periférica.",
+      "confianza": "baja",
+      "tendencia": "bajista",
+      "frecuencia": 1,
+      "fechas": [
+        "2026-06-02"
+      ],
+      "grafico": {
+        "tipo": "line",
+        "eje_x": "fecha",
+        "eje_y": "sentimiento",
+        "data": [
+          {
+            "date": "2026-06-02",
+            "value": -0.7
+          }
+        ]
+      }
+    },
+    {
+      "id": "pattern_019",
+      "tipo": "Tendencias",
+      "empresa": "AI infra picks & shovels (HPE, CRDO, LITE, STRL)",
+      "tags": [
+        "#CapexAI",
+        "#Tech",
+        "#RevenueBeats",
+        "#MarginExpansion"
+      ],
+      "descripcion": "Tres empresas de infraestructura AI reportan resultados excepcionales el 03-Jun, todas beneficiarias directas del CapEx masivo de hyperscalers: HPE con ingresos +40% y pedidos de servidores AI casi duplicados; Credo Technology (CRDO) con +157% YoY en Q4 FY2026 y guía de optical DSPs >$600M; LITE con proyección de revenue x5 hacia FY2028. Las tres representan la capa de networking e interconexión del stack AI —el segmento de infraestructura más infravalorado del ciclo frente al foco mediático en GPUs. El driver común es el CapEx de $190B de GOOGL en 2026 y compromisos similares de AWS/Azure/Meta. Primer registro en el tracker para estas tres empresas; seguimiento necesario para confirmar si la narrativa gana continuidad editorial. El 04-Jun, Sterling Infrastructure (STRL) añade la capa más física del stack: construcción de data centers (despeje de terreno, cimentación, suministros). E-infraestructura creció >100% el trimestre pasado con backlog de $3.8B, apreciándose +9% el día 04-Jun como parte de un rally de 'picks & shovels' más amplio. El patrón se amplía de networking/interconexión a toda la cadena física de construcción AI: HPE+CRDO+LITE (networking) + STRL (construcción física). Upgrade confianza baja→media: cuatro artículos, cuatro empresas distintas, misma tesis.",
+      "confianza": "media",
+      "tendencia": "alcista",
+      "frecuencia": 4,
+      "fechas": [
+        "2026-06-03",
+        "2026-06-04"
+      ],
+      "grafico": {
+        "tipo": "bar",
+        "eje_x": "fecha",
+        "eje_y": "frecuencia",
+        "data": [
+          {
+            "date": "2026-06-03",
+            "value": 3
+          },
+          {
+            "date": "2026-06-04",
+            "value": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "pattern_020",
+      "tipo": "Realidad",
+      "empresa": "AVGO",
+      "tags": [
+        "#RevenueBeats",
+        "#CapexAI",
+        "#Semis",
+        "#Tech",
+        "#Earnings-pressure"
+      ],
+      "descripcion": "Broadcom Q2 FY2026: ingresos ~$22.2B (+48% YoY), ligeramente por debajo de estimaciones. Beneficio ajustado algo por encima. Ingresos AI ~$10.8B (duplicados YoY), guidance Q3 AI ~$16B (3x secuencial). CEO Hock Tan no elevó el objetivo de $100B en ventas AI y aclaró que Broadcom venderá solo chips, no sistemas completos —el mercado lo interpretó como ausencia de upside narrativo adicional. La acción abrió a la baja pese al sexto consecutive double-beat. Dos perspectivas editoriales: TIKR (reacción negativa, expectativas no superadas) vs SA 'The Market Has Lost Its Mind' (el mercado sobrerreaccionó a unos resultados fundamentalmente sólidos). El 05-Jun, artículo 'Buy The Chip Dip' añade la tercera lectura: el selloff de semis inducido por AVGO + Iran es una oportunidad de compra táctica. El patrón AVGO replica exactamente el patrón NVDA (pattern_009): beats históricos que producen sell-the-news y debate posterior sobre si comprar la caída. Con tres artículos en dos días, confianza alta.",
+      "confianza": "alta",
+      "tendencia": "neutral",
+      "frecuencia": 3,
+      "fechas": [
+        "2026-06-04",
+        "2026-06-05"
+      ],
+      "grafico": {
+        "tipo": "line",
+        "eje_x": "fecha",
+        "eje_y": "sentimiento",
+        "data": [
+          {
+            "date": "2026-06-04",
+            "value": -0.3
+          },
+          {
+            "date": "2026-06-05",
+            "value": 0.2
+          }
+        ]
+      }
+    },
+    {
+      "id": "pattern_021",
+      "tipo": "Narrativa",
+      "empresa": "Macro (Geopolítica/Iran)",
+      "tags": [
+        "#Macro",
+        "#DefensivePlay",
+        "#GrowthSelloff"
+      ],
+      "descripcion": "El conflicto en Oriente Medio está entrando en una fase más compleja y menos controlada por EE.UU., según artículo SA del 04-Jun ('President Trump Is Perturbed'). Los strikes renovados contra Irán generaron presión bajista adicional sobre el sector tech el 05-Jun, contexto que el artículo 'Buy The Chip Dip' cita como uno de los dos catalizadores del pullback. El riesgo geopolítico añade una capa de incertidumbre macro para H2 2026 que no estaba presente en los patrones anteriores (pattern_001 y pattern_006 son sobre tipos/crédito, no sobre geopolítica). Señal de confianza baja: 1 artículo directo + 1 mención contextual.",
+      "confianza": "baja",
+      "tendencia": "bajista",
+      "frecuencia": 1,
+      "fechas": [
+        "2026-06-04"
+      ],
+      "grafico": {
+        "tipo": "line",
+        "eje_x": "fecha",
+        "eje_y": "sentimiento",
+        "data": [
+          {
+            "date": "2026-06-04",
+            "value": -0.6
+          }
+        ]
+      }
+    },
+    {
+      "id": "pattern_022",
+      "tipo": "Tendencias",
+      "empresa": "AI energy / Nuclear especulativo (OKLO)",
+      "tags": [
+        "#Energy",
+        "#GrowthSelloff",
+        "#Macro"
+      ],
+      "descripcion": "OKLO (reactor modular small, nuclear startup sin ingresos) bajó ~11% el 04-Jun como parte de un pullback sectorial en 'AI energy plays' especulativos. La narrativa de que los data centers necesitan energía ininterrumpida había impulsado estos valores, pero el mercado empieza a discriminar entre empresas con reactores operativos (ninguna) y promesas a 2-3 años vista. Primer registro de este tema en el tracker: señal de que el exceso de narrativa AI se está extendiendo incluso al sector energético, y que el mercado empieza a aplicar un escrutinio de ejecución que antes no aplicaba. Confianza baja: 1 artículo, movimiento puntual. Complementa pattern_015 (burbuja AI) añadiendo dimensión de corrección en sectores adyacentes.",
+      "confianza": "baja",
+      "tendencia": "bajista",
+      "frecuencia": 1,
+      "fechas": [
+        "2026-06-04"
+      ],
+      "grafico": {
+        "tipo": "line",
+        "eje_x": "fecha",
+        "eje_y": "sentimiento",
+        "data": [
+          {
+            "date": "2026-06-04",
+            "value": -0.6
+          }
+        ]
+      }
+    }
+  ],
   "resumenEstadistico": {
-    "total": 0,
-    "porConfianza": { "alta": 0, "media": 0, "baja": 0 },
-    "porTendencia": { "alcista": 0, "bajista": 0, "neutral": 0 }
+    "totalPatrones": 22,
+    "porTipo": {
+      "Narrativa": 9,
+      "Realidad": 7,
+      "Tendencias": 6
+    },
+    "porConfianza": {
+      "alta": 10,
+      "media": 7,
+      "baja": 5
+    },
+    "porTendencia": {
+      "alcista": 12,
+      "bajista": 7,
+      "neutral": 3
+    },
+    "empresasMasFrecuentes": [
+      {
+        "empresa": "Macro (Energy/Financials/Income/Crédito/REITs/AI burbuja/Geopolítica)",
+        "frecuenciaTotal": 20,
+        "patrones": [
+          "pattern_001",
+          "pattern_006",
+          "pattern_014",
+          "pattern_015",
+          "pattern_021"
+        ]
+      },
+      {
+        "empresa": "NVDA",
+        "frecuenciaTotal": 8,
+        "patrones": [
+          "pattern_007",
+          "pattern_008",
+          "pattern_009"
+        ]
+      },
+      {
+        "empresa": "MU",
+        "frecuenciaTotal": 8,
+        "patrones": [
+          "pattern_003",
+          "pattern_010",
+          "pattern_011"
+        ]
+      },
+      {
+        "empresa": "GOOGL",
+        "frecuenciaTotal": 7,
+        "patrones": [
+          "pattern_002",
+          "pattern_005"
+        ]
+      },
+      {
+        "empresa": "AI infra picks & shovels (HPE/CRDO/LITE/STRL)",
+        "frecuenciaTotal": 4,
+        "patrones": [
+          "pattern_019"
+        ]
+      }
+    ],
+    "tagsMasFrecuentes": [
+      {
+        "tag": "#Tech",
+        "frecuencia": 15
+      },
+      {
+        "tag": "#CapexAI",
+        "frecuencia": 11
+      },
+      {
+        "tag": "#RevenueBeats",
+        "frecuencia": 10
+      },
+      {
+        "tag": "#Macro",
+        "frecuencia": 7
+      },
+      {
+        "tag": "#Semis",
+        "frecuencia": 5
+      },
+      {
+        "tag": "#Earnings-pressure",
+        "frecuencia": 5
+      },
+      {
+        "tag": "#GrowthSelloff",
+        "frecuencia": 4
+      },
+      {
+        "tag": "#DefensivePlay",
+        "frecuencia": 3
+      },
+      {
+        "tag": "#MarginExpansion",
+        "frecuencia": 3
+      },
+      {
+        "tag": "#RatesUp",
+        "frecuencia": 2
+      }
+    ]
   },
-  "historial": []
+  "historial": [
+    {
+      "fecha": "2026-05-23",
+      "noticias": 0,
+      "nota": "Sábado — sin envíos editoriales. TIKR sin actividad desde ene-2026, Seeking Alpha desde ene-2024.",
+      "procesadoEn": "2026-05-24"
+    },
+    {
+      "fecha": "2026-05-24",
+      "noticias": 5,
+      "patronesGenerados": [
+        "pattern_001",
+        "pattern_002",
+        "pattern_003",
+        "pattern_004"
+      ],
+      "nota": "5 noticias Seeking Alpha. 0 TIKR. Temas dominantes: SpaceX ecosystem re-rating, AI infra bottleneck (MU+RKLB), higher-for-longer income. RKLB +34% día: primer $200M trimestre.",
+      "procesadoEn": "2026-05-25"
+    },
+    {
+      "fecha": "2026-05-25",
+      "noticias": 5,
+      "patronesGenerados": [
+        "pattern_005",
+        "pattern_006"
+      ],
+      "patronesActualizados": [
+        "pattern_001"
+      ],
+      "nota": "5 artículos Seeking Alpha. 0 TIKR. Temas dominantes: higher-for-longer macro, GOOG CapEx FCF debate (consenso disperso Sell $172 vs Strong Buy $574), señal emergente quiebras corporativas.",
+      "procesadoEn": "2026-05-25"
+    },
+    {
+      "fecha": "2026-05-27",
+      "noticias": 5,
+      "patronesGenerados": [
+        "pattern_007",
+        "pattern_008"
+      ],
+      "patronesActualizados": [
+        "pattern_001"
+      ],
+      "nota": "5 artículos Seeking Alpha. 0 TIKR. Tema dominante: NVDA Q1 FY2027 earnings beat histórico ($81.6B revenue, +85% YoY, net income +211% YoY). Paradoja: acción underperformó peers post-earnings. Segunda narrativa: reposicionamiento de Nvidia hacia plataforma AI (analogía Apple 2018). Fondo: income defensivo y macro rates continúan en 2 artículos adicionales (+2 frecuencia pattern_001).",
+      "procesadoEn": "2026-05-28"
+    },
+    {
+      "fecha": "2026-05-28",
+      "noticias": 5,
+      "patronesGenerados": [
+        "pattern_009",
+        "pattern_010"
+      ],
+      "patronesActualizados": [
+        "pattern_001",
+        "pattern_005"
+      ],
+      "nota": "5 artículos Seeking Alpha. 0 TIKR. Sesgo general de cautela: 2 artículos bajistas sobre NVDA (valoración cuestionada, sell-the-news), 1 alerta de agotamiento técnico en MU (gamma squeeze +19% sesión, +700% 12m). GOOGL downgrade implícito a Hold —rotación de outperformance dentro del Mag7. FCF defensivo como narrativa de cierre de semana.",
+      "procesadoEn": "2026-05-28"
+    },
+    {
+      "fecha": "2026-05-29",
+      "noticias": 5,
+      "patronesGenerados": [
+        "pattern_011",
+        "pattern_012",
+        "pattern_013",
+        "pattern_014",
+        "pattern_015"
+      ],
+      "patronesActualizados": [
+        "pattern_001",
+        "pattern_003"
+      ],
+      "nota": "5 artículos Seeking Alpha. 0 TIKR. Temas dominantes: MU Q2 FY2026 beat histórico ($23.9B +196% YoY, guidance Q3 $33.5B +40% QoQ) —tesis AI infra bottleneck confirmada con datos duros (pattern_003 upgrade a alta confianza). Debut de PLTR y NBIS en el tracker: ambas con crecimientos excepcionales pero valoraciones que no admiten errores. REITs como 'AI immunity trade' (+10% YTD). Señal macro contrarian: '1999 Deja Vu' actúa como contrapeso a la euforia AI.",
+      "procesadoEn": "2026-05-30"
+    },
+    {
+      "fecha": "2026-05-30",
+      "noticias": 4,
+      "patronesActualizados": [
+        "pattern_009",
+        "pattern_012",
+        "pattern_015"
+      ],
+      "nota": "4 artículos Seeking Alpha. 0 TIKR. Temas: PLTR segunda cobertura alcista consecutiva (pattern_012 consolidado, confianza alta). GPU rental prices -30% confirma señal de presión en AI economics (pattern_015 frecuencia +1 y +1 para pattern_009 bajista NVDA/AI). Q1 2026 como temporada de earnings más fuerte desde 2021 (contexto favorable para earnings growth, sin patrón nuevo —ya capturado en patterns existentes). El artículo de 'Two Best Buys' sin tickers identificables: no procesado como patrón.",
+      "procesadoEn": "2026-05-30"
+    },
+    {
+      "fecha": "2026-05-31",
+      "noticias": 5,
+      "patronesGenerados": [
+        "pattern_016"
+      ],
+      "patronesActualizados": [
+        "pattern_001",
+        "pattern_008",
+        "pattern_014",
+        "pattern_015"
+      ],
+      "nota": "5 artículos Seeking Alpha. 0 TIKR. Temas dominantes: DELL emerge como nuevo 'Intel del ciclo AI' (pattern_016 nuevo, confianza baja, 1 artículo). NVDA Physical AI como siguiente wave de crecimiento —extiende narrativa de re-rating (pattern_008, confianza upgrade baja→media). 'The 3 Things That Could Pop The AI Bubble': LLMs chinos, ROI cuestionado de $700B+ capex, infra constraints —consolida burbuja AI como riesgo sistémico (pattern_015 upgrade media→alta, 3 días consecutivos). REITs e income como base de cartera en entorno AI (pattern_014 +1, pattern_001 +1). Artículo de dividendos genérico sin tickers: no procesado.",
+      "procesadoEn": "2026-06-01"
+    },
+    {
+      "fecha": "2026-06-01",
+      "noticias": 1,
+      "patronesActualizados": [
+        "pattern_012"
+      ],
+      "nota": "1 artículo Seeking Alpha. 0 TIKR. Domingo con actividad editorial mínima. PLTR post-selloff: cuarta cobertura alcista consecutiva (pattern_012 +1 frecuencia). Artículo destaca que la corrección reciente mejoró el perfil riesgo/recompensa: revenue +85% YoY, Rule of 40 145%, RDV +98% a $11.8B, $8B en caja. Valoración sigue siendo el riesgo principal (98x forward earnings).",
+      "procesadoEn": "2026-06-01"
+    },
+    {
+      "fecha": "2026-06-02",
+      "noticias": 5,
+      "patronesGenerados": [
+        "pattern_017",
+        "pattern_018"
+      ],
+      "patronesActualizados": [
+        "pattern_010",
+        "pattern_015"
+      ],
+      "nota": "5 artículos Seeking Alpha. 0 TIKR. Temas dominantes: (1) Rotación semis→software dentro del ecosistema AI — DDOG/CRWD/NOW señalados como compras en el 'suelo del software', primer registro de esta rotación (pattern_017, confianza baja). (2) MU bear case fundamental: mega-fabs resolviendo HBM generarán sobreoferta 2028-2029 —primera tesis fundamental bajista sobre MU complementando la señal técnica previa (pattern_010 +1, confianza upgrade baja→media). (3) SPCE +81% por confusión retail con SpaceX IPO: going concern con <3 trimestres de runway —señal de apetito retail irracional activo, coherente con burbuja AI (pattern_018, confianza baja). (4) Burbuja AI narrative reforzada por señal retail (pattern_015 +1). 2 artículos sin tickers concretos no procesados (S&P 500 newsletter premium, yield traps).",
+      "procesadoEn": "2026-06-02"
+    },
+    {
+      "fecha": "2026-06-03",
+      "noticias": 11,
+      "patronesGenerados": [
+        "pattern_019"
+      ],
+      "patronesActualizados": [
+        "pattern_005",
+        "pattern_007",
+        "pattern_008",
+        "pattern_015"
+      ],
+      "nota": "11 artículos (Seeking Alpha + TIKR activo por primera vez en el periodo). Temas dominantes: (1) NVDA +6% con RTX Spark —primer chip Arm para PC desarrollado con Microsoft y MediaTek, amenaza directa a Intel (INTC -5%) [pattern_007 +1, pattern_008 +1]. (2) GOOGL emite $80B en acciones (primera desde 2010) para financiar CapEx $190B en 2026; respaldo de Berkshire $10B —primer movimiento de Greg Abel como CEO. Dilución real pero con aval institucional sólido [pattern_005 upgrade: confianza media→alta, tendencia bajista→neutral, +1 frecuencia]. (3) HPE +40%, CRDO +157% YoY, LITE revenue x5 proyectado hacia FY2028: capa de networking AI como beneficiaria directa del CapEx masivo de hyperscalers. Primer registro de estas tres empresas en el tracker [pattern_019 nuevo, confianza baja]. (4) 'The Massive AI Lie' y predicción de crash del S&P con valoraciones en máximos históricos: narrativa de burbuja AI se intensifica por quinta sesión consecutiva [pattern_015 +1 frecuencia, confianza alta mantenida].",
+      "procesadoEn": "2026-06-03"
+    },
+    {
+      "fecha": "2026-06-04",
+      "noticias": 10,
+      "patronesGenerados": [
+        "pattern_020",
+        "pattern_021",
+        "pattern_022"
+      ],
+      "patronesActualizados": [
+        "pattern_005",
+        "pattern_011",
+        "pattern_017",
+        "pattern_019"
+      ],
+      "nota": "10 artículos (6 TIKR + 4 SA). Temas dominantes: (1) AVGO Q2 FY2026: +48% YoY, AI revenue 2x a $10.8B, guidance Q3 AI $16B (3x) pero CEO sin raise del objetivo $100B ni full-systems —sell-the-news patrón idéntico a NVDA [pattern_020 nuevo, alta confianza]. (2) GOOGL equity raise $85B reafirmado con lectura alcista en SA [pattern_005 +1]. (3) MU upgrade a cautious buy (structural AI demand) en paralelo a artículos bearish previos —polarización de consenso activa [pattern_011 +1]. (4) STRL +9% picks & shovels data center (construcción física): pattern_019 ampliado a toda la cadena física AI. (5) SAIL (identity security AI, identidades no-humanas creciendo): pattern_017 +1. (6) Iran/Middle East market uncertainty [pattern_021 nuevo, baja]. (7) OKLO -11% pullback AI energy speculative [pattern_022 nuevo, baja].",
+      "procesadoEn": "2026-06-06"
+    },
+    {
+      "fecha": "2026-06-05",
+      "noticias": 5,
+      "patronesActualizados": [
+        "pattern_001",
+        "pattern_010",
+        "pattern_015",
+        "pattern_017",
+        "pattern_020"
+      ],
+      "nota": "5 artículos SA. Tema estructural de la jornada: divergencia editorial máxima entre 'Buy The Chip Dip' (alcista semis post-AVGO+Iran) y 'Time To Cash In The Chips' (bajista S&P, CAPE+market cap/GDP en máximos históricos) —ambos publicados el mismo día, señal de debate activo en el mercado. ACN ('Once-In-A-Decade Opportunity') consolida pattern_017 software AI rotation [+1]. MU 'Beware $1T Bubble': tercer artículo bajista sobre Micron, upgrade confianza pattern_010 a alta. '2 Income Machines' refuerza income defensivo [pattern_001 +1]. Pattern_020 (AVGO/semis) recibe lectura de buy-the-dip el día siguiente al sell-the-news.",
+      "procesadoEn": "2026-06-06"
+    },
+    {
+      "fecha": "2026-06-06",
+      "noticias": 0,
+      "nota": "Sábado — sin emails de TIKR ni Seeking Alpha recibidos a la hora de procesamiento.",
+      "procesadoEn": "2026-06-06"
+    }
+  ]
 }
