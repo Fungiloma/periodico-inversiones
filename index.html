@@ -16,10 +16,9 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@300;400;500&display=swap" rel="stylesheet">
 
-<!-- React + Recharts via CDN -->
+<!-- React via CDN -->
 <script crossorigin src="https://cdnjs.cloudflare.com/ajax/libs/react/18.2.0/umd/react.production.min.js"></script>
 <script crossorigin src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/18.2.0/umd/react-dom.production.min.js"></script>
-<script crossorigin src="https://cdnjs.cloudflare.com/ajax/libs/recharts/2.12.0/Recharts.min.js"></script>
 
 <style>
   :root {
@@ -583,10 +582,6 @@
     letter-spacing: 0.3px;
   }
 
-  /* ── Recharts overrides ── */
-  .recharts-tooltip-wrapper { font-family: var(--font-mono) !important; font-size: 11px !important; }
-  .recharts-cartesian-axis-tick-value { fill: var(--text-muted) !important; font-size: 10px !important; font-family: var(--font-mono) !important; }
-  .recharts-legend-item-text { color: var(--text-secondary) !important; font-size: 10px !important; font-family: var(--font-mono) !important; }
 
   /* ── Animations ── */
   @keyframes fadeIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }

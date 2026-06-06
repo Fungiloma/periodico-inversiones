@@ -1,8 +1,4 @@
 const { useState, useEffect, useCallback, useRef } = React;
-const {
-  LineChart, Line, BarChart, Bar, PieChart, Pie, Cell,
-  XAxis, YAxis, Tooltip, ResponsiveContainer, Legend
-} = Recharts;
 
 // ─────────────────────────────────────────────
 // PARSER: Markdown → noticias estructuradas
@@ -11,7 +7,6 @@ function parseMarkdown(mdText, filename) {
   const fecha = filename.match(/(\d{4}-\d{2}-\d{2})/)?.[1] || new Date().toISOString().slice(0,10);
   const noticias = [];
 
-  // Detectar secciones TIKR y Seeking Alpha
   const secciones = {
     tikr: { regex: /## TIKR.*?\n([\s\S]*?)(?=## Seeking Alpha|## Patrones|$)/i, fuente: 'TIKR' },
     sa:   { regex: /## Seeking Alpha.*?\n([\s\S]*?)(?=## TIKR|## Patrones|$)/i, fuente: 'SeekingAlpha' }
@@ -22,10 +17,8 @@ function parseMarkdown(mdText, filename) {
     if (!match) return;
     const bloque = match[1];
 
-    // Sin noticias hoy
     if (/sin noticias hoy/i.test(bloque)) return;
 
-    // Parsear subsecciones por ### TICKER — Empresa o ### Empresa
     const items = bloque.split(/\n(?=###\s)/);
     items.forEach(item => {
       const headerMatch = item.match(/###\s+([A-Z0-9.]+)(?:\s*[—–-]\s*(.+))?/);
@@ -36,11 +29,9 @@ function parseMarkdown(mdText, filename) {
       const cuerpo = item.replace(/###.+\n/, '').trim();
       if (!cuerpo) return;
 
-      // Extraer primer párrafo como resumen, resto como cuerpo completo
       const lineas = cuerpo.split('\n').filter(l => l.trim());
       const resumen = lineas[0] || '';
 
-      // Scoring de relevancia (keywords financieras)
       const keywords = ['earnings','revenue','growth','beat','miss','guidance','buyback',
                         'dividend','acquisition','merger','downgrade','upgrade','target',
                         'ganancias','ingresos','beneficio','compra','fusión','dividendo'];
@@ -51,7 +42,6 @@ function parseMarkdown(mdText, filename) {
       noticias.push({ id: `${fuente}-${ticker}-${fecha}`, fuente, ticker, empresa, fecha, resumen, cuerpo, relevancia });
     });
 
-    // Si hay texto libre sin headers ###
     if (noticias.filter(n => n.fecha === fecha && n.fuente === fuente).length === 0) {
       const lineas = bloque.split('\n').filter(l => l.trim() && !l.startsWith('>'));
       if (lineas.length > 0 && !/sin noticias/i.test(lineas[0])) {
@@ -88,6 +78,179 @@ function loadLocal(key, fallback) {
 
 function saveLocal(key, val) {
   try { localStorage.setItem(key, JSON.stringify(val)); } catch {}
+}
+
+// ─────────────────────────────────────────────
+// SVG CHARTS — sin librerías externas
+// ─────────────────────────────────────────────
+const COLORS_CHART = ['#c9a84c','#5b9cf6','#3ddc84','#ff5c5c','#9b72f5','#ff9f43'];
+
+// BarChart apilado TIKR (abajo, azul) + SA (arriba, púrpura)
+function SVGBarChart({ data, height = 140 }) {
+  const [hovered, setHovered] = useState(null);
+  if (!data || data.length === 0) return null;
+
+  const W = 400, H = height;
+  const mt = 8, mr = 8, mb = 28, ml = 26;
+  const cW = W - ml - mr;
+  const cH = H - mt - mb;
+  const baseY = mt + cH;
+
+  const maxVal = Math.max(1, ...data.map(d => (d.TIKR || 0) + (d.SA || 0)));
+  const barSlot = cW / data.length;
+  const barW = Math.min(barSlot * 0.65, 28);
+
+  const yTicks = [0, Math.ceil(maxVal / 2), Math.ceil(maxVal)];
+
+  let tipEl = null;
+  if (hovered) {
+    const tx = Math.min(Math.max(hovered.px, ml + 36), W - mr - 36);
+    const ty = Math.max(hovered.py - 6, mt + 40);
+    tipEl = (
+      <g style={{ pointerEvents: 'none' }}>
+        <rect x={tx - 34} y={ty - 40} width={68} height={38}
+              fill="var(--bg-card)" stroke="var(--border)" rx="4"/>
+        <text x={tx} y={ty - 27} textAnchor="middle"
+              fill="var(--text-muted)" fontSize="8">{hovered.d.fecha}</text>
+        <text x={tx} y={ty - 15} textAnchor="middle"
+              fill="#5b9cf6" fontSize="9">TIKR {hovered.d.TIKR}</text>
+        <text x={tx} y={ty - 4} textAnchor="middle"
+              fill="#9b72f5" fontSize="9">SA {hovered.d.SA}</text>
+      </g>
+    );
+  }
+
+  return (
+    <svg viewBox={`0 0 ${W} ${H}`} width="100%" height={height}
+         style={{ overflow: 'visible', display: 'block' }}>
+      {/* Grid + Y labels */}
+      {yTicks.map(v => {
+        const y = baseY - (v / maxVal) * cH;
+        return (
+          <g key={v}>
+            <line x1={ml} x2={ml + cW} y1={y} y2={y}
+                  stroke="var(--border)" strokeWidth="0.5"/>
+            <text x={ml - 3} y={y + 3} textAnchor="end"
+                  fill="var(--text-muted)" fontSize="8">{v}</text>
+          </g>
+        );
+      })}
+
+      {/* Bars + X labels */}
+      {data.map((d, i) => {
+        const tikr = d.TIKR || 0;
+        const sa   = d.SA   || 0;
+        const tikrH = (tikr / maxVal) * cH;
+        const saH   = (sa   / maxVal) * cH;
+        const x = ml + i * barSlot + (barSlot - barW) / 2;
+
+        return (
+          <g key={i}
+             onMouseEnter={() => setHovered({ d, px: x + barW / 2, py: baseY - tikrH - saH })}
+             onMouseLeave={() => setHovered(null)}>
+            {/* TIKR — porción inferior */}
+            {tikrH > 0 && (
+              <rect x={x} y={baseY - tikrH} width={barW} height={tikrH}
+                    fill="#5b9cf6" rx="1"/>
+            )}
+            {/* SA — porción superior */}
+            {saH > 0 && (
+              <rect x={x} y={baseY - tikrH - saH} width={barW} height={saH}
+                    fill="#9b72f5" rx="2"/>
+            )}
+            {/* zona hover invisible */}
+            <rect x={x} y={mt} width={barW} height={cH} fill="transparent"/>
+            {/* etiqueta X */}
+            <text x={x + barW / 2} y={H - 4} textAnchor="middle"
+                  fill="var(--text-muted)" fontSize="8">{d.fecha}</text>
+          </g>
+        );
+      })}
+
+      {tipEl}
+    </svg>
+  );
+}
+
+// Donut chart con leyenda
+function polarToCartesian(cx, cy, r, angleDeg) {
+  const rad = (angleDeg - 90) * Math.PI / 180;
+  return { x: cx + r * Math.cos(rad), y: cy + r * Math.sin(rad) };
+}
+
+function donutPath(cx, cy, innerR, outerR, startAngle, endAngle) {
+  const p1 = polarToCartesian(cx, cy, outerR, startAngle);
+  const p2 = polarToCartesian(cx, cy, outerR, endAngle);
+  const p3 = polarToCartesian(cx, cy, innerR, endAngle);
+  const p4 = polarToCartesian(cx, cy, innerR, startAngle);
+  const large = (endAngle - startAngle > 180) ? 1 : 0;
+  return `M${p1.x},${p1.y} A${outerR},${outerR} 0 ${large} 1 ${p2.x},${p2.y} L${p3.x},${p3.y} A${innerR},${innerR} 0 ${large} 0 ${p4.x},${p4.y}Z`;
+}
+
+function SVGPieChart({ data, height = 160 }) {
+  const [hovered, setHovered] = useState(null);
+  if (!data || data.length === 0) return null;
+  const total = data.reduce((s, d) => s + d.value, 0);
+  if (total === 0) return null;
+
+  const W = 300, H = height;
+  const cx = 72, cy = H / 2;
+  const outerR = 54, innerR = 26;
+  const padAngle = 2;
+
+  let angle = 0;
+  const sectors = data.map((d, i) => {
+    const sweep = Math.max(0, (d.value / total) * 360 - padAngle);
+    const s = { ...d, start: angle, end: angle + sweep, color: COLORS_CHART[i % COLORS_CHART.length] };
+    angle += sweep + padAngle;
+    return s;
+  });
+
+  const legendX = cx + outerR + 16;
+  const legendStartY = H / 2 - (sectors.length * 15) / 2 + 6;
+
+  let tipEl = null;
+  if (hovered) {
+    const mid = (hovered.start + hovered.end) / 2;
+    const tp = polarToCartesian(cx, cy, outerR + 18, mid);
+    const tx = Math.min(Math.max(tp.x, 38), W - 38);
+    const ty = Math.min(Math.max(tp.y, 18), H - 10);
+    tipEl = (
+      <g style={{ pointerEvents: 'none' }}>
+        <rect x={tx - 38} y={ty - 22} width={76} height={20}
+              fill="var(--bg-card)" stroke="var(--border)" rx="4"/>
+        <text x={tx} y={ty - 8} textAnchor="middle"
+              fill={hovered.color} fontSize="10">{hovered.name}: {hovered.value}</text>
+      </g>
+    );
+  }
+
+  return (
+    <svg viewBox={`0 0 ${W} ${H}`} width="100%" height={height}
+         style={{ overflow: 'visible', display: 'block' }}>
+      {sectors.map((s, i) => (
+        <path key={i}
+              d={donutPath(cx, cy, innerR, outerR, s.start, s.end)}
+              fill={s.color}
+              stroke="var(--bg-card)"
+              strokeWidth="1.5"
+              style={{ cursor: 'default' }}
+              onMouseEnter={() => setHovered(s)}
+              onMouseLeave={() => setHovered(null)}/>
+      ))}
+
+      {sectors.map((s, i) => (
+        <g key={i} transform={`translate(${legendX}, ${legendStartY + i * 15})`}>
+          <rect x={0} y={-6} width={8} height={8} fill={s.color} rx="1"/>
+          <text x={12} y={2} fill="var(--text-secondary)" fontSize="10">
+            {s.name.length > 14 ? s.name.slice(0, 13) + '…' : s.name}
+          </text>
+        </g>
+      ))}
+
+      {tipEl}
+    </svg>
+  );
 }
 
 // ─────────────────────────────────────────────
@@ -166,7 +329,6 @@ function TabPeriodico({ noticias, onSyncMd, syncing, syncedMd, patronesMeta }) {
 
   return (
     <div className="content">
-      {/* Filter bar */}
       <div className="filter-bar">
         <button className={`filter-chip ${filtroFuente==='all'?'active':''}`}
                 onClick={() => setFiltroFuente('all')}>Todas</button>
@@ -195,7 +357,6 @@ function TabPeriodico({ noticias, onSyncMd, syncing, syncedMd, patronesMeta }) {
         <EmptyNewsPaper meta={patronesMeta} />
       ) : (
         <>
-          {/* TIKR section */}
           {(filtroFuente === 'all' || filtroFuente === 'TIKR') && (
             <div className="news-section">
               <div className="source-label tikr">TIKR · {tikrNews.length}</div>
@@ -206,7 +367,6 @@ function TabPeriodico({ noticias, onSyncMd, syncing, syncedMd, patronesMeta }) {
             </div>
           )}
 
-          {/* Seeking Alpha section */}
           {(filtroFuente === 'all' || filtroFuente === 'SeekingAlpha') && (
             <div className="news-section">
               <div className="source-label sa">Seeking Alpha · {saNews.length}</div>
@@ -225,20 +385,6 @@ function TabPeriodico({ noticias, onSyncMd, syncing, syncedMd, patronesMeta }) {
 // ─────────────────────────────────────────────
 // TAB: PATRONES
 // ─────────────────────────────────────────────
-const COLORS_CHART = ['#c9a84c','#5b9cf6','#3ddc84','#ff5c5c','#9b72f5','#ff9f43'];
-
-function CustomTooltip({ active, payload, label }) {
-  if (!active || !payload?.length) return null;
-  return (
-    <div style={{background:'var(--bg-card)',border:'1px solid var(--border)',padding:'8px 12px',borderRadius:6,fontFamily:'var(--font-mono)',fontSize:11}}>
-      <div style={{color:'var(--text-muted)',marginBottom:4}}>{label}</div>
-      {payload.map((p,i) => (
-        <div key={i} style={{color:p.color}}>{p.name}: {typeof p.value === 'number' ? p.value.toFixed(2) : p.value}</div>
-      ))}
-    </div>
-  );
-}
-
 function TabPatrones({ patrones, resumen, historial, meta }) {
   const [ordenConf, setOrdenConf] = useState(true);
 
@@ -247,9 +393,8 @@ function TabPatrones({ patrones, resumen, historial, meta }) {
     ordenConf ? (confOrder[b.confianza]||0) - (confOrder[a.confianza]||0) : 0
   );
 
-  // Datos para gráficos
   const historialData = (historial || []).slice(-14).map(h => ({
-    fecha: h.fecha.slice(5), // MM-DD
+    fecha: h.fecha.slice(5),
     TIKR: h.fuentes?.TIKR || 0,
     SA: h.fuentes?.SeekingAlpha || 0,
     total: h.noticias || 0
@@ -286,19 +431,10 @@ function TabPatrones({ patrones, resumen, historial, meta }) {
           )}
         </div>
 
-        {/* Historial aunque no haya patrones */}
         {historialData.length > 0 && (
           <div className="chart-container" style={{marginTop:16}}>
             <div className="chart-title">Frecuencia de noticias · {historialData.length}d</div>
-            <ResponsiveContainer width="100%" height={140}>
-              <BarChart data={historialData} margin={{top:4,right:4,bottom:0,left:-20}}>
-                <XAxis dataKey="fecha" tick={{fill:'var(--text-muted)',fontSize:9}} />
-                <YAxis tick={{fill:'var(--text-muted)',fontSize:9}} allowDecimals={false} />
-                <Tooltip content={<CustomTooltip/>}/>
-                <Bar dataKey="TIKR" stackId="a" fill="#5b9cf6" radius={[0,0,0,0]}/>
-                <Bar dataKey="SA" stackId="a" fill="#9b72f5" radius={[2,2,0,0]}/>
-              </BarChart>
-            </ResponsiveContainer>
+            <SVGBarChart data={historialData} height={140}/>
           </div>
         )}
       </div>
@@ -323,7 +459,7 @@ function TabPatrones({ patrones, resumen, historial, meta }) {
         </div>
       </div>
 
-      {/* Tendencia visual */}
+      {/* Tendencia visual — HTML puro, no tocar */}
       <div className="chart-container">
         <div className="chart-title">Distribución de tendencias</div>
         <div style={{display:'flex',gap:8,alignItems:'center',justifyContent:'center',padding:'8px 0'}}>
@@ -332,19 +468,7 @@ function TabPatrones({ patrones, resumen, historial, meta }) {
           <div className="tendencia-badge tend-bajista">▼ {tendencias.bajista} bajista{tendencias.bajista!==1?'s':''}</div>
         </div>
         {distribSectorial.length > 0 && (
-          <ResponsiveContainer width="100%" height={130}>
-            <PieChart>
-              <Pie data={distribSectorial} dataKey="value" nameKey="name"
-                   cx="50%" cy="50%" outerRadius={50} innerRadius={25}
-                   paddingAngle={2}>
-                {distribSectorial.map((_, i) => (
-                  <Cell key={i} fill={COLORS_CHART[i % COLORS_CHART.length]} stroke="none"/>
-                ))}
-              </Pie>
-              <Tooltip content={<CustomTooltip/>}/>
-              <Legend iconSize={8} formatter={(v) => v}/>
-            </PieChart>
-          </ResponsiveContainer>
+          <SVGPieChart data={distribSectorial} height={130}/>
         )}
       </div>
 
@@ -352,15 +476,7 @@ function TabPatrones({ patrones, resumen, historial, meta }) {
       {historialData.length > 1 && (
         <div className="chart-container">
           <div className="chart-title">Frecuencia de noticias · rolling</div>
-          <ResponsiveContainer width="100%" height={120}>
-            <BarChart data={historialData} margin={{top:4,right:4,bottom:0,left:-20}}>
-              <XAxis dataKey="fecha" tick={{fill:'var(--text-muted)',fontSize:9}} />
-              <YAxis tick={{fill:'var(--text-muted)',fontSize:9}} allowDecimals={false}/>
-              <Tooltip content={<CustomTooltip/>}/>
-              <Bar dataKey="TIKR" stackId="a" fill="#5b9cf6"/>
-              <Bar dataKey="SA" stackId="a" fill="#9b72f5" radius={[2,2,0,0]}/>
-            </BarChart>
-          </ResponsiveContainer>
+          <SVGBarChart data={historialData} height={120}/>
         </div>
       )}
 
@@ -424,7 +540,6 @@ function App() {
   const [syncedMd, setSyncedMd] = useState(false);
   const [syncedJson, setSyncedJson] = useState(false);
 
-  // Load from localStorage on mount
   useEffect(() => {
     const cached = limpiarNoticias(loadLocal(KEYS.noticias, []));
     setNoticias(cached);
@@ -438,7 +553,6 @@ function App() {
     setLastSync(loadLocal(KEYS.sync, null));
   }, []);
 
-  // Sync: read MD files
   const handleMdSync = useCallback((e) => {
     const files = Array.from(e.target.files);
     if (!files.length) return;
@@ -453,7 +567,6 @@ function App() {
 
       results.forEach(({ name, text }) => {
         const nuevas = parseMarkdown(text, name);
-        // Reemplazar noticias del mismo día
         const fechaArchivo = name.match(/(\d{4}-\d{2}-\d{2})/)?.[1];
         if (fechaArchivo) todasNoticias = todasNoticias.filter(n => n.fecha !== fechaArchivo);
         todasNoticias = [...todasNoticias, ...nuevas];
@@ -473,7 +586,6 @@ function App() {
     e.target.value = '';
   }, []);
 
-  // Sync: read JSON
   const handleJsonSync = useCallback((e) => {
     const file = e.target.files[0];
     if (!file) return;
@@ -504,7 +616,6 @@ function App() {
 
   return (
     <div className="shell">
-      {/* Header */}
       <div className="header">
         <div className="header-top">
           <div>
@@ -516,7 +627,6 @@ function App() {
           </div>
         </div>
 
-        {/* Sync buttons */}
         <div style={{display:'flex',gap:8,marginTop:10}}>
           <button className={`sync-btn ${syncingMd?'syncing':''} ${syncedMd?'synced':''}`}
                   style={{flex:1}}
@@ -531,7 +641,6 @@ function App() {
         </div>
       </div>
 
-      {/* Tabs */}
       <div className="tabs">
         <button className={`tab-btn ${tab==='periodico'?'active':''}`}
                 onClick={() => setTab('periodico')}>
@@ -545,7 +654,6 @@ function App() {
         </button>
       </div>
 
-      {/* Content */}
       {tab === 'periodico' ? (
         <TabPeriodico
           noticias={noticias}
@@ -563,7 +671,6 @@ function App() {
         />
       )}
 
-      {/* Status bar */}
       <div className="status-bar">
         {noticias.length > 0
           ? `${noticias.length} noticias · rolling 7d · ${patrones.length} patrones 30d`
@@ -571,7 +678,6 @@ function App() {
         }
       </div>
 
-      {/* Hidden file inputs */}
       <input id="md-input" type="file" accept=".md" multiple onChange={handleMdSync}/>
       <input id="json-input" type="file" accept=".json" onChange={handleJsonSync}/>
     </div>
