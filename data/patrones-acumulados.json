@@ -1,8 +1,8 @@
 {
-  "generatedAt": "2026-06-06",
+  "generatedAt": "2026-06-07",
   "periodo": "últimos 30 días",
   "meta": {
-    "archivosAnalizados": 14,
+    "archivosAnalizados": 15,
     "estado": "activo",
     "fuentes": [
       "TIKR (newsletter@tikr.com)",
@@ -21,10 +21,10 @@
         "#Macro",
         "#Energy"
       ],
-      "descripcion": "El entorno 'higher-for-longer' de tipos de interés sigue siendo el marco macro dominante en múltiples sesiones. Siete menciones en cuatro días convergen en la misma tesis: inflación persistente, Fed sin recortes inminentes y tensiones geopolíticas benefician a sectores de income (energía, REITs, financieros con yields sostenibles, preferred stocks, baby bonds, FCF alto). La narrativa defensiva está ganando tracción frente a activos de crecimiento puro. El 27-May un artículo 'black swan bonds' matizó que los yields altos no son inherentemente negativos si el driver es crecimiento nominal —refuerza la tesis de renta variable vs renta fija en este entorno. El 31-May un artículo de asset allocation refuerza REITs e income como base de cartera en entorno de disrupción AI.",
+      "descripcion": "El entorno 'higher-for-longer' de tipos de interés sigue siendo el marco macro dominante en múltiples sesiones. Siete menciones en cuatro días convergen en la misma tesis: inflación persistente, Fed sin recortes inminentes y tensiones geopolíticas benefician a sectores de income (energía, REITs, financieros con yields sostenibles, preferred stocks, baby bonds, FCF alto). La narrativa defensiva está ganando tracción frente a activos de crecimiento puro. El 27-May un artículo 'black swan bonds' matizó que los yields altos no son inherentemente negativos si el driver es crecimiento nominal —refuerza la tesis de renta variable vs renta fija en este entorno. El 31-May un artículo de asset allocation refuerza REITs e income como base de cartera en entorno de disrupción AI. El 06-Jun (procesado 07-Jun), undécima señal: 'The Market Is Misreading The May Jobs Report' —172K empleos en mayo 2026, desempleo 4.3%, media 3 meses 188K. El mercado laboral robusto no admite recortes de tipos inminentes; el artículo argumenta que la reacción del mercado al dato está sobredimensionada. Onceava confirmación del marco higher-for-longer como tesis macro dominante del periodo.",
       "confianza": "alta",
       "tendencia": "neutral",
-      "frecuencia": 10,
+      "frecuencia": 11,
       "fechas": [
         "2026-05-24",
         "2026-05-25",
@@ -32,7 +32,8 @@
         "2026-05-28",
         "2026-05-29",
         "2026-05-31",
-        "2026-06-05"
+        "2026-06-05",
+        "2026-06-07"
       ],
       "grafico": {
         "tipo": "bar",
@@ -65,6 +66,10 @@
           },
           {
             "date": "2026-06-05",
+            "value": 1
+          },
+          {
+            "date": "2026-06-07",
             "value": 1
           }
         ]
@@ -516,17 +521,18 @@
         "#GrowthSelloff",
         "#Earnings-pressure"
       ],
-      "descripcion": "Señal de alerta macro consolidada: cinco artículos en cinco días con perspectivas de riesgo sistémico desde ángulos distintos. El 29-May trazó paralelismos con la burbuja dot-com de 1999. El 30-May: GPU rental prices -30% genera presión en AI cloud economics y cuestiona el capex billonario de los hyperscalers. El 31-May: artículo explícito sobre 'The 3 Things That Could Pop The AI Bubble' —(1) LLMs chinos más baratos erosionan pricing power, (2) ROI de hyperscalers en cuestión con $700B+ comprometidos, (3) restricciones de infraestructura. El 02-Jun: SPCE +81% en una semana por confusión retail con el IPO de SpaceX —señal de exuberancia irracional y apetito de riesgo indiscriminado (ver pattern_018). El 03-Jun: artículo 'The Massive AI Lie' y predicción de corrección del S&P con valoraciones en máximos históricos —quinta señal consecutiva de advertencia sistémica. La convergencia de cinco ángulos analíticos independientes en cinco días eleva y mantiene la confianza en alta. Relevancia directa para el portfolio en posiciones AI con múltiplos elevados (PLTR 93-98x, NBIS, NVDA). No es señal de salida, es señal de gestión de sizing y stops. El 05-Jun, sexta señal consecutiva: 'Time To Cash In The Chips' —S&P cotiza en CAPE y market cap-to-GDP cercanos a máximos históricos, con ganancias concentradas en pocos nombres. El título del artículo es directamente opuesto al 'Buy The Chip Dip' del mismo día: la divergencia editorial refleja el debate activo en el mercado. Seis artículos en seis días distintos manteniendo la tesis bajista sistémica.",
+      "descripcion": "Señal de alerta macro consolidada: cinco artículos en cinco días con perspectivas de riesgo sistémico desde ángulos distintos. El 29-May trazó paralelismos con la burbuja dot-com de 1999. El 30-May: GPU rental prices -30% genera presión en AI cloud economics y cuestiona el capex billonario de los hyperscalers. El 31-May: artículo explícito sobre 'The 3 Things That Could Pop The AI Bubble' —(1) LLMs chinos más baratos erosionan pricing power, (2) ROI de hyperscalers en cuestión con $700B+ comprometidos, (3) restricciones de infraestructura. El 02-Jun: SPCE +81% en una semana por confusión retail con el IPO de SpaceX —señal de exuberancia irracional y apetito de riesgo indiscriminado (ver pattern_018). El 03-Jun: artículo 'The Massive AI Lie' y predicción de corrección del S&P con valoraciones en máximos históricos —quinta señal consecutiva de advertencia sistémica. La convergencia de cinco ángulos analíticos independientes en cinco días eleva y mantiene la confianza en alta. Relevancia directa para el portfolio en posiciones AI con múltiplos elevados (PLTR 93-98x, NBIS, NVDA). No es señal de salida, es señal de gestión de sizing y stops. El 05-Jun, sexta señal consecutiva: 'Time To Cash In The Chips' —S&P cotiza en CAPE y market cap-to-GDP cercanos a máximos históricos, con ganancias concentradas en pocos nombres. El título del artículo es directamente opuesto al 'Buy The Chip Dip' del mismo día: la divergencia editorial refleja el debate activo en el mercado. Seis artículos en seis días distintos manteniendo la tesis bajista sistémica. El 06-Jun (newsletter tardío), séptima señal: 'I Have Been Patiently Waiting For This Market Meltdown' —S&P y Nasdaq tuvieron una caída fuerte el viernes, materialización parcial del escenario que el patrón venía señalando. El tono es menos apocalíptico que artículos previos: el autor nota que el rally AI sigue fundamentalmente soportado por upgrades de earnings. La corrección ocurrió pero los fundamentales siguen activos —señal de que el mercado está absorbiendo el riesgo de burbuja mediante un pullback controlado, no un crack.",
       "confianza": "alta",
       "tendencia": "bajista",
-      "frecuencia": 6,
+      "frecuencia": 7,
       "fechas": [
         "2026-05-29",
         "2026-05-30",
         "2026-05-31",
         "2026-06-02",
         "2026-06-03",
-        "2026-06-05"
+        "2026-06-05",
+        "2026-06-06"
       ],
       "grafico": {
         "tipo": "line",
@@ -556,6 +562,10 @@
           {
             "date": "2026-06-05",
             "value": -0.8
+          },
+          {
+            "date": "2026-06-06",
+            "value": -0.4
           }
         ]
       }
@@ -698,13 +708,14 @@
         "#Tech",
         "#Earnings-pressure"
       ],
-      "descripcion": "Broadcom Q2 FY2026: ingresos ~$22.2B (+48% YoY), ligeramente por debajo de estimaciones. Beneficio ajustado algo por encima. Ingresos AI ~$10.8B (duplicados YoY), guidance Q3 AI ~$16B (3x secuencial). CEO Hock Tan no elevó el objetivo de $100B en ventas AI y aclaró que Broadcom venderá solo chips, no sistemas completos —el mercado lo interpretó como ausencia de upside narrativo adicional. La acción abrió a la baja pese al sexto consecutive double-beat. Dos perspectivas editoriales: TIKR (reacción negativa, expectativas no superadas) vs SA 'The Market Has Lost Its Mind' (el mercado sobrerreaccionó a unos resultados fundamentalmente sólidos). El 05-Jun, artículo 'Buy The Chip Dip' añade la tercera lectura: el selloff de semis inducido por AVGO + Iran es una oportunidad de compra táctica. El patrón AVGO replica exactamente el patrón NVDA (pattern_009): beats históricos que producen sell-the-news y debate posterior sobre si comprar la caída. Con tres artículos en dos días, confianza alta.",
+      "descripcion": "Broadcom Q2 FY2026: ingresos ~$22.2B (+48% YoY), ligeramente por debajo de estimaciones. Beneficio ajustado algo por encima. Ingresos AI ~$10.8B (duplicados YoY), guidance Q3 AI ~$16B (3x secuencial). CEO Hock Tan no elevó el objetivo de $100B en ventas AI y aclaró que Broadcom venderá solo chips, no sistemas completos —el mercado lo interpretó como ausencia de upside narrativo adicional. La acción abrió a la baja pese al sexto consecutive double-beat. Dos perspectivas editoriales: TIKR (reacción negativa, expectativas no superadas) vs SA 'The Market Has Lost Its Mind' (el mercado sobrerreaccionó a unos resultados fundamentalmente sólidos). El 05-Jun, artículo 'Buy The Chip Dip' añade la tercera lectura: el selloff de semis inducido por AVGO + Iran es una oportunidad de compra táctica. El patrón AVGO replica exactamente el patrón NVDA (pattern_009): beats históricos que producen sell-the-news y debate posterior sobre si comprar la caída. Con tres artículos en dos días, confianza alta. El 06-Jun, tercer artículo alcista post sell-the-news: 'Broadcom: A Golden Buying Opportunity' —AI silicon custom en auge, el selloff se confirma como oportunidad táctica de compra. Con tres coberturas buy-the-dip en tres días (04, 05, 06-Jun), upgrade tendencia neutral→alcista: el consenso editorial se ha decantado inequívocamente por la lectura alcista sobre el patrón de sell-the-news en AVGO.",
       "confianza": "alta",
-      "tendencia": "neutral",
-      "frecuencia": 3,
+      "tendencia": "alcista",
+      "frecuencia": 4,
       "fechas": [
         "2026-06-04",
-        "2026-06-05"
+        "2026-06-05",
+        "2026-06-06"
       ],
       "grafico": {
         "tipo": "line",
@@ -718,6 +729,10 @@
           {
             "date": "2026-06-05",
             "value": 0.2
+          },
+          {
+            "date": "2026-06-06",
+            "value": 0.6
           }
         ]
       }
@@ -777,29 +792,56 @@
           }
         ]
       }
+    },
+    {
+      "id": "pattern_023",
+      "tipo": "Narrativa",
+      "empresa": "RKLB",
+      "tags": [
+        "#GrowthSelloff",
+        "#Tech"
+      ],
+      "descripcion": "Primera tesis bajista sobre RKLB en el tracker: 'Rocket Lab: Sell Before The SpaceX IPO Reality Check' (SA, 06-Jun). El artículo reconoce la ejecución impresionante de RKLB en integración vertical y Q1 2026, pero argumenta que la acción cotiza principalmente por narrativa de anticipación del IPO de SpaceX —y que cuando el IPO ocurra, el mercado enfrentará un 'reality check' competitivo: SpaceX es simultáneamente el habilitador del ecosistema orbital y el competidor más peligroso para RKLB. La tesis es una inversión directa de pattern_002 y pattern_004 (ambos alcistas): el mismo catalizador narrativo (SpaceX IPO) que hoy impulsa la acción podría convertirse en headwind operativo el día que SpaceX cotice con toda su escala. Confianza baja: 1 artículo, contrario a tres coberturas alcistas previas sobre RKLB.",
+      "confianza": "baja",
+      "tendencia": "bajista",
+      "frecuencia": 1,
+      "fechas": [
+        "2026-06-06"
+      ],
+      "grafico": {
+        "tipo": "line",
+        "eje_x": "fecha",
+        "eje_y": "sentimiento",
+        "data": [
+          {
+            "date": "2026-06-06",
+            "value": -0.65
+          }
+        ]
+      }
     }
   ],
   "resumenEstadistico": {
-    "totalPatrones": 22,
+    "totalPatrones": 23,
     "porTipo": {
-      "Narrativa": 9,
+      "Narrativa": 10,
       "Realidad": 7,
       "Tendencias": 6
     },
     "porConfianza": {
       "alta": 10,
       "media": 7,
-      "baja": 5
+      "baja": 6
     },
     "porTendencia": {
-      "alcista": 12,
-      "bajista": 7,
-      "neutral": 3
+      "alcista": 13,
+      "bajista": 8,
+      "neutral": 2
     },
     "empresasMasFrecuentes": [
       {
-        "empresa": "Macro (Energy/Financials/Income/Crédito/REITs/AI burbuja/Geopolítica)",
-        "frecuenciaTotal": 20,
+        "empresa": "Macro (Energy/Financials/Income/Crédito/REITs/AI burbuja/Geopolítica/Jobs)",
+        "frecuenciaTotal": 22,
         "patrones": [
           "pattern_001",
           "pattern_006",
@@ -835,17 +877,17 @@
         ]
       },
       {
-        "empresa": "AI infra picks & shovels (HPE/CRDO/LITE/STRL)",
+        "empresa": "AVGO",
         "frecuenciaTotal": 4,
         "patrones": [
-          "pattern_019"
+          "pattern_020"
         ]
       }
     ],
     "tagsMasFrecuentes": [
       {
         "tag": "#Tech",
-        "frecuencia": 15
+        "frecuencia": 16
       },
       {
         "tag": "#CapexAI",
@@ -869,7 +911,7 @@
       },
       {
         "tag": "#GrowthSelloff",
-        "frecuencia": 4
+        "frecuencia": 5
       },
       {
         "tag": "#DefensivePlay",
@@ -1060,6 +1102,20 @@
       "noticias": 0,
       "nota": "Sábado — sin emails de TIKR ni Seeking Alpha recibidos a la hora de procesamiento.",
       "procesadoEn": "2026-06-06"
+    },
+    {
+      "fecha": "2026-06-07",
+      "noticias": 4,
+      "patronesGenerados": [
+        "pattern_023"
+      ],
+      "patronesActualizados": [
+        "pattern_001",
+        "pattern_015",
+        "pattern_020"
+      ],
+      "nota": "4 artículos SA procesados (newsletter tardío 06-Jun 19:59 UTC, no capturado en la ejecución del 06-Jun). Daily report folder no montada — procesado directamente desde Gmail MCP. (1) RKLB primera tesis bajista: 'Sell Before The SpaceX IPO Reality Check' — inverso a pattern_002 y pattern_004 [pattern_023 nuevo, confianza baja]. (2) AVGO tercera cobertura buy-the-dip: 'A Golden Buying Opportunity' — sell-the-news confirmado como entrada táctica [pattern_020 +1, upgrade neutral→alcista]. (3) 'I Have Been Patiently Waiting For This Market Meltdown': S&P+Nasdaq pullback fuerte viernes 06-Jun, pero rally AI visto como soportado por earnings upgrades [pattern_015 +1, tono menos bajista que artículos previos — corrección parcial, no crack]. (4) 'The Market Is Misreading The May Jobs Report': 172K empleos mayo, desempleo 4.3%, 3m avg 188K — mercado laboral robusto consolida tesis higher-for-longer [pattern_001 +1].",
+      "procesadoEn": "2026-06-07"
     }
   ]
 }
