@@ -85,7 +85,7 @@ const KEYS = {
 };
 function limpiarNoticias(noticias) {
   const limite = new Date();
-  limite.setDate(limite.getDate() - 7);
+  limite.setDate(limite.getDate() - 5);
   const cutoff = limite.toISOString().slice(0, 10);
   return noticias.filter(n => n.fecha >= cutoff);
 }
