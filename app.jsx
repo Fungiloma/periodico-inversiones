@@ -17,7 +17,14 @@ function parseMarkdown(mdText, filename) {
   const noticias = [];
   const relevanciaMap = { alta: 5, media: 3, baja: 1 };
 
-  const BULLET = new RegExp('^- ([A-Z0-9.]+) — (.+?) \\| Relevancia: (alta|media|baja)', 'i');
+  // Grupos: 1=label bold, 2=ticker plain, 3=descripción, 4=relevancia
+  // Soporta: **INTC** — texto | Relevancia: **alta**
+  //      y:  INTC — texto | Relevancia: alta
+  //      y:  **General** — texto | Relevancia: media  (ticker=—, empresa=label)
+  const BULLET = new RegExp(
+    '^-\\s+(?:\\*\\*(.+?)\\*\\*|([A-Z0-9.\\/]+))\\s*—\\s*(.+?)\\s*\\|\\s*Relevancia:\\s*(?:\\*\\*)?(alta|media|baja)(?:\\*\\*)?',
+    'i'
+  );
 
   const parseSect = (bloque, fuente) => {
     if (!bloque) return;
@@ -28,17 +35,14 @@ function parseMarkdown(mdText, filename) {
       if (!line) return;
 
       if (current) {
-        // Detalle: preview corto (2-3 frases)
         if (/^Detalle:\s*/i.test(line)) {
           current.detalle = line.replace(/^Detalle:\s*/i, '').trim();
           return;
         }
-        // 📄 Resumen: cuerpo expandible completo
         if (line.startsWith('📄')) {
           current.cuerpo = line.replace(/^📄\s*Resumen:\s*/i, '').trim() || current.cuerpo;
           return;
         }
-        // 🔗 Link: URL externa
         if (line.startsWith('🔗')) {
           current.link = line.replace(/^🔗\s*Link:\s*/i, '').trim();
           return;
@@ -48,14 +52,18 @@ function parseMarkdown(mdText, filename) {
       const m = line.match(BULLET);
       if (m) {
         if (current) noticias.push(current);
-        const ticker = m[1];
-        const titulo = m[2].trim();
+        const rawLabel = (m[1] || m[2] || '').trim();
+        const isTicker = /^[A-Z0-9.\/]+$/.test(rawLabel);
+        const ticker   = isTicker ? rawLabel : '—';
+        const empresa  = isTicker ? m[3].trim() : rawLabel;
+        const titulo   = m[3].trim();
+        const idKey    = rawLabel.replace(/\W+/g, '_').slice(0, 24);
         current = {
-          id:      `${fuente}-${ticker}-${fecha}`,
-          fuente,  ticker,  empresa: titulo,
+          id:      `${fuente}-${idKey}-${fecha}`,
+          fuente,  ticker,  empresa,
           fecha,   resumen: titulo,  cuerpo: titulo,
           detalle: null,   link: null,
-          relevancia: relevanciaMap[m[3].toLowerCase()] || 3
+          relevancia: relevanciaMap[m[4].toLowerCase()] || 3
         };
       }
     });
@@ -68,6 +76,8 @@ function parseMarkdown(mdText, filename) {
 
   parseSect(tikrBloque?.[1], 'TIKR');
   parseSect(saBloque?.[1],   'SeekingAlpha');
+
+  console.log('noticias generadas:', noticias.length, noticias.map(n => n.ticker + '/' + n.empresa.slice(0, 20)));
 
   return noticias;
 }
