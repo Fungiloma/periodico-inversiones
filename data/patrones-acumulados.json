@@ -1,8 +1,8 @@
 {
-  "generatedAt": "2026-07-28",
+  "generatedAt": "2026-08-03",
   "periodo": "últimos 30 días",
   "meta": {
-    "archivosAnalizados": 64,
+    "archivosAnalizados": 70,
     "estado": "activo",
     "fuentes": [
       "TIKR (newsletter@tikr.com)",
@@ -27,7 +27,11 @@
     "nota_ejecucion_2026_07_15": "Carpeta 'Daily report' sigue sin estar montada/accesible en lectura (31ª ejecución consecutiva con esta limitación; Glob lista los archivos por nombre pero Read los rechaza con 'outside this session's connected folders'). Gmail MCP usado como fallback. Se procesó el único par de newsletters nuevo desde el 13-Jul: TIKR del 14-Jul (09:11 UTC, 5 movimientos de precio con dato duro: INTC, VOD, MRNA, AGX, SOFI) + SA 'Must Reads' del 14-Jul (19:58 UTC, 4 de 5 piezas procesadas). Hallazgo relevante: primera señal bajista con dato duro sobre INTC (pattern_024, tendencia alcista->neutral) apenas 3 días después del consenso fuertemente alcista del 11-Jul, y primera pieza bajista sobre ORCL (pattern_046, tendencia alcista->neutral) alineada con el riesgo de crédito ya señalado en pattern_055. Cuatro empresas nuevas en el tracker: VOD, MRNA, AGX, SOFI (todas confianza baja, 1 mención). 2026-07-15 (hoy) no disponible aún a la hora de esta ejecución (07:21 UTC); pendiente de verificación retroactiva en la próxima corrida. Recomendación pendiente (persiste desde el 04-Jul, 31ª ejecución consecutiva): conceder acceso a 'Daily report' o a la raíz INVERSIONES vía request_cowork_directory.",
     "nota_ejecucion_2026_07_16": "Carpeta 'Daily report' sigue sin estar montada/accesible en lectura (33a ejecucion consecutiva con esta limitacion; Glob lista los 41 archivos resumen-diario-*.md del rango 23-May a 15-Jul pero Read los rechaza con 'outside this session's connected folders'). Se intento request_cowork_directory de forma implicita pero la sesion es no interactiva (ejecucion programada sin usuario presente para aprobar el acceso a carpeta), por lo que se mantuvo el fallback Gmail MCP usado en las 32 ejecuciones anteriores. Se procesaron 2 fechas pendientes desde el 14-Jul: SA del 15-Jul (5 noticias, 1 patron nuevo IBM, 4 actualizados) y SA+TIKR del 16-Jul (10 noticias/eventos, 6 patrones nuevos -- TSM, PNR, RH, CELC, UNH, GE Aerospace -- y 6 actualizados, incluyendo upgrade de pattern_044 PYPL de Narrativa/confianza-baja a Realidad/confianza-alta tras confirmarse con dato duro una oferta de adquisicion real de Stripe+Advent International por $53.000M). Hallazgo relevante: jornada del 16-Jul con alta densidad de earnings reportados el mismo dia (TSM, UNH, GE Aerospace, todos beat) mas un evento de M&A significativo (PYPL) y un profit warning (PNR) -- la mayor concentracion de datos duros confirmados en una sola sesion del periodo analizado. ACCION REQUERIDA (persiste desde el 04-Jul, ahora 33a ejecucion consecutiva): conceder acceso a la carpeta 'Daily report' o a la raiz INVERSIONES via request_cowork_directory para eliminar definitivamente la dependencia del fallback Gmail.",
     "nota_ejecucion_2026_07_22": "Carpeta 'Daily report' sigue sin estar accesible en lectura (38ª ejecución consecutiva con esta limitación desde el 04-Jul). Novedad relevante de esta ejecución: Glob confirma que el directorio Daily report AHORA contiene 43 archivos resumen-diario-*.md (rango 23-May a 17-Jul, incluyendo fechas que antes no aparecían listadas), pero Read sigue rechazando cualquier intento de lectura con 'outside this session's connected folders' — la carpeta es visible por nombre pero no está montada para lectura, igual que en ejecuciones anteriores. Se mantuvo el fallback Gmail MCP (htmlBody extraído con html2text en lugar de BeautifulSoup, mismo resultado). Se procesaron 5 fechas pendientes desde el 16-Jul: SA del 17, 18, 19, 20 y 21-Jul (25 piezas totales, 22 procesadas, 3 omitidas por genéricas/reposts — ver detalle en historial). Patrón nuevo: pattern_067 (BDCs / Private Credit), primera cobertura del tracker sobre crédito privado de middle-market lending, distinto de pattern_055 (CDS de hyperscalers/semis). Hallazgo relevante: 18-Jul aportó el primer catalizador con nombre propio (\"Kimi K3\", modelo chino) que materializa la tesis de competencia de LLMs baratos ya anticipada el 31-May en pattern_015, coincidiendo con el trade de semis más abarrotado registrado (82%) y SOXX cerca de mercado bajista — added a pattern_015. El debate bull/bear sobre burbuja de IA se intensificó con dos piezas directamente opuestas en días consecutivos (19-Jul 'dot-com bust' vs. 20-Jul 'bubble that never was' sobre NVDA). Sin actividad de TIKR desde el 16-Jul. 2026-07-22 (hoy) no disponible aún a la hora de esta ejecución (07:04 UTC); pendiente de verificación retroactiva en la próxima corrida. ACCIÓN REQUERIDA (persiste desde el 04-Jul, ahora 38ª ejecución consecutiva): conceder acceso a la carpeta 'Daily report' o a la raíz INVERSIONES vía request_cowork_directory.",
-    "nota_ejecucion_2026_07_25": "Carpeta 'Daily report' sigue sin estar accesible en lectura (42ª ejecución consecutiva con esta limitación desde el 04-Jul; solo 'Analysis' está conectada a esta sesión). Se intentó Glob directo sobre la carpeta y sobre la raíz INVERSIONES: ambos devuelven error 'outside this session's connected folders' (a diferencia de ejecuciones anteriores donde Glob sí listaba los nombres de archivo aunque Read los rechazara — en esta ejecución ni siquiera el listado por nombre fue posible). Se mantuvo el fallback Gmail MCP usado en las 41 ejecuciones anteriores. Se procesaron 3 fechas pendientes desde el 21-Jul: TIKR+SA del 22-Jul (11 noticias), SA del 23-Jul (5 noticias) y SA del 24-Jul (5 noticias). Evento relevante: Alphabet (GOOGL) reportó resultados Q2 2026 el 22-Jul tras el cierre (BPA $9,11, ingresos $119.800M, ambos por encima de consenso), generando el mismo patrón de dispersión bull/bear ya documentado en pattern_005 desde mayo — una pieza atribuye el salto de beneficio neto (+298%) a ganancias de valoración de inversiones no operativas, otra defiende el resultado como crecimiento genuino de Cloud/IA. Primera tesis bajista explícita sobre Microsoft registrada como patrón separado (pattern_071), siguiendo el precedente bull/bear ya aplicado a PLTR y META. 5 empresas nuevas en el tracker: DHR, MSCI, FIG, ONDS, SMCI, AAPL (todas confianza baja salvo DHR/MSCI/SMCI, que tienen confianza alta por tratarse de datos duros de guía/márgenes pese a ser primera mención). 2026-07-25 (hoy, fecha de esta ejecución) NO registrado en historial: a las 16:05 UTC (hora de esta ejecución) el newsletter diario de SA (cadencia habitual ~19:55-19:58 UTC) todavía no se había enviado; además hoy es sábado, día en que el envío de SA ha sido inconsistente en el pasado (con envío el 11-Jul pero sin envío en otros sábados) — queda pendiente de verificación retroactiva en la próxima ejecución, sin forzar registro de 'noticias:0'. ACCIÓN REQUERIDA (persiste desde el 04-Jul, ahora 42ª ejecución consecutiva): conceder acceso a la carpeta 'Daily report' o a la raíz INVERSIONES vía request_cowork_directory para eliminar definitivamente la dependencia del fallback Gmail."
+    "nota_ejecucion_2026_07_25": "Carpeta 'Daily report' sigue sin estar accesible en lectura (42ª ejecución consecutiva con esta limitación desde el 04-Jul; solo 'Analysis' está conectada a esta sesión). Se intentó Glob directo sobre la carpeta y sobre la raíz INVERSIONES: ambos devuelven error 'outside this session's connected folders' (a diferencia de ejecuciones anteriores donde Glob sí listaba los nombres de archivo aunque Read los rechazara — en esta ejecución ni siquiera el listado por nombre fue posible). Se mantuvo el fallback Gmail MCP usado en las 41 ejecuciones anteriores. Se procesaron 3 fechas pendientes desde el 21-Jul: TIKR+SA del 22-Jul (11 noticias), SA del 23-Jul (5 noticias) y SA del 24-Jul (5 noticias). Evento relevante: Alphabet (GOOGL) reportó resultados Q2 2026 el 22-Jul tras el cierre (BPA $9,11, ingresos $119.800M, ambos por encima de consenso), generando el mismo patrón de dispersión bull/bear ya documentado en pattern_005 desde mayo — una pieza atribuye el salto de beneficio neto (+298%) a ganancias de valoración de inversiones no operativas, otra defiende el resultado como crecimiento genuino de Cloud/IA. Primera tesis bajista explícita sobre Microsoft registrada como patrón separado (pattern_071), siguiendo el precedente bull/bear ya aplicado a PLTR y META. 5 empresas nuevas en el tracker: DHR, MSCI, FIG, ONDS, SMCI, AAPL (todas confianza baja salvo DHR/MSCI/SMCI, que tienen confianza alta por tratarse de datos duros de guía/márgenes pese a ser primera mención). 2026-07-25 (hoy, fecha de esta ejecución) NO registrado en historial: a las 16:05 UTC (hora de esta ejecución) el newsletter diario de SA (cadencia habitual ~19:55-19:58 UTC) todavía no se había enviado; además hoy es sábado, día en que el envío de SA ha sido inconsistente en el pasado (con envío el 11-Jul pero sin envío en otros sábados) — queda pendiente de verificación retroactiva en la próxima ejecución, sin forzar registro de 'noticias:0'. ACCIÓN REQUERIDA (persiste desde el 04-Jul, ahora 42ª ejecución consecutiva): conceder acceso a la carpeta 'Daily report' o a la raíz INVERSIONES vía request_cowork_directory para eliminar definitivamente la dependencia del fallback Gmail.",
+    "nota_ejecucion_2026_07_29": "Carpeta 'Daily report' / raiz INVERSIONES siguen sin estar montadas/accesibles en esta sesion (solo 'Analysis' conectada; Glob y Read rechazan con 'outside this session's connected folders') -- 48a ejecucion consecutiva con esta limitacion. Gmail MCP usado como fallback (from:newsletter@tikr.com from:account@seekingalpha.com), htmlBody convertido a texto via html2text. Busqueda Gmail after:2026/07/27 -> 3 resultados: SA 27-Jul (ya procesado en historial), TIKR 28-Jul 09:56:44 UTC (nuevo, primera actividad de TIKR desde el 22-Jul) y SA 28-Jul 20:17:09 UTC 'The Market Lost Its Mind, But You Shouldn't' (nuevo). Procesado resumen-diario-2026-07-28 (10 noticias, 5 TIKR + 5 SA, las 10 con senal de mercado): SanDisk (SNDK) -11% por debut de CXMT [pattern_003 +1], Atlassian (TEAM) +10% AI/Jira [pattern_079 nuevo], Legend Biotech (LEGN) -13% CEO exit + downgrade UBS [pattern_080 nuevo], Wayfair (W) +12% pre-earnings [pattern_081 nuevo], Venture Global (VG) -10% toma de beneficios [pattern_082 nuevo], Micron take-or-pay contracts ~$100.000M [pattern_011 +1], Nvidia 'Trade Of The Decade' [pattern_008 +1], SpaceX -50% desde IPO [pattern_025 +1], mercado cerca de correccion / selloff semis [pattern_015 +1], 'This Is Not A Normal Market Rotation' [pattern_029 +1]. Omitidos: feature LVMH (deep-dive tematico sin movimiento de precio del dia, mismo criterio que ACM Research/Fastenal/Datadog) y calendario TIKR 'La Semana que Viene' (forward-looking, earnings de MSFT/META/AAPL/AMZN aun no reportados). 2026-07-29 (hoy, fecha de esta ejecucion) NO registrado en historial: a las 16:50 UTC (hora de esta ejecucion) el newsletter diario de SA (cadencia habitual ~19:55-19:58 UTC) todavia no se habia enviado; queda pendiente de verificacion retroactiva en la proxima ejecucion. ACCION REQUERIDA (persiste desde el 04-Jul, ahora 48a ejecucion consecutiva): conceder acceso a la carpeta 'Daily report' o a la raiz INVERSIONES via request_cowork_directory para eliminar definitivamente la dependencia del fallback Gmail.",
+    "nota_ejecucion_2026_07_30": "Carpeta 'Daily report' / raíz INVERSIONES siguen sin estar montadas/accesibles en esta sesión (solo 'Analysis' conectada; Glob y Read rechazan con 'outside this session's connected folders') -- 49ª ejecución consecutiva con esta limitación desde el 04-Jul. Gmail MCP usado como fallback. Búsqueda after:2026/07/29 -> 1 resultado nuevo: SA 29-Jul 20:17:27 UTC 'Buy The Dip: 3 Top European AI Stocks' (0 TIKR desde el 28-Jul, confirmado). Procesado resumen-diario-2026-07-29 (5 piezas SA, las 5 con señal de mercado): ver detalle en historial. 2026-07-30 (hoy, fecha de esta ejecución) NO registrado en historial: a las 07:26 UTC (hora de esta ejecución) el newsletter diario de SA (cadencia habitual ~19:55-20:17 UTC) todavía no se había enviado; TIKR sin actividad desde el 28-Jul. No se fuerza registro 'noticias:0' -- queda pendiente de verificación retroactiva en la próxima ejecución, mismo criterio aplicado en ejecuciones previas. ACCIÓN REQUERIDA (persiste desde el 04-Jul, ahora 49ª ejecución consecutiva): conceder acceso a la carpeta 'Daily report' o a la raíz INVERSIONES vía request_cowork_directory para eliminar definitivamente la dependencia del fallback Gmail.",
+    "nota_ejecucion_2026_07_31": "Carpeta 'Daily report' / raiz INVERSIONES siguen sin estar montadas/accesibles en esta sesion (solo 'Analysis' conectada) -- 50a ejecucion consecutiva con esta limitacion desde el 04-Jul. Gmail MCP usado como fallback. Se proceso 2026-07-30 (TIKR + SA, 10 noticias con senal, 5 patrones nuevos: MSFT/GRMN/LAD/PSN/MANH, 5 actualizados: pattern_003/005/019/030/042). 2026-07-31 (hoy) NO registrado en historial: newsletter diario aun no enviado a la hora de esta ejecucion. ACCION REQUERIDA (persiste desde el 04-Jul, ahora 50a ejecucion consecutiva): conceder acceso a la carpeta 'Daily report' o a la raiz INVERSIONES via request_cowork_directory para eliminar definitivamente la dependencia del fallback Gmail. Esta sesion programada es no interactiva.",
+    "nota_ejecucion_2026_08_01": "Carpeta 'Daily report' / raiz INVERSIONES siguen sin estar montadas/accesibles en esta sesion (solo 'Analysis' conectada) -- 51a ejecucion consecutiva con esta limitacion desde el 04-Jul. Gmail MCP usado como fallback. Se proceso 2026-07-31 (SA, 5 noticias: REIT rally + 3 piezas sobre AAPL Q3 [beat + selloff, drivers de calidad de beneficio/Siri IA, distinto al patron CapEx de GOOGL/MSFT] + AMZN Q2 [primera mencion, trimestre solido sin friccion de mercado]). 2 patrones nuevos (pattern_089 AAPL, pattern_090 AMZN), 1 actualizado (pattern_014 REITs). 2026-08-01 (hoy) NO registrado en historial: newsletter diario aun no enviado a la hora de esta ejecucion. ACCION REQUERIDA (persiste desde el 04-Jul, ahora 51a ejecucion consecutiva): conceder acceso a la carpeta 'Daily report' o a la raiz INVERSIONES via request_cowork_directory para eliminar definitivamente la dependencia del fallback Gmail."
   },
   "patrones": [
     {
@@ -41,10 +45,10 @@
         "#Energy",
         "#Fed"
       ],
-      "descripcion": "El entorno 'higher-for-longer' de tipos de interés sigue siendo el marco macro dominante en múltiples sesiones. Siete menciones en cuatro días convergen en la misma tesis: inflación persistente, Fed sin recortes inminentes y tensiones geopolíticas benefician a sectores de income (energía, REITs, financieros con yields sostenibles, preferred stocks, baby bonds, FCF alto). La narrativa defensiva está ganando tracción frente a activos de crecimiento puro. El 27-May un artículo 'black swan bonds' matizó que los yields altos no son inherentemente negativos si el driver es crecimiento nominal —refuerza la tesis de renta variable vs renta fija en este entorno. El 31-May un artículo de asset allocation refuerza REITs e income como base de cartera en entorno de disrupción AI. El 06-Jun (procesado 07-Jun), undécima señal: 'The Market Is Misreading The May Jobs Report' —172K empleos en mayo 2026, desempleo 4.3%, media 3 meses 188K. El mercado laboral robusto no admite recortes de tipos inminentes; el artículo argumenta que la reacción del mercado al dato está sobredimensionada. Onceava confirmación del marco higher-for-longer como tesis macro dominante del periodo. El 08-Jun, dos artículos adicionales de dividend income (Mega Dividends con yields hasta 11% y 5 dividend stocks hasta 8%) refuerzan la tesis de rotación defensiva. El 09-Jun, escalación significativa del marco macro: SA publica 'The Stock Market Crash - Still In Early Phase' donde señala que el Fed tiene AHORA previsto SUBIR tipos DOS VECES (no meramente mantener 'higher for longer') después del dato de empleo de mayo —172K, desempleo 4.3%. Complementariamente, 'Prepare For AI Volatility: 3 Dividend Stocks Powering The Grid' identifica utilities/energía del grid eléctrico como refugio ante la volatilidad AI. La escalación del marco de 'sin recortes' a 'posibles subidas' es la señal macro más relevante del periodo y eleva el riesgo para activos de crecimiento con múltiplos elevados. Decimoquinta señal acumulada del patrón. El 14-Jun, nuevo artículo de income defensivo ('Rare Buying Opportunity: Discounted Elite Dividend Machines With Major Macro Tailwinds') refuerza la tesis de rotación hacia dividend machines con macro tailwinds, decimosexta señal acumulada del patrón. El 17-Jun, nuevo artículo de income defensivo ('Win Big With These Dividends No Matter Where The Economy Is Heading') refuerza la tesis de construir 'cash engines' resilientes frente a cualquier escenario económico, citando REITs con valoraciones deprimidas como uno de los componentes. Decimoséptima señal acumulada del patrón. El 18-Jun (procesado 19-Jun), el FOMC de junio mantuvo el fed funds rate en 3.5%-3.75% y retiró el forward guidance de su declaración ('I Was Wrong About Kevin Warsh') —dato duro que confirma el marco 'sin recortes' pero matiza la escalada hacia 'subidas' señalada el 09-Jun, ya que la Fed se mantuvo en pausa en lugar de subir tipos. Un segundo artículo del mismo día (TRGP, OWL) refuerza la rotación hacia dividend stocks de calidad como cash engines defensivos. Decimoctava y decimonovena señales acumuladas del patrón. El 19-Jun, 'Dumping SCHD' señala que el ETF de dividendos de Schwab enfrenta vientos en contra por subida de tipos y preferencia renovada por crecimiento/IA — vigésima señal, matiza la tesis defensiva con un caso bajista específico sobre vehículos pasivos de income. El 21-Jun, 'This Could Be The Most Important Market Shift In Years' reporta que la Fed bajo Kevin Warsh señala menos guidance, comunicación más cerrada y un régimen de tipos higher-for-longer más duradero — refuerza el marco macro dominante. El 22-Jun, un artículo de yields 8-10% sostenibles añade una vigesimosegunda señal de income defensivo. El 23-Jun, 'Top 3 Financial Stocks For A Higher-For-Longer Rate Environment' confirma con dato sectorial que financials rotaron de rezagados a líderes de mercado conforme el mercado asume tipos altos por más tiempo. El 24-Jun, 'AI Volatility Hits Market: Dividend Safety Remains Intact' documenta un episodio de risk-off por Fed hawkish y AI-euphoria-reality-check, con dividendos defensivos manteniéndose estables — vigesimoquinta señal acumulada del patrón. Siete semanas de evidencia consistente consolidan el marco macro 'higher-for-longer + rotación defensiva' como la tendencia transversal más persistente del tracker, aunque con matices puntuales bajistas sobre vehículos pasivos específicos (SCHD). El 26-Jun, tres artículos adicionales de income/yield en el mismo newsletter SA 'Must Reads' refuerzan la tesis: 'I Am Pounding The Table On These Preferred Stocks' (preferred stocks ante un Fed dividido sobre su outlook de tipos), 'PDI: Why The 16% Yield Is Here To Stay' (PIMCO Dynamic Income Fund, CEF de $7.400M con yield del 16%), y '7-12% Yields: 2 Of The Best High-Yield Set-Ups I Have Seen'. Vigesimosexta, vigesimoséptima y vigesimoctava señales acumuladas del patrón, todas del mismo día — la cadencia editorial de income defensivo se mantiene sin pausa. El 30-Jun, SA publica \"2 Dividend Compounders To Generate Income For Life\": tesis de complementariedad de holdings dentro de una cartera de income robusta — vigésimo noveno señal, continúa el tema recurrente de income/dividendos defensivos que domina este patrón. El 01-Jul, SA publica \"Building A $100,000 Dividend Portfolio With SCHD And July's Top High-Yield Picks\": tesis de portfolio de dividendos de $100.000 centrado en SCHD complementado con 10 equities/fondos de alto yield — trigésima señal acumulada del patrón. Contrapunto relevante: el 19-Jun otro artículo había señalado vientos en contra específicos para el ETF SCHD (\"Dumping SCHD\"); la coexistencia de ambas lecturas confirma que el debate sobre vehículos pasivos de income específicos permanece abierto dentro de la tesis defensiva más amplia. Nueva señal (06-Jul): '7-14% Yields: My Top High-Yielding Fund Picks For H2 2026' — continuación de la tesis de income/dividendos defensivos para H2 2026. El 08-Jul, SA publica \"Elite 5-8% Yielding Early Retirement Money Machines\": tesis de \"dividend money machine\" sostenible para jubilacion anticipada, con enfasis en crecimiento de yield por encima de la inflacion en lugar de yield inicial alto -- trigesimo primera senal acumulada del patron. El 11-Jul, tres articulos adicionales del mismo newsletter SA refuerzan la tesis de income defensivo el mismo dia: \"2 Retirement Income Powerhouses For Inflationary Times\" (reposicionamiento hacia productos de income resilientes a la inflacion), \"Multi-Decade High Yields: Why We Are Buying Fixed-Income Debt At A 20-Year Low\" (titulares contradictorios de la Fed mantienen la deuda de tipo fijo cerca de minimos de 20 anos, oportunidad de entrada), y \"7-10% Yields I'm Betting Big On For Early Retirement\" (matiza explicitamente que fondos populares como SCHD ofrecen seguridad pero no el yield mas alto -- continuacion del debate SCHD ya documentado desde el 19-Jun). Trigesimo segunda, trigesimo tercera y trigesimo cuarta senales acumuladas, todas del mismo dia. El 12-Jul, SA publica \"5 Relatively Secure And Cheap Dividend Stocks, Yields Up To 8% (July 2026)\": continúa la serie mensual de artículos de dividend income con enfoque en seguridad y descuento de valoración — trigésimo sexta señal acumulada del patrón. El 13-Jul, dos piezas adicionales del mismo newsletter SA refuerzan la tesis de income defensivo: '2 Mega Yields To Retire In Style And Splendor' (metodo de income para navegar ciclos de mercado buenos y malos) y 'If I Could Only Buy 2 Dividend Growth Stocks Today, They Would Be These' (Ares Management, primera mención de ARES en el tracker, credito privado con yield del 4.5% y crecimiento robusto de fee income pese a volatilidad reciente). Trigésimo séptima y trigésimo octava señales acumuladas del patrón. El 14-Jul, SA publica \"How To Build A $50,000 Dividend Portfolio In Today's Market\": continúa la serie recurrente de construcción de carteras de dividendos (tras el ejemplo de $100.000 del 01-Jul y de $350.000 mencionado el 03-Jul), esta vez centrada en el \"Dividend Income Accelerator Portfolio\" con énfasis en calidad, balances sólidos y valoraciones atractivas -- trigésimo novena señal acumulada del patrón. El 15-Jul, SA publica \"3 Top Financial Sector Stocks To Capture Big Bank Earnings Momentum\": los financials podrian beneficiarse de tipos elevados, crecimiento economico resiliente y mayor actividad de trading -- cuadragesima senal acumulada, continuacion directa de la rotacion sectorial hacia financials ya documentada el 23-Jun. El 16-Jul, SA publica \"A Golden Buy The Dip Opportunity (11-14% Yields)\": nueva oportunidad de income defensivo con yields sostenibles del 11-14% aprovechando preocupaciones de mercado sobreestimadas -- cuadragesimo primera senal acumulada del patron. El 17-Jul, dos piezas adicionales del mismo newsletter SA refuerzan la tesis: \"I Can't Imagine Retiring On Dividends Without These 3 Investments\" (diversificación de income para jubilación) y \"Grossly Undervalued Brookfield BRP Notes: By Far The Highest Yielding BBB- Rated Security\" (nota de deuda investment-grade con yield elevado dentro del ecosistema Brookfield) -- cuadragesimo segunda y cuadragesimo tercera señales acumuladas, ambas del mismo día. El 20-Jul, SA publica \"Establishing A High-Yield Portfolio For Any Economic Condition\": tesis de fondos de renta fija apalancados y gestionados para liquidez y diversificación instantánea across miles de facilidades de crédito institucional -- cuadragesimo cuarta señal acumulada. El 21-Jul, SA publica \"Two 8-12% Target Yield Funds To Buy For Retirement Income\": aborda el problema de divergencia entre yield-on-cost y yield real de cartera para inversores buy-and-hold -- cuadragesimo quinta señal acumulada del patrón, continúa sin pausa la cadencia editorial de income defensivo que domina el tracker. El 26-Jul, SA publica \"I Am Buying +10% Yields At Big Discounts To Boost My Income\": los practicantes del 'Income Method' ven las valoraciones de mercado más bajas como un factor neto positivo, ya que amplifica la generación de caja total vía reinversión automática de dividendos mensuales a precios de descuento -- cuadragesimo sexta señal acumulada del patrón, continúa sin pausa la cadencia editorial de income defensivo.",
+      "descripcion": "El entorno 'higher-for-longer' de tipos de interés sigue siendo el marco macro dominante en múltiples sesiones. Siete menciones en cuatro días convergen en la misma tesis: inflación persistente, Fed sin recortes inminentes y tensiones geopolíticas benefician a sectores de income (energía, REITs, financieros con yields sostenibles, preferred stocks, baby bonds, FCF alto). La narrativa defensiva está ganando tracción frente a activos de crecimiento puro. El 27-May un artículo 'black swan bonds' matizó que los yields altos no son inherentemente negativos si el driver es crecimiento nominal —refuerza la tesis de renta variable vs renta fija en este entorno. El 31-May un artículo de asset allocation refuerza REITs e income como base de cartera en entorno de disrupción AI. El 06-Jun (procesado 07-Jun), undécima señal: 'The Market Is Misreading The May Jobs Report' —172K empleos en mayo 2026, desempleo 4.3%, media 3 meses 188K. El mercado laboral robusto no admite recortes de tipos inminentes; el artículo argumenta que la reacción del mercado al dato está sobredimensionada. Onceava confirmación del marco higher-for-longer como tesis macro dominante del periodo. El 08-Jun, dos artículos adicionales de dividend income (Mega Dividends con yields hasta 11% y 5 dividend stocks hasta 8%) refuerzan la tesis de rotación defensiva. El 09-Jun, escalación significativa del marco macro: SA publica 'The Stock Market Crash - Still In Early Phase' donde señala que el Fed tiene AHORA previsto SUBIR tipos DOS VECES (no meramente mantener 'higher for longer') después del dato de empleo de mayo —172K, desempleo 4.3%. Complementariamente, 'Prepare For AI Volatility: 3 Dividend Stocks Powering The Grid' identifica utilities/energía del grid eléctrico como refugio ante la volatilidad AI. La escalación del marco de 'sin recortes' a 'posibles subidas' es la señal macro más relevante del periodo y eleva el riesgo para activos de crecimiento con múltiplos elevados. Decimoquinta señal acumulada del patrón. El 14-Jun, nuevo artículo de income defensivo ('Rare Buying Opportunity: Discounted Elite Dividend Machines With Major Macro Tailwinds') refuerza la tesis de rotación hacia dividend machines con macro tailwinds, decimosexta señal acumulada del patrón. El 17-Jun, nuevo artículo de income defensivo ('Win Big With These Dividends No Matter Where The Economy Is Heading') refuerza la tesis de construir 'cash engines' resilientes frente a cualquier escenario económico, citando REITs con valoraciones deprimidas como uno de los componentes. Decimoséptima señal acumulada del patrón. El 18-Jun (procesado 19-Jun), el FOMC de junio mantuvo el fed funds rate en 3.5%-3.75% y retiró el forward guidance de su declaración ('I Was Wrong About Kevin Warsh') —dato duro que confirma el marco 'sin recortes' pero matiza la escalada hacia 'subidas' señalada el 09-Jun, ya que la Fed se mantuvo en pausa en lugar de subir tipos. Un segundo artículo del mismo día (TRGP, OWL) refuerza la rotación hacia dividend stocks de calidad como cash engines defensivos. Decimoctava y decimonovena señales acumuladas del patrón. El 19-Jun, 'Dumping SCHD' señala que el ETF de dividendos de Schwab enfrenta vientos en contra por subida de tipos y preferencia renovada por crecimiento/IA — vigésima señal, matiza la tesis defensiva con un caso bajista específico sobre vehículos pasivos de income. El 21-Jun, 'This Could Be The Most Important Market Shift In Years' reporta que la Fed bajo Kevin Warsh señala menos guidance, comunicación más cerrada y un régimen de tipos higher-for-longer más duradero — refuerza el marco macro dominante. El 22-Jun, un artículo de yields 8-10% sostenibles añade una vigesimosegunda señal de income defensivo. El 23-Jun, 'Top 3 Financial Stocks For A Higher-For-Longer Rate Environment' confirma con dato sectorial que financials rotaron de rezagados a líderes de mercado conforme el mercado asume tipos altos por más tiempo. El 24-Jun, 'AI Volatility Hits Market: Dividend Safety Remains Intact' documenta un episodio de risk-off por Fed hawkish y AI-euphoria-reality-check, con dividendos defensivos manteniéndose estables — vigesimoquinta señal acumulada del patrón. Siete semanas de evidencia consistente consolidan el marco macro 'higher-for-longer + rotación defensiva' como la tendencia transversal más persistente del tracker, aunque con matices puntuales bajistas sobre vehículos pasivos específicos (SCHD). El 26-Jun, tres artículos adicionales de income/yield en el mismo newsletter SA 'Must Reads' refuerzan la tesis: 'I Am Pounding The Table On These Preferred Stocks' (preferred stocks ante un Fed dividido sobre su outlook de tipos), 'PDI: Why The 16% Yield Is Here To Stay' (PIMCO Dynamic Income Fund, CEF de $7.400M con yield del 16%), y '7-12% Yields: 2 Of The Best High-Yield Set-Ups I Have Seen'. Vigesimosexta, vigesimoséptima y vigesimoctava señales acumuladas del patrón, todas del mismo día — la cadencia editorial de income defensivo se mantiene sin pausa. El 30-Jun, SA publica \"2 Dividend Compounders To Generate Income For Life\": tesis de complementariedad de holdings dentro de una cartera de income robusta — vigésimo noveno señal, continúa el tema recurrente de income/dividendos defensivos que domina este patrón. El 01-Jul, SA publica \"Building A $100,000 Dividend Portfolio With SCHD And July's Top High-Yield Picks\": tesis de portfolio de dividendos de $100.000 centrado en SCHD complementado con 10 equities/fondos de alto yield — trigésima señal acumulada del patrón. Contrapunto relevante: el 19-Jun otro artículo había señalado vientos en contra específicos para el ETF SCHD (\"Dumping SCHD\"); la coexistencia de ambas lecturas confirma que el debate sobre vehículos pasivos de income específicos permanece abierto dentro de la tesis defensiva más amplia. Nueva señal (06-Jul): '7-14% Yields: My Top High-Yielding Fund Picks For H2 2026' — continuación de la tesis de income/dividendos defensivos para H2 2026. El 08-Jul, SA publica \"Elite 5-8% Yielding Early Retirement Money Machines\": tesis de \"dividend money machine\" sostenible para jubilacion anticipada, con enfasis en crecimiento de yield por encima de la inflacion en lugar de yield inicial alto -- trigesimo primera senal acumulada del patron. El 11-Jul, tres articulos adicionales del mismo newsletter SA refuerzan la tesis de income defensivo el mismo dia: \"2 Retirement Income Powerhouses For Inflationary Times\" (reposicionamiento hacia productos de income resilientes a la inflacion), \"Multi-Decade High Yields: Why We Are Buying Fixed-Income Debt At A 20-Year Low\" (titulares contradictorios de la Fed mantienen la deuda de tipo fijo cerca de minimos de 20 anos, oportunidad de entrada), y \"7-10% Yields I'm Betting Big On For Early Retirement\" (matiza explicitamente que fondos populares como SCHD ofrecen seguridad pero no el yield mas alto -- continuacion del debate SCHD ya documentado desde el 19-Jun). Trigesimo segunda, trigesimo tercera y trigesimo cuarta senales acumuladas, todas del mismo dia. El 12-Jul, SA publica \"5 Relatively Secure And Cheap Dividend Stocks, Yields Up To 8% (July 2026)\": continúa la serie mensual de artículos de dividend income con enfoque en seguridad y descuento de valoración — trigésimo sexta señal acumulada del patrón. El 13-Jul, dos piezas adicionales del mismo newsletter SA refuerzan la tesis de income defensivo: '2 Mega Yields To Retire In Style And Splendor' (metodo de income para navegar ciclos de mercado buenos y malos) y 'If I Could Only Buy 2 Dividend Growth Stocks Today, They Would Be These' (Ares Management, primera mención de ARES en el tracker, credito privado con yield del 4.5% y crecimiento robusto de fee income pese a volatilidad reciente). Trigésimo séptima y trigésimo octava señales acumuladas del patrón. El 14-Jul, SA publica \"How To Build A $50,000 Dividend Portfolio In Today's Market\": continúa la serie recurrente de construcción de carteras de dividendos (tras el ejemplo de $100.000 del 01-Jul y de $350.000 mencionado el 03-Jul), esta vez centrada en el \"Dividend Income Accelerator Portfolio\" con énfasis en calidad, balances sólidos y valoraciones atractivas -- trigésimo novena señal acumulada del patrón. El 15-Jul, SA publica \"3 Top Financial Sector Stocks To Capture Big Bank Earnings Momentum\": los financials podrian beneficiarse de tipos elevados, crecimiento economico resiliente y mayor actividad de trading -- cuadragesima senal acumulada, continuacion directa de la rotacion sectorial hacia financials ya documentada el 23-Jun. El 16-Jul, SA publica \"A Golden Buy The Dip Opportunity (11-14% Yields)\": nueva oportunidad de income defensivo con yields sostenibles del 11-14% aprovechando preocupaciones de mercado sobreestimadas -- cuadragesimo primera senal acumulada del patron. El 17-Jul, dos piezas adicionales del mismo newsletter SA refuerzan la tesis: \"I Can't Imagine Retiring On Dividends Without These 3 Investments\" (diversificación de income para jubilación) y \"Grossly Undervalued Brookfield BRP Notes: By Far The Highest Yielding BBB- Rated Security\" (nota de deuda investment-grade con yield elevado dentro del ecosistema Brookfield) -- cuadragesimo segunda y cuadragesimo tercera señales acumuladas, ambas del mismo día. El 20-Jul, SA publica \"Establishing A High-Yield Portfolio For Any Economic Condition\": tesis de fondos de renta fija apalancados y gestionados para liquidez y diversificación instantánea across miles de facilidades de crédito institucional -- cuadragesimo cuarta señal acumulada. El 21-Jul, SA publica \"Two 8-12% Target Yield Funds To Buy For Retirement Income\": aborda el problema de divergencia entre yield-on-cost y yield real de cartera para inversores buy-and-hold -- cuadragesimo quinta señal acumulada del patrón, continúa sin pausa la cadencia editorial de income defensivo que domina el tracker. El 26-Jul, SA publica \"I Am Buying +10% Yields At Big Discounts To Boost My Income\": los practicantes del 'Income Method' ven las valoraciones de mercado más bajas como un factor neto positivo, ya que amplifica la generación de caja total vía reinversión automática de dividendos mensuales a precios de descuento -- cuadragesimo sexta señal acumulada del patrón, continúa sin pausa la cadencia editorial de income defensivo. El 29-Jul, SA publica \"Top Oil Stocks In A Volatile Market With Over 45% Forward EPS Growth\": el sector energético (XLE) es el mejor performer de 2026 hasta la fecha, superando a tecnología (XLK) y su boom de capex IA, con crecimiento de BPA forward superior al 45% en varios nombres -- cuadragésimo séptima señal acumulada del patrón, confirma con datos de rendimiento sectorial la rotación hacia energía dentro de la tesis defensiva de income. El 02-Ago, SA publica \"10 Funds For Potential $6,000 Monthly Income: Retirement Series\": continúa la serie recurrente de construcción de ingresos pasivos vía fondos para inversores en retiro -- cuadragésimo octava señal acumulada del patrón.",
       "confianza": "alta",
       "tendencia": "neutral",
-      "frecuencia": 48,
+      "frecuencia": 50,
       "fechas": [
         "2026-05-24",
         "2026-05-25",
@@ -80,7 +84,9 @@
         "2026-07-20",
         "2026-07-21",
         "2026-07-23",
-        "2026-07-26"
+        "2026-07-26",
+        "2026-07-29",
+        "2026-08-02"
       ],
       "grafico": {
         "tipo": "bar",
@@ -226,6 +232,14 @@
           {
             "date": "2026-07-26",
             "value": 0.5
+          },
+          {
+            "date": "2026-07-29",
+            "value": 1
+          },
+          {
+            "date": "2026-08-02",
+            "value": 1
           }
         ]
       }
@@ -271,10 +285,10 @@
         "#Semis",
         "#Tech"
       ],
-      "descripcion": "La tesis de 'cuello de botella de IA' se extiende a toda la cadena de memoria y almacenamiento. Originalmente fundamentada en MU (HBM/CXL, May-24) y RKLB (sat-comms AI, May-29), se amplía con Sandisk (NAND AI supercycle, Jun-10): mercado 'completamente equivocado' sobre la demanda estructural de NAND para inferencia AI. Cuatro puntos de datos convergentes refuerzan que la demanda de memoria/almacenamiento para AI es multi-segmento y estructural, no un one-off de HBM. El 16-Jun (TIKR), quinto punto de datos: Western Digital (WDC) +16% mientras JPMorgan, Mizuho y Citi elevan precios objetivo hasta $685 por el boom de almacenamiento para IA, citando mayor poder de fijación de precios y crecimiento >30% en discos de alta capacidad para centros de datos. La acción se ha más que triplicado en 2026 — confirmación adicional de que la narrativa de cuello de botella de IA pasó de ser una historia de chips a una historia de almacenamiento y datos. El 21-Jun, 'Micron's $1,700 Setup Emerges' documenta que MU se ha revalorizado más del 50% desde la última cobertura y superó el objetivo de $1.000 con fuerte momentum técnico, consenso esperando ~$35.000M de ingresos — sexta confirmación de la narrativa de cuello de botella de IA centrada en memoria/almacenamiento. El 01-Jul, SA publica \"Sandisk: Micron Confirmed The Memory Supercycle\": SNDK se posiciona como beneficiario directo del crecimiento de inferencia AI, con SSDs empresariales cada vez más críticos para cargas de trabajo de almacenamiento a gran escala — séptima confirmación de la narrativa de cuello de botella de IA extendida a memoria/almacenamiento, en línea con los hitos previos de WDC (16-Jun) y MU (21-Jun). El 03-Jul, SA publica \"DRAM: Hitting The Bargain Bin\": tesis de exposición diversificada al supercycle de memoria vía el Roundhill Memory ETF, señalando explícitamente el riesgo de concentración en fabricantes coreanos (SK Hynix, Samsung) como matiz nuevo dentro de la narrativa estructural de cuello de botella de IA — octava confirmación del patrón, primera en formular la tesis a nivel de vehículo diversificado (ETF) en lugar de una acción individual. El 08-Jul, SA publica \"Sandisk: I'm Catching The Falling Knife; Here's How\": tras un selloff marcado, el autor lo interpreta como oportunidad de compra dado el fuerte tailwind de NAND/HBM para IA y restriccion de oferta de memoria -- novena confirmacion de la narrativa de cuello de botella de memoria/almacenamiento, matizada por primera vez con un angulo de volatilidad de precio (dip-buying tras caida) en lugar de momentum alcista continuo. El 20-Jul, SA publica \"Sandisk: The Math Supporting A Rare Opportunity\": upgrade a Strong Buy de largo plazo argumentando que el modelo de negocio de SNDK está pasando de commodity cíclico a infraestructura AI de alto margen basada en contratos — décima confirmación de la narrativa, primera en formular explícitamente el cambio de modelo de negocio (de cíclico a contractual) como tesis central en lugar de únicamente demanda estructural.",
+      "descripcion": "La tesis de 'cuello de botella de IA' se extiende a toda la cadena de memoria y almacenamiento. Originalmente fundamentada en MU (HBM/CXL, May-24) y RKLB (sat-comms AI, May-29), se amplía con Sandisk (NAND AI supercycle, Jun-10): mercado 'completamente equivocado' sobre la demanda estructural de NAND para inferencia AI. Cuatro puntos de datos convergentes refuerzan que la demanda de memoria/almacenamiento para AI es multi-segmento y estructural, no un one-off de HBM. El 16-Jun (TIKR), quinto punto de datos: Western Digital (WDC) +16% mientras JPMorgan, Mizuho y Citi elevan precios objetivo hasta $685 por el boom de almacenamiento para IA, citando mayor poder de fijación de precios y crecimiento >30% en discos de alta capacidad para centros de datos. La acción se ha más que triplicado en 2026 — confirmación adicional de que la narrativa de cuello de botella de IA pasó de ser una historia de chips a una historia de almacenamiento y datos. El 21-Jun, 'Micron's $1,700 Setup Emerges' documenta que MU se ha revalorizado más del 50% desde la última cobertura y superó el objetivo de $1.000 con fuerte momentum técnico, consenso esperando ~$35.000M de ingresos — sexta confirmación de la narrativa de cuello de botella de IA centrada en memoria/almacenamiento. El 01-Jul, SA publica \"Sandisk: Micron Confirmed The Memory Supercycle\": SNDK se posiciona como beneficiario directo del crecimiento de inferencia AI, con SSDs empresariales cada vez más críticos para cargas de trabajo de almacenamiento a gran escala — séptima confirmación de la narrativa de cuello de botella de IA extendida a memoria/almacenamiento, en línea con los hitos previos de WDC (16-Jun) y MU (21-Jun). El 03-Jul, SA publica \"DRAM: Hitting The Bargain Bin\": tesis de exposición diversificada al supercycle de memoria vía el Roundhill Memory ETF, señalando explícitamente el riesgo de concentración en fabricantes coreanos (SK Hynix, Samsung) como matiz nuevo dentro de la narrativa estructural de cuello de botella de IA — octava confirmación del patrón, primera en formular la tesis a nivel de vehículo diversificado (ETF) en lugar de una acción individual. El 08-Jul, SA publica \"Sandisk: I'm Catching The Falling Knife; Here's How\": tras un selloff marcado, el autor lo interpreta como oportunidad de compra dado el fuerte tailwind de NAND/HBM para IA y restriccion de oferta de memoria -- novena confirmacion de la narrativa de cuello de botella de memoria/almacenamiento, matizada por primera vez con un angulo de volatilidad de precio (dip-buying tras caida) en lugar de momentum alcista continuo. El 20-Jul, SA publica \"Sandisk: The Math Supporting A Rare Opportunity\": upgrade a Strong Buy de largo plazo argumentando que el modelo de negocio de SNDK está pasando de commodity cíclico a infraestructura AI de alto margen basada en contratos — décima confirmación de la narrativa, primera en formular explícitamente el cambio de modelo de negocio (de cíclico a contractual) como tesis central en lugar de únicamente demanda estructural. El 28-Jul, SanDisk (SNDK) cayó ~11% tras el debut en Shanghái de la china CXMT (+466%, valoración ~$487.000M), que arrastró a la baja a Micron y otros valores de memoria -- primera señal de riesgo competitivo chino concreto dentro de la narrativa estructural alcista de escasez de memoria/AI storage que domina este patrón desde junio. El 29-Jul, SA publica \"Buy The Dip: 3 Top European AI Stocks\": el mismo episodio de selloff de semiconductores desatado por el debut de CXMT (documentado el 28-Jul) se enmarca ahora como oportunidad de compra en nombres europeos de IA, apoyándose en precedentes históricos de pullbacks similares -- undécima señal del patrón, primer contrapunto explícitamente alcista (dip-buying) sobre el mismo catalizador chino que había introducido el primer matiz bajista un día antes. El 30-Jul, SA publica \"Why KOSPI And The Semiconductor Sector Is Crashing\": SK hynix y el sector global de memoria sufren volatilidad extrema, con la caida de precio atribuida a un cambio en la percepcion de los inversores sobre la calidad del capex de los hyperscalers -- duodecima senal del patron, segunda confirmacion consecutiva (tras el 28/29-Jul) de que el episodio de venta masiva en memoria/semis desatado por el debut de CXMT no se ha resuelto, con el foco ahora puesto especificamente en la calidad del gasto de capital de los hyperscalers en lugar de solo en la competencia china.",
       "confianza": "alta",
       "tendencia": "alcista",
-      "frecuencia": 10,
+      "frecuencia": 13,
       "fechas": [
         "2026-05-24",
         "2026-05-29",
@@ -284,7 +298,10 @@
         "2026-07-01",
         "2026-07-03",
         "2026-07-08",
-        "2026-07-20"
+        "2026-07-20",
+        "2026-07-28",
+        "2026-07-29",
+        "2026-07-30"
       ],
       "grafico": {
         "tipo": "bar",
@@ -326,6 +343,18 @@
           {
             "date": "2026-07-20",
             "value": 0.75
+          },
+          {
+            "date": "2026-07-28",
+            "value": -0.3
+          },
+          {
+            "date": "2026-07-29",
+            "value": 0.4
+          },
+          {
+            "date": "2026-07-30",
+            "value": -0.5
           }
         ]
       }
@@ -338,13 +367,14 @@
         "#RevenueBeats",
         "#Tech"
       ],
-      "descripcion": "Rocket Lab Q1 2026: ingresos $200.3M (+63.5% YoY), primer trimestre por encima de $200M en su historia. Backlog duplicado a $2.2B; DoD adjudica pedido de $190M por 20 vuelos hipersónicos HASTE. Guidance Q2: $225–$240M. El mercado respondió con +34% en el día, superando $100/acción por primera vez. Dato duro confirmado: este es un hito de inflexión real en la escala operativa de la compañía, no solo narrativa. Actualización 07-Jul: 'Rocket Lab Is Betting Everything On A Rocket That Hasn't Flown' — Strong Buy mantenido tras anunciar adquisición de Iridium Communications por $8.000M, que aumenta tanto el upside (escala, verticalización) como el riesgo (integración, vehículo de lanzamiento aún no probado). Confianza sube de baja a media por regla de ≥2 señales; se mantiene tendencia alcista porque la cobertura mantiene rating de compra pese al riesgo señalado.",
-      "confianza": "media",
+      "descripcion": "Rocket Lab Q1 2026: ingresos $200.3M (+63.5% YoY), primer trimestre por encima de $200M en su historia. Backlog duplicado a $2.2B; DoD adjudica pedido de $190M por 20 vuelos hipersónicos HASTE. Guidance Q2: $225–$240M. El mercado respondió con +34% en el día, superando $100/acción por primera vez. Dato duro confirmado: este es un hito de inflexión real en la escala operativa de la compañía, no solo narrativa. Actualización 07-Jul: 'Rocket Lab Is Betting Everything On A Rocket That Hasn't Flown' — Strong Buy mantenido tras anunciar adquisición de Iridium Communications por $8.000M, que aumenta tanto el upside (escala, verticalización) como el riesgo (integración, vehículo de lanzamiento aún no probado). Confianza sube de baja a media por regla de ≥2 señales; se mantiene tendencia alcista porque la cobertura mantiene rating de compra pese al riesgo señalado. Actualización 01-Ago (SA, 'Rocket Lab: A New Growth Engine Changes Everything'): la acción ha caído más de un 40% desde máximos, pero la adquisición propuesta de Iridium y la expansión del negocio de defensa refuerzan el outlook de largo plazo — tercera señal acumulada, confianza sube de media a alta.",
+      "confianza": "alta",
       "tendencia": "alcista",
-      "frecuencia": 2,
+      "frecuencia": 3,
       "fechas": [
         "2026-05-24",
-        "2026-07-07"
+        "2026-07-07",
+        "2026-08-01"
       ],
       "grafico": {
         "tipo": "line",
@@ -358,6 +388,10 @@
           {
             "date": "2026-07-07",
             "value": 0.4
+          },
+          {
+            "date": "2026-08-01",
+            "value": 0.5
           }
         ]
       }
@@ -373,10 +407,10 @@
         "#DebtConcern",
         "#Tech"
       ],
-      "descripcion": "Alphabet concentró dos análisis diametralmente opuestos el 25-May (SELL $172.85 vs STRONG BUY $574), con la dispersión de consenso siendo el dato más relevante en sí mismo. El 28-May el artículo 'outperformance ya capturada' rebajó el rating implícito a Hold, sugiriendo que el mercado empieza a discriminar dentro del Mag7 y la oportunidad de outperformance se ha trasladado a otro nombre. La secuencia coherente a lo largo de cuatro días: primero debate polarizado, luego downgrade silencioso —patrón consistente con techo de corto plazo para GOOGL. El 03-Jun, el evento central del periodo: GOOGL anuncia emisión de $80B en acciones (primera desde 2010) para financiar un CapEx de $190B en 2026 —casi el doble del ejercicio anterior. La señal más relevante: Berkshire Hathaway invierte $10B en GOOGL, primer movimiento de Greg Abel como CEO, validando la tesis de asignación de capital. La dilución es real pero el aval de Berkshire cambia el marco narrativo de 'gasto irresponsable' a 'inversión con credibilidad institucional'. Confianza upgrade a alta: evento de primera magnitud con implicaciones estructurales para toda la cadena de infraestructura AI. El 04-Jun, artículo adicional 'Why Alphabet's $85B Stock Sale Is A Game Changer' (SA) reafirma la lectura positiva: el tamaño de la emisión ($85B, primer equity raise desde 2010) y el respaldo de Berkshire ($10B) como señal de calidad del capital asignado al CapEx AI de $190B. Cuarta fecha de seguimiento para GOOGL, narrativa consolidada en torno al giro de 'gasto agresivo' a 'inversión institucional'. El 14-Jun, SA publica 'Alphabet: Buckle Up For What's Coming': Q1 revenue +21.8% YoY y backlog de cloud de $460B respaldando el plan de CapEx AI agresivo. Quinta fecha de seguimiento, dato duro adicional que refuerza la lectura institucional positiva sobre la asignación de capital de GOOGL. El 20-Jun, 'Alphabet: Why I Am Diluting My Largest Position (Rating Downgrade)' rebaja la calificación señalando que la transición agresiva de un modelo asset-light a uno asset-heavy de infraestructura presiona el free cash flow a corto-medio plazo — sexta señal, esta vez bajista. El 23-Jun, sólo tres días después, 'Alphabet: Getting Ready To Eat Nvidia's Market Share (Rating Upgrade)' revierte el signo: la narrativa de crecimiento impulsado por IA recupera tracción con potencial de ganar cuota a costa de NVDA — séptima señal, alcista. El patrón documenta así su segundo ciclo completo de downgrade-upgrade en menos de tres semanas, reforzando la clasificación de tendencia 'neutral' (lectura institucional genuinamente dividida, no resuelta) ya establecida. El 29-Jun, SA publica \"Alphabet: The Path To $576/Share\": tesis alcista que destaca la duplicación agresiva del CapEx a $180.000-190.000M para expansión de AI/cloud, con Google Cloud manteniendo momentum pese al escepticismo de mercado — octava señal, continúa el patrón de ciclos bull/bear ya documentado (revierte hacia el lado alcista tras el downgrade del 20-Jun), reforzando la clasificación de tendencia 'neutral' por lectura institucional genuinamente dividida. El 22-Jul, previa a resultados Q2 (dos piezas: cobertura de infraestructura AI beneficiaria del gasto de GOOGL y preview de métricas clave FCF/CapEx). El 23-Jul, tras el reporte, 'Alphabet Q2: We Are All Being Fooled (Rating Downgrade)' atribuye el salto de BPA (+298% en beneficio neto) a ganancias de valoración de inversiones no operativas (~$99.000M) más que a crecimiento del negocio core, y rebaja el rating pese al beat headline. El 24-Jul, 'Alphabet: Don't Be Fooled By The CapEx Panic' defiende el resultado real (BPA $9,11, ingresos $119.800M, ambos por encima de consenso) impulsado por Cloud y demanda de IA genuina. Novena y décima señal del patrón: el ciclo bull/bear se repite ahora con datos reales de Q2 en mano en vez de proyecciones, reforzando la clasificación de tendencia 'neutral' por dispersión de consenso genuinamente no resuelta.",
+      "descripcion": "Alphabet concentró dos análisis diametralmente opuestos el 25-May (SELL $172.85 vs STRONG BUY $574), con la dispersión de consenso siendo el dato más relevante en sí mismo. El 28-May el artículo 'outperformance ya capturada' rebajó el rating implícito a Hold, sugiriendo que el mercado empieza a discriminar dentro del Mag7 y la oportunidad de outperformance se ha trasladado a otro nombre. La secuencia coherente a lo largo de cuatro días: primero debate polarizado, luego downgrade silencioso —patrón consistente con techo de corto plazo para GOOGL. El 03-Jun, el evento central del periodo: GOOGL anuncia emisión de $80B en acciones (primera desde 2010) para financiar un CapEx de $190B en 2026 —casi el doble del ejercicio anterior. La señal más relevante: Berkshire Hathaway invierte $10B en GOOGL, primer movimiento de Greg Abel como CEO, validando la tesis de asignación de capital. La dilución es real pero el aval de Berkshire cambia el marco narrativo de 'gasto irresponsable' a 'inversión con credibilidad institucional'. Confianza upgrade a alta: evento de primera magnitud con implicaciones estructurales para toda la cadena de infraestructura AI. El 04-Jun, artículo adicional 'Why Alphabet's $85B Stock Sale Is A Game Changer' (SA) reafirma la lectura positiva: el tamaño de la emisión ($85B, primer equity raise desde 2010) y el respaldo de Berkshire ($10B) como señal de calidad del capital asignado al CapEx AI de $190B. Cuarta fecha de seguimiento para GOOGL, narrativa consolidada en torno al giro de 'gasto agresivo' a 'inversión institucional'. El 14-Jun, SA publica 'Alphabet: Buckle Up For What's Coming': Q1 revenue +21.8% YoY y backlog de cloud de $460B respaldando el plan de CapEx AI agresivo. Quinta fecha de seguimiento, dato duro adicional que refuerza la lectura institucional positiva sobre la asignación de capital de GOOGL. El 20-Jun, 'Alphabet: Why I Am Diluting My Largest Position (Rating Downgrade)' rebaja la calificación señalando que la transición agresiva de un modelo asset-light a uno asset-heavy de infraestructura presiona el free cash flow a corto-medio plazo — sexta señal, esta vez bajista. El 23-Jun, sólo tres días después, 'Alphabet: Getting Ready To Eat Nvidia's Market Share (Rating Upgrade)' revierte el signo: la narrativa de crecimiento impulsado por IA recupera tracción con potencial de ganar cuota a costa de NVDA — séptima señal, alcista. El patrón documenta así su segundo ciclo completo de downgrade-upgrade en menos de tres semanas, reforzando la clasificación de tendencia 'neutral' (lectura institucional genuinamente dividida, no resuelta) ya establecida. El 29-Jun, SA publica \"Alphabet: The Path To $576/Share\": tesis alcista que destaca la duplicación agresiva del CapEx a $180.000-190.000M para expansión de AI/cloud, con Google Cloud manteniendo momentum pese al escepticismo de mercado — octava señal, continúa el patrón de ciclos bull/bear ya documentado (revierte hacia el lado alcista tras el downgrade del 20-Jun), reforzando la clasificación de tendencia 'neutral' por lectura institucional genuinamente dividida. El 22-Jul, previa a resultados Q2 (dos piezas: cobertura de infraestructura AI beneficiaria del gasto de GOOGL y preview de métricas clave FCF/CapEx). El 23-Jul, tras el reporte, 'Alphabet Q2: We Are All Being Fooled (Rating Downgrade)' atribuye el salto de BPA (+298% en beneficio neto) a ganancias de valoración de inversiones no operativas (~$99.000M) más que a crecimiento del negocio core, y rebaja el rating pese al beat headline. El 24-Jul, 'Alphabet: Don't Be Fooled By The CapEx Panic' defiende el resultado real (BPA $9,11, ingresos $119.800M, ambos por encima de consenso) impulsado por Cloud y demanda de IA genuina. Novena y décima señal del patrón: el ciclo bull/bear se repite ahora con datos reales de Q2 en mano en vez de proyecciones, reforzando la clasificación de tendencia 'neutral' por dispersión de consenso genuinamente no resuelta. El 30-Jul, SA publica \"Alphabet Stock: Selloff Misses Bigger Story\": tesis alcista contraria al escepticismo inversor tras el Q2, argumentando que el FCF negativo y el guidance de CapEx elevado eclipsan unos resultados operativos robustos -- decimocuarta senal del patron, tercer ciclo de dispersion bull/bear ahora centrado en si el mercado esta sobre-penalizando el CapEx frente a la fortaleza operativa subyacente. Actualización 01-Ago (SA, 'Alphabet: Free Cash Flow Collapse Changes Everything'): continúa el foco bajista en la compresión de FCF pese al crecimiento operativo, mismo patrón beat-pero-FCF-comprimido documentado desde mayo.",
       "confianza": "alta",
       "tendencia": "neutral",
-      "frecuencia": 13,
+      "frecuencia": 15,
       "fechas": [
         "2026-05-25",
         "2026-05-28",
@@ -388,7 +422,9 @@
         "2026-06-29",
         "2026-07-22",
         "2026-07-23",
-        "2026-07-24"
+        "2026-07-24",
+        "2026-07-30",
+        "2026-08-01"
       ],
       "grafico": {
         "tipo": "line",
@@ -438,6 +474,14 @@
           {
             "date": "2026-07-24",
             "value": 0.6
+          },
+          {
+            "date": "2026-07-30",
+            "value": 0.3
+          },
+          {
+            "date": "2026-08-01",
+            "value": -0.5
           }
         ]
       }
@@ -518,10 +562,10 @@
         "#Tech",
         "#DefensivePlay"
       ],
-      "descripcion": "Nvidia está ejecutando un reposicionamiento narrativo multidimensional desde 'vendedor de GPUs' hacia 'plataforma de AI'. El 27-May, reestructuración de reporting con sub-segmentos dentro de Data Center (analogía Apple 2018: si el mercado acepta el nuevo marco, el múltiplo puede re-ratear). El 31-May, segunda capa narrativa: Physical AI (robótica, sistemas autónomos) como siguiente wave de crecimiento más allá de data centers —'Data Centers Made It Great, Physical AI Could Make It Generational'. El 03-Jun, tercera capa: RTX Spark, primer chip Arm para PC, desarrollado con Microsoft y MediaTek —entrada en el mercado de computación personal AI y amenaza directa a Intel (INTC -5% el mismo día). La narrativa de expansión de TAM acumula tres hitos en tres semanas: Data Center → Physical AI → PC. Confianza media: la narrativa se consolida como intención estratégica, pero la ejecución en PC es nueva y sin datos de ventas. El 22-Jun, '3 Stocks To Play The AI And Data Center Boom' reitera a NVIDIA junto con ASML y TSMC como infraestructura de IA core — cuarta señal, consistente con las tres anteriores. Con 4 lecturas todas en la misma dirección, se actualiza la confianza de media a alta. El 26-Jun, SA publica 'Nvidia: The Next Dividend Aristocrat?': tras un incremento del 2.400% en su payout de dividendos, la tesis plantea que NVDA está empezando a replicar el ciclo de vida de gigantes tecnológicos heredados que evolucionaron de crecimiento volátil a pagadores de dividendo estables. Quinta capa narrativa (tras Data Center, Physical AI, PC/RTX Spark y la agrupación NVDA+ASML+TSMC): de 'plataforma de AI' a 'compounder maduro con retorno de capital'. Confianza se mantiene alta con cinco lecturas consistentes en la dirección de expansión/maduración narrativa. El 27-Jun, SA publica 'Nvidia To Become The Second-Largest U.S. Dividend Payer': el mismo incremento del 2.400% en el payout (ya señalado el 26-Jun) se reformula con el dato de que NVDA pasaría a ser el segundo mayor pagador de dividendos de EE.UU. en términos absolutos. Sexta señal narrativa, segunda confirmación consecutiva en dos días distintos del giro hacia 'compounder maduro con retorno de capital'. El 03-Jul, SA publica \"Nvidia: Won't Be This Insanely Cheap For Too Long\": nueva capa narrativa centrada en valoración —el autor argumenta que NVDA sigue \"insanamente barata\" pese al rally, sustentada por un moat de co-diseño hardware-software y un ecosistema de desarrolladores profundamente arraigado. Séptima señal narrativa, primera en enmarcar explícitamente la tesis como una oportunidad de valoración (en lugar de expansión de TAM o retorno de capital), consistente con la dirección alcista ya establecida del patrón. El 16-Jul, SA publica \"Nvidia: Jensen Huang Just Blessed His Own Shares\": el CEO refuto directamente rumores recientes de retrasos de produccion en Vera Rubin y Kyber, reafirmando el liderazgo de NVDA como plataforma de IA dominante. Octava senal narrativa, primera en responder explicitamente a rumores de ejecucion/produccion en lugar de expansion de TAM o valoracion.",
+      "descripcion": "Nvidia está ejecutando un reposicionamiento narrativo multidimensional desde 'vendedor de GPUs' hacia 'plataforma de AI'. El 27-May, reestructuración de reporting con sub-segmentos dentro de Data Center (analogía Apple 2018: si el mercado acepta el nuevo marco, el múltiplo puede re-ratear). El 31-May, segunda capa narrativa: Physical AI (robótica, sistemas autónomos) como siguiente wave de crecimiento más allá de data centers —'Data Centers Made It Great, Physical AI Could Make It Generational'. El 03-Jun, tercera capa: RTX Spark, primer chip Arm para PC, desarrollado con Microsoft y MediaTek —entrada en el mercado de computación personal AI y amenaza directa a Intel (INTC -5% el mismo día). La narrativa de expansión de TAM acumula tres hitos en tres semanas: Data Center → Physical AI → PC. Confianza media: la narrativa se consolida como intención estratégica, pero la ejecución en PC es nueva y sin datos de ventas. El 22-Jun, '3 Stocks To Play The AI And Data Center Boom' reitera a NVIDIA junto con ASML y TSMC como infraestructura de IA core — cuarta señal, consistente con las tres anteriores. Con 4 lecturas todas en la misma dirección, se actualiza la confianza de media a alta. El 26-Jun, SA publica 'Nvidia: The Next Dividend Aristocrat?': tras un incremento del 2.400% en su payout de dividendos, la tesis plantea que NVDA está empezando a replicar el ciclo de vida de gigantes tecnológicos heredados que evolucionaron de crecimiento volátil a pagadores de dividendo estables. Quinta capa narrativa (tras Data Center, Physical AI, PC/RTX Spark y la agrupación NVDA+ASML+TSMC): de 'plataforma de AI' a 'compounder maduro con retorno de capital'. Confianza se mantiene alta con cinco lecturas consistentes en la dirección de expansión/maduración narrativa. El 27-Jun, SA publica 'Nvidia To Become The Second-Largest U.S. Dividend Payer': el mismo incremento del 2.400% en el payout (ya señalado el 26-Jun) se reformula con el dato de que NVDA pasaría a ser el segundo mayor pagador de dividendos de EE.UU. en términos absolutos. Sexta señal narrativa, segunda confirmación consecutiva en dos días distintos del giro hacia 'compounder maduro con retorno de capital'. El 03-Jul, SA publica \"Nvidia: Won't Be This Insanely Cheap For Too Long\": nueva capa narrativa centrada en valoración —el autor argumenta que NVDA sigue \"insanamente barata\" pese al rally, sustentada por un moat de co-diseño hardware-software y un ecosistema de desarrolladores profundamente arraigado. Séptima señal narrativa, primera en enmarcar explícitamente la tesis como una oportunidad de valoración (en lugar de expansión de TAM o retorno de capital), consistente con la dirección alcista ya establecida del patrón. El 16-Jul, SA publica \"Nvidia: Jensen Huang Just Blessed His Own Shares\": el CEO refuto directamente rumores recientes de retrasos de produccion en Vera Rubin y Kyber, reafirmando el liderazgo de NVDA como plataforma de IA dominante. Octava senal narrativa, primera en responder explicitamente a rumores de ejecucion/produccion en lugar de expansion de TAM o valoracion. El 28-Jul, SA publica \"Nvidia: The Trade Of The Decade Has Arrived\": tesis de inversión a largo plazo reforzada por señales robustas de CapEx de los grandes hyperscalers -- continúa sin pausa la narrativa alcista dominante sobre NVDA.",
       "confianza": "alta",
       "tendencia": "alcista",
-      "frecuencia": 8,
+      "frecuencia": 9,
       "fechas": [
         "2026-05-27",
         "2026-05-31",
@@ -530,7 +574,8 @@
         "2026-06-26",
         "2026-06-27",
         "2026-07-03",
-        "2026-07-16"
+        "2026-07-16",
+        "2026-07-28"
       ],
       "grafico": {
         "tipo": "line",
@@ -568,6 +613,10 @@
           {
             "date": "2026-07-16",
             "value": 0.6
+          },
+          {
+            "date": "2026-07-28",
+            "value": 0.7
           }
         ]
       }
@@ -734,10 +783,10 @@
         "#MarginExpansion",
         "#Tech"
       ],
-      "descripcion": "Micron Q2 FY2026: ingresos $23.9B (+196% YoY), EPS $12.20 vs $1.56 hace un año, segmento cloud $7.7B, margen bruto 74.4%. Guidance Q3: revenue $33.5B y EPS $19.15 con margen bruto ~81%. El trimestre confirma que la demanda de memoria HBM para AI no es narrativa —es aceleración real y estructural. La capacidad HBM está agotada para 2026. La aceleración secuencial del guidance (+40% QoQ en revenue) es excepcional para un negocio de la escala de Micron y sugiere que el ciclo AI de memoria está en fases iniciales, no en madurez. Dato duro de primera magnitud para la tesis de AI infra. El 04-Jun, SA publica 'Micron: The Market Is Right (Rating Upgrade)': upgrade a cautious buy en correcciones, tesis apoyada en demanda estructural de AI y supply constraints de memoria. La coexistencia de un upgrade alcista (pattern_011) y un artículo de burbuja bajista (pattern_010) en días consecutivos refleja la polarización de consenso sobre MU —señal de incertidumbre estructural, no resolución. El 09-Jun (TIKR), tercera confirmación bullish con datos duros: NVIDIA y SK Hynix anunciaron alianza multianual para desarrollar conjuntamente HBM para la plataforma Vera Rubin; Micron ya está CERTIFICADA como proveedor de HBM4 para esa misma plataforma y tiene TODA su producción de HBM del resto del año fiscal 2026 vendida bajo contratos de largo plazo. El guidance de revenue récord de $33.5B para Q3 FY26 se presenta ante los resultados del 24 de junio. La acción pasó de $37 a ~$950 en 2026. Los datos duros bullish (HBM4 certificado, producción agotada, alianza NVDA-SKHynix beneficia a MU) coexisten con el caso bajista editorial creciente —la polarización de consenso sobre MU es la más extrema del tracker. El 14-Jun, SA publica 'Why I'm Still Holding Every Micron Share': reitera guidance Q3 de $33.5B de ingresos y margen bruto ~81%, y añade dos datos nuevos relevantes —los clientes están recibiendo solo 50-66% de la demanda solicitada (señal de escasez de oferta más severa de lo conocido) y Micron ha firmado su primer Strategic Customer Agreement a cinco años. Cuarta confirmación bullish con datos duros sobre la tesis estructural de MU. El 17-Jun, SA publica 'Micron: New Data Indicates Consensus Estimates Are Too Conservative' (earnings preview ante el reporte del 24-Jun): el artículo argumenta que la demanda sin precedentes de DRAM, NAND, HBM y SSDs empresariales mantiene un desequilibrio de oferta-demanda que el consenso de analistas no está capturando del todo, sugiriendo riesgo al alza sobre las estimaciones actuales de cara al informe de resultados. Quinta confirmación bullish del patrón, esta vez en modo preview pre-earnings. El 23-Jun, 'Micron Is My Biggest Position - Here's Why I'm Not Selling' confirma con razonamiento de oferta-demanda (capacidad ajustada, HBM estrangulando la cadena de suministro) la convicción de mantener pese al rally — séptima señal alcista. El 25-Jun (TIKR), el informe de resultados confirma el caso más sólido del periodo: ingresos multiplicados por más de 4x interanual hasta ~$41.500M desde ~$9.300M, margen bruto saltando de 39% a casi 85%, y guidance del próximo trimestre (~$50.000M) muy por encima del consenso (~$44.000M). Octava señal y la más fuerte del patrón en términos de magnitud de dato duro — confirma de manera inequívoca la tesis bullish que el patrón viene trackeando desde el 29-May. El mismo 25-Jun, un newsletter SA 'Must Reads' adicional (llegado a las 20:43 UTC, fuera de la ventana de verificación de la ejecución original) aporta dos confirmaciones independientes del mismo trimestre: 'Micron Rockets On 346% Revenue Surge' (+346% YoY, EPS superando estimaciones >20%) y 'Forget Everything You Knew About Micron Before' (+74% QoQ, +346% YoY, liderazgo de mercado AI-driven). Novena y décima señales, ambas confirmatorias del mismo resultado récord desde fuentes editoriales distintas a TIKR. El 26-Jun, SA publica 'Micron: Nothing Like This Has Happened In Memory', confirmación adicional del trimestre récord: revenue beat del 24% sobre consenso, margen bruto 84,9%, guidance reiterado. Undécima señal del patrón, tercera fuente editorial independiente (tras TIKR y dos piezas SA del 25-Jun) que confirma el mismo resultado histórico sin matices nuevos. El 29-Jun, SA publica \"Micron: Why I'm Even More Bullish\": cuarta confirmación editorial independiente del trimestre récord (revenue $41.460M, margen bruto ~85%, récord de cash flow, guidance por encima de consenso) — sin datos nuevos respecto al beat ya capturado, pero refuerza la convicción sostenida del mercado sobre la tesis alcista de MU. El 01-Jul, SA publica \"Micron Technology: Q3 Crushes Expectations As AI Memory Demand Accelerates\" (revenue +346% a $41.26B): confirmación adicional —con nomenclatura de trimestre ligeramente distinta a fuentes previas (aquí \"Q3 FY26\" vs \"Q2 FY2026\" citado el 25-Jun para la misma cifra de ingresos)— del mismo resultado récord ya documentado el 25/26/29-Jun. Duodécima señal del patrón; no aporta datos nuevos respecto al beat ya capturado y no cambia confianza ni tendencia. El 05-Jul, SA publica \"Micron At $1,750 Is Now My Base Case\" (FREE TRENDING ARTICLE): nueva tesis de precio objetivo sobre MU tras el trimestre récord (Q3 FY26 revenue $41.5B, +346% YoY, margen bruto no-GAAP 84.9%), fijando $1.750 como caso base. Decimotercera señal del patrón; refuerza la convicción alcista sostenida desde el beat del 25-Jun, en contraste con el ángulo de compresión de múltiplo señalado en pattern_010 (02/03-Jul). El 21-Jul, SA publica \"Micron: The Supply Chain Just Confirmed It\": TSMC y ASML confirmaron con datos duros que la demanda de memoria AI se mantiene excepcionalmente fuerte, con la capacidad EUV totalmente reservada limitando el crecimiento de oferta de toda la industria hasta 2028. Decimocuarta señal del patrón — la primera confirmación bullish que proviene de proveedores de equipos de la cadena de suministro (TSMC, ASML) en lugar de la propia Micron o analistas cubriendo directamente la acción, reforzando la tesis estructural de escasez desde un ángulo independiente.",
+      "descripcion": "Micron Q2 FY2026: ingresos $23.9B (+196% YoY), EPS $12.20 vs $1.56 hace un año, segmento cloud $7.7B, margen bruto 74.4%. Guidance Q3: revenue $33.5B y EPS $19.15 con margen bruto ~81%. El trimestre confirma que la demanda de memoria HBM para AI no es narrativa —es aceleración real y estructural. La capacidad HBM está agotada para 2026. La aceleración secuencial del guidance (+40% QoQ en revenue) es excepcional para un negocio de la escala de Micron y sugiere que el ciclo AI de memoria está en fases iniciales, no en madurez. Dato duro de primera magnitud para la tesis de AI infra. El 04-Jun, SA publica 'Micron: The Market Is Right (Rating Upgrade)': upgrade a cautious buy en correcciones, tesis apoyada en demanda estructural de AI y supply constraints de memoria. La coexistencia de un upgrade alcista (pattern_011) y un artículo de burbuja bajista (pattern_010) en días consecutivos refleja la polarización de consenso sobre MU —señal de incertidumbre estructural, no resolución. El 09-Jun (TIKR), tercera confirmación bullish con datos duros: NVIDIA y SK Hynix anunciaron alianza multianual para desarrollar conjuntamente HBM para la plataforma Vera Rubin; Micron ya está CERTIFICADA como proveedor de HBM4 para esa misma plataforma y tiene TODA su producción de HBM del resto del año fiscal 2026 vendida bajo contratos de largo plazo. El guidance de revenue récord de $33.5B para Q3 FY26 se presenta ante los resultados del 24 de junio. La acción pasó de $37 a ~$950 en 2026. Los datos duros bullish (HBM4 certificado, producción agotada, alianza NVDA-SKHynix beneficia a MU) coexisten con el caso bajista editorial creciente —la polarización de consenso sobre MU es la más extrema del tracker. El 14-Jun, SA publica 'Why I'm Still Holding Every Micron Share': reitera guidance Q3 de $33.5B de ingresos y margen bruto ~81%, y añade dos datos nuevos relevantes —los clientes están recibiendo solo 50-66% de la demanda solicitada (señal de escasez de oferta más severa de lo conocido) y Micron ha firmado su primer Strategic Customer Agreement a cinco años. Cuarta confirmación bullish con datos duros sobre la tesis estructural de MU. El 17-Jun, SA publica 'Micron: New Data Indicates Consensus Estimates Are Too Conservative' (earnings preview ante el reporte del 24-Jun): el artículo argumenta que la demanda sin precedentes de DRAM, NAND, HBM y SSDs empresariales mantiene un desequilibrio de oferta-demanda que el consenso de analistas no está capturando del todo, sugiriendo riesgo al alza sobre las estimaciones actuales de cara al informe de resultados. Quinta confirmación bullish del patrón, esta vez en modo preview pre-earnings. El 23-Jun, 'Micron Is My Biggest Position - Here's Why I'm Not Selling' confirma con razonamiento de oferta-demanda (capacidad ajustada, HBM estrangulando la cadena de suministro) la convicción de mantener pese al rally — séptima señal alcista. El 25-Jun (TIKR), el informe de resultados confirma el caso más sólido del periodo: ingresos multiplicados por más de 4x interanual hasta ~$41.500M desde ~$9.300M, margen bruto saltando de 39% a casi 85%, y guidance del próximo trimestre (~$50.000M) muy por encima del consenso (~$44.000M). Octava señal y la más fuerte del patrón en términos de magnitud de dato duro — confirma de manera inequívoca la tesis bullish que el patrón viene trackeando desde el 29-May. El mismo 25-Jun, un newsletter SA 'Must Reads' adicional (llegado a las 20:43 UTC, fuera de la ventana de verificación de la ejecución original) aporta dos confirmaciones independientes del mismo trimestre: 'Micron Rockets On 346% Revenue Surge' (+346% YoY, EPS superando estimaciones >20%) y 'Forget Everything You Knew About Micron Before' (+74% QoQ, +346% YoY, liderazgo de mercado AI-driven). Novena y décima señales, ambas confirmatorias del mismo resultado récord desde fuentes editoriales distintas a TIKR. El 26-Jun, SA publica 'Micron: Nothing Like This Has Happened In Memory', confirmación adicional del trimestre récord: revenue beat del 24% sobre consenso, margen bruto 84,9%, guidance reiterado. Undécima señal del patrón, tercera fuente editorial independiente (tras TIKR y dos piezas SA del 25-Jun) que confirma el mismo resultado histórico sin matices nuevos. El 29-Jun, SA publica \"Micron: Why I'm Even More Bullish\": cuarta confirmación editorial independiente del trimestre récord (revenue $41.460M, margen bruto ~85%, récord de cash flow, guidance por encima de consenso) — sin datos nuevos respecto al beat ya capturado, pero refuerza la convicción sostenida del mercado sobre la tesis alcista de MU. El 01-Jul, SA publica \"Micron Technology: Q3 Crushes Expectations As AI Memory Demand Accelerates\" (revenue +346% a $41.26B): confirmación adicional —con nomenclatura de trimestre ligeramente distinta a fuentes previas (aquí \"Q3 FY26\" vs \"Q2 FY2026\" citado el 25-Jun para la misma cifra de ingresos)— del mismo resultado récord ya documentado el 25/26/29-Jun. Duodécima señal del patrón; no aporta datos nuevos respecto al beat ya capturado y no cambia confianza ni tendencia. El 05-Jul, SA publica \"Micron At $1,750 Is Now My Base Case\" (FREE TRENDING ARTICLE): nueva tesis de precio objetivo sobre MU tras el trimestre récord (Q3 FY26 revenue $41.5B, +346% YoY, margen bruto no-GAAP 84.9%), fijando $1.750 como caso base. Decimotercera señal del patrón; refuerza la convicción alcista sostenida desde el beat del 25-Jun, en contraste con el ángulo de compresión de múltiplo señalado en pattern_010 (02/03-Jul). El 21-Jul, SA publica \"Micron: The Supply Chain Just Confirmed It\": TSMC y ASML confirmaron con datos duros que la demanda de memoria AI se mantiene excepcionalmente fuerte, con la capacidad EUV totalmente reservada limitando el crecimiento de oferta de toda la industria hasta 2028. Decimocuarta señal del patrón — la primera confirmación bullish que proviene de proveedores de equipos de la cadena de suministro (TSMC, ASML) en lugar de la propia Micron o analistas cubriendo directamente la acción, reforzando la tesis estructural de escasez desde un ángulo independiente. El 28-Jul, SA publica \"Micron: The Boom And Bust Memory Cycle Could Finally Be Dead\": tesis de transformación estructural de MU de negocio cíclico de commodity a modelo contractual, respaldada por 16 acuerdos take-or-pay vigentes hasta 2030 que cubren ~$100.000M -- dato duro que refuerza la tesis Realidad alcista con el argumento más fuerte de desacoplamiento del ciclo memoria visto hasta ahora en el tracker. El 29-Jul, SA publica \"Micron Stock: Buy When There's Blood In The Streets (Rating Upgrade)\": upgrade de calificación en medio del selloff de semiconductores impulsado por CXMT, argumentando que el cuadro de oferta-demanda de memoria sigue siendo favorable pese a la corrección de precio -- decimoquinta señal del patrón, refuerza la tesis Realidad alcista de MU justo en el punto álgido de la presión bajista de corto plazo sobre el sector. Actualización 02-Ago (SA, 'Micron: Contracted Scarcity Can Outlast The Memory Boom'): la demanda impulsada por IA y los contratos plurianuales con clientes aseguran precio, volumen y retornos, reforzando la tesis de desacoplamiento del ciclo tradicional de memoria.",
       "confianza": "alta",
       "tendencia": "alcista",
-      "frecuencia": 15,
+      "frecuencia": 18,
       "fechas": [
         "2026-05-29",
         "2026-06-04",
@@ -751,7 +800,10 @@
         "2026-06-29",
         "2026-07-01",
         "2026-07-05",
-        "2026-07-21"
+        "2026-07-21",
+        "2026-07-28",
+        "2026-07-29",
+        "2026-08-02"
       ],
       "grafico": {
         "tipo": "line",
@@ -809,6 +861,18 @@
           {
             "date": "2026-07-21",
             "value": 0.85
+          },
+          {
+            "date": "2026-07-28",
+            "value": 0.85
+          },
+          {
+            "date": "2026-07-29",
+            "value": 0.7
+          },
+          {
+            "date": "2026-08-02",
+            "value": 0.8
           }
         ]
       }
@@ -823,10 +887,10 @@
         "#Tech",
         "#CapexAI"
       ],
-      "descripcion": "Palantir acumula cuatro coberturas alcistas en tres días (29-May, 30-May, 01-Jun), constituyendo la empresa con más atención editorial consecutiva en el tracker. Métricas Q1 2026: revenue +85% YoY (máximo histórico), US commercial +104% YoY (133% en artículo del 01-Jun), Rule of 40 en 145%, FCF margin 57-60%, Net Dollar Retention 150%, US Commercial RDV +112% YoY, RDV total +98% a $11.8B, caja $8B. Guidance FY2026: $7.66B revenue + $4.4B FCF. El artículo del 01-Jun añade la dimensión de que una corrección reciente ('selloff') mejoró la relación riesgo/rentabilidad. Riesgo principal no modificado: valoración extrema (93-98x earnings forward, EV/EBITDA 67x, EV/Sales 40-43x) sin margen de error. Confianza alta: cuatro artículos independientes con datos fundamentales consistentes, todos alcistas. El 20-Jun, 'Palantir: Hold But Close To Buy' fija valor razonable en $141,2 (~10% de upside), reconociendo la posición de IA gubernamental entrenchada pero sin upgrade a compra activa — cuarta señal, más cautelosa que las anteriores. El 23-Jun, 'Palantir: This Selloff Is A Gift' introduce el primer riesgo concreto del patrón: pérdida de contratos gubernamentales europeos y vientos en contra macro/sectoriales, aunque el autor reitera la tesis de compra a largo plazo. Quinta señal, con lectura neta ligeramente negativa por primera vez. Riesgo a vigilar: pérdida de contratos europeos como posible inflexión, aunque la base histórica (4 de 5 lecturas positivas) sostiene la tendencia alcista y la confianza alta. Actualización 07-Jul: 'Palantir And Nvidia Deal Could Be Huge' — nueva alianza AI con Nvidia para el gobierno de EE.UU., descrita como ampliación de un moat competitivo ya de por sí sin paralelo. Catalizador concreto adicional a la tesis alcista, distinto del riesgo competitivo (OpenAI/Anthropic) documentado en pattern_041, que se mantiene como patrón separado por representar la tesis bajista activa. El 09-Jul, SA publica \"Palantir: Implications Of 90x P/E\": reitera tesis de crecimiento de largo plazo apoyada en catalizadores presentados en AIPCon 10, interpretando la correccion reciente del precio como punto de entrada relativo a su historia de crecimiento -- septima senal, alcista, sin abordar directamente el riesgo competitivo europeo senalado el 23-Jun (pattern_012) ni la tesis bajista de OpenAI/Anthropic (pattern_041).",
+      "descripcion": "Palantir acumula cuatro coberturas alcistas en tres días (29-May, 30-May, 01-Jun), constituyendo la empresa con más atención editorial consecutiva en el tracker. Métricas Q1 2026: revenue +85% YoY (máximo histórico), US commercial +104% YoY (133% en artículo del 01-Jun), Rule of 40 en 145%, FCF margin 57-60%, Net Dollar Retention 150%, US Commercial RDV +112% YoY, RDV total +98% a $11.8B, caja $8B. Guidance FY2026: $7.66B revenue + $4.4B FCF. El artículo del 01-Jun añade la dimensión de que una corrección reciente ('selloff') mejoró la relación riesgo/rentabilidad. Riesgo principal no modificado: valoración extrema (93-98x earnings forward, EV/EBITDA 67x, EV/Sales 40-43x) sin margen de error. Confianza alta: cuatro artículos independientes con datos fundamentales consistentes, todos alcistas. El 20-Jun, 'Palantir: Hold But Close To Buy' fija valor razonable en $141,2 (~10% de upside), reconociendo la posición de IA gubernamental entrenchada pero sin upgrade a compra activa — cuarta señal, más cautelosa que las anteriores. El 23-Jun, 'Palantir: This Selloff Is A Gift' introduce el primer riesgo concreto del patrón: pérdida de contratos gubernamentales europeos y vientos en contra macro/sectoriales, aunque el autor reitera la tesis de compra a largo plazo. Quinta señal, con lectura neta ligeramente negativa por primera vez. Riesgo a vigilar: pérdida de contratos europeos como posible inflexión, aunque la base histórica (4 de 5 lecturas positivas) sostiene la tendencia alcista y la confianza alta. Actualización 07-Jul: 'Palantir And Nvidia Deal Could Be Huge' — nueva alianza AI con Nvidia para el gobierno de EE.UU., descrita como ampliación de un moat competitivo ya de por sí sin paralelo. Catalizador concreto adicional a la tesis alcista, distinto del riesgo competitivo (OpenAI/Anthropic) documentado en pattern_041, que se mantiene como patrón separado por representar la tesis bajista activa. El 09-Jul, SA publica \"Palantir: Implications Of 90x P/E\": reitera tesis de crecimiento de largo plazo apoyada en catalizadores presentados en AIPCon 10, interpretando la correccion reciente del precio como punto de entrada relativo a su historia de crecimiento -- septima senal, alcista, sin abordar directamente el riesgo competitivo europeo senalado el 23-Jun (pattern_012) ni la tesis bajista de OpenAI/Anthropic (pattern_041). Actualización 01-Ago (SA, 'Palantir Looks Very Enticing Ahead Of Q2 Earnings'): mantiene rating 'Strong Buy' de cara a resultados Q2, con actividad comercial robusta y mejora de rentabilidad esperada — octava señal acumulada del patrón, refuerza la tesis alcista de cara a earnings.",
       "confianza": "alta",
       "tendencia": "alcista",
-      "frecuencia": 7,
+      "frecuencia": 8,
       "fechas": [
         "2026-05-29",
         "2026-05-30",
@@ -834,7 +898,8 @@
         "2026-06-20",
         "2026-06-23",
         "2026-07-07",
-        "2026-07-09"
+        "2026-07-09",
+        "2026-08-01"
       ],
       "grafico": {
         "tipo": "line",
@@ -868,6 +933,10 @@
           {
             "date": "2026-07-09",
             "value": 0.55
+          },
+          {
+            "date": "2026-08-01",
+            "value": 0.7
           }
         ]
       }
@@ -924,17 +993,18 @@
         "#Rotation",
         "#Macro"
       ],
-      "descripcion": "Los REITs están emergiendo como 'AI immunity trade' —capital rotando desde sectores directamente disrumpidos por AI hacia activos reales con yields sostenibles. REITs +10% YTD 2026. La tesis de recuperación cíclica tiene fundamento en compresión de oferta: self-storage supply growth cae de 2.9% (2025) a ~1.5% anual (2025-2027), y los costes de nueva construcción (+50% vs. pre-pandemia) desincentivan nuevos proyectos. Sub-sectores de interés: self-storage y Sunbelt residencial con re-rating esperado hacia 2027. El 31-May un segundo artículo de asset allocation respalda REITs e income como base de cartera diversificada frente a la disrupción AI, añadiendo la dimensión de protección inflación. Confianza upgrade a media-alta: dos artículos en días distintos con la misma tesis, reforzada por datos de supply concretos. El 05-Jul, SA publica \"I Am Buying Real Estate Hand Over Fist, For Income And Asset Preservation\": tercera confirmación editorial de la tesis REIT como refugio de income y preservación de capital, en línea con las dos señales de mayo (29-May, 31-May). Confianza actualizada de media a alta (regla: ≥3 noticias). El 20-Jul, SA publica \"Sell Alert: 3 REITs Facing Likely Dividend Cuts\": primera señal explícitamente bajista del patrón — la mayoría de dividendos REIT siguen siendo seguros, pero el artículo identifica 3 REITs específicos con riesgo de balance que podrían recortar dividendo pronto. Cuarta señal acumulada; no revierte la tendencia alcista de la tesis sectorial (compresión de oferta en self-storage/Sunbelt sigue intacta), pero introduce un matiz de riesgo idiosincrático a nivel de nombres individuales dentro del sector — primera grieta documentada en una tesis hasta ahora unánimemente alcista. El 27-Jul, SA publica \"Welltower Needs A Miracle To Justify This Price\": segunda señal bajista del patrón tras el \"Sell Alert\" del 20-Jul — WELL cotiza a 41x AFFO forward con cap rates implícitos por debajo del 3%, valoración que la pieza considera insostenible incluso con crecimiento de AFFO por acción sólido a corto plazo. Refuerza el debate bull/bear dentro del propio sector REIT (tesis de recuperación por compresión de oferta vs. valoraciones puntuales excesivas en nombres concretos como WELL).",
+      "descripcion": "Los REITs están emergiendo como 'AI immunity trade' —capital rotando desde sectores directamente disrumpidos por AI hacia activos reales con yields sostenibles. REITs +10% YTD 2026. La tesis de recuperación cíclica tiene fundamento en compresión de oferta: self-storage supply growth cae de 2.9% (2025) a ~1.5% anual (2025-2027), y los costes de nueva construcción (+50% vs. pre-pandemia) desincentivan nuevos proyectos. Sub-sectores de interés: self-storage y Sunbelt residencial con re-rating esperado hacia 2027. El 31-May un segundo artículo de asset allocation respalda REITs e income como base de cartera diversificada frente a la disrupción AI, añadiendo la dimensión de protección inflación. Confianza upgrade a media-alta: dos artículos en días distintos con la misma tesis, reforzada por datos de supply concretos. El 05-Jul, SA publica \"I Am Buying Real Estate Hand Over Fist, For Income And Asset Preservation\": tercera confirmación editorial de la tesis REIT como refugio de income y preservación de capital, en línea con las dos señales de mayo (29-May, 31-May). Confianza actualizada de media a alta (regla: ≥3 noticias). El 20-Jul, SA publica \"Sell Alert: 3 REITs Facing Likely Dividend Cuts\": primera señal explícitamente bajista del patrón — la mayoría de dividendos REIT siguen siendo seguros, pero el artículo identifica 3 REITs específicos con riesgo de balance que podrían recortar dividendo pronto. Cuarta señal acumulada; no revierte la tendencia alcista de la tesis sectorial (compresión de oferta en self-storage/Sunbelt sigue intacta), pero introduce un matiz de riesgo idiosincrático a nivel de nombres individuales dentro del sector — primera grieta documentada en una tesis hasta ahora unánimemente alcista. El 27-Jul, SA publica \"Welltower Needs A Miracle To Justify This Price\": segunda señal bajista del patrón tras el \"Sell Alert\" del 20-Jul — WELL cotiza a 41x AFFO forward con cap rates implícitos por debajo del 3%, valoración que la pieza considera insostenible incluso con crecimiento de AFFO por acción sólido a corto plazo. Refuerza el debate bull/bear dentro del propio sector REIT (tesis de recuperación por compresión de oferta vs. valoraciones puntuales excesivas en nombres concretos como WELL). El 31-Jul, SA destaca como 'FREE TRENDING ARTICLE' la pieza 'REIT Rally: 3 Strong Buys With Average 1-Year Return Above 50%': confirma que los REITs han rallyeado en 2026 con fundamentales sólidos superando la preocupación por tipos de interés y volatilidad de mercado -- quinta señal alcista dentro del debate bull/bear ya abierto (tras las dos señales bajistas puntuales del 20-Jul y 27-Jul), reforzando la tesis estructural de recuperación cíclica del sector por encima del ruido de nombres individuales sobrevalorados.",
       "confianza": "alta",
       "tendencia": "alcista",
-      "frecuencia": 6,
+      "frecuencia": 7,
       "fechas": [
         "2026-05-29",
         "2026-05-31",
         "2026-07-05",
         "2026-07-20",
         "2026-07-23",
-        "2026-07-27"
+        "2026-07-27",
+        "2026-07-31"
       ],
       "grafico": {
         "tipo": "bar",
@@ -964,6 +1034,10 @@
           {
             "date": "2026-07-27",
             "value": -0.5
+          },
+          {
+            "date": "2026-07-31",
+            "value": 0.6
           }
         ]
       }
@@ -977,10 +1051,10 @@
         "#GrowthSelloff",
         "#Earnings-pressure"
       ],
-      "descripcion": "Señal de alerta macro consolidada: cinco artículos en cinco días con perspectivas de riesgo sistémico desde ángulos distintos. El 29-May trazó paralelismos con la burbuja dot-com de 1999. El 30-May: GPU rental prices -30% genera presión en AI cloud economics y cuestiona el capex billonario de los hyperscalers. El 31-May: artículo explícito sobre 'The 3 Things That Could Pop The AI Bubble' —(1) LLMs chinos más baratos erosionan pricing power, (2) ROI de hyperscalers en cuestión con $700B+ comprometidos, (3) restricciones de infraestructura. El 02-Jun: SPCE +81% en una semana por confusión retail con el IPO de SpaceX —señal de exuberancia irracional y apetito de riesgo indiscriminado (ver pattern_018). El 03-Jun: artículo 'The Massive AI Lie' y predicción de corrección del S&P con valoraciones en máximos históricos —quinta señal consecutiva de advertencia sistémica. La convergencia de cinco ángulos analíticos independientes en cinco días eleva y mantiene la confianza en alta. Relevancia directa para el portfolio en posiciones AI con múltiplos elevados (PLTR 93-98x, NBIS, NVDA). No es señal de salida, es señal de gestión de sizing y stops. El 05-Jun, sexta señal consecutiva: 'Time To Cash In The Chips' —S&P cotiza en CAPE y market cap-to-GDP cercanos a máximos históricos, con ganancias concentradas en pocos nombres. El título del artículo es directamente opuesto al 'Buy The Chip Dip' del mismo día: la divergencia editorial refleja el debate activo en el mercado. Seis artículos en seis días distintos manteniendo la tesis bajista sistémica. El 06-Jun (newsletter tardío), séptima señal: 'I Have Been Patiently Waiting For This Market Meltdown' —S&P y Nasdaq tuvieron una caída fuerte el viernes, materialización parcial del escenario que el patrón venía señalando. El tono es menos apocalíptico que artículos previos: el autor nota que el rally AI sigue fundamentalmente soportado por upgrades de earnings. La corrección ocurrió pero los fundamentales siguen activos —señal de que el mercado está absorbiendo el riesgo de burbuja mediante un pullback controlado, no un crack. El 09-Jun, dos nuevas señales que escalan el riesgo sistémico: (1) 'The Stock Market Crash - Still In Early Phase': el Nasdaq 100 sufrió una caída de casi el 5% el viernes 06-Jun y el autor argumenta que estamos en las fases iniciales de un downturn prolongado —la corrección captada en el historial del 07-Jun como 'meltdown controlado' es ahora caracterizada como el inicio de algo más profundo. Adicionalmente, el Fed tiene previsto subir tipos DOS VECES, escalando el marco macro de 'higher for longer' a 'rate hikes activos' (señal de máxima relevancia para activos de crecimiento). (2) 'The Stock Market's Breaking Point May Be Near': dispersión históricamente alta, baja correlación entre activos = vulnerabilidad a selling mecánico, volatilidad implícita elevada. La convergencia de dos artículos bajistas sistémicos el mismo día, con el telón de fondo de posibles subidas de tipos, eleva el riesgo de cola para posiciones con múltiplos extremos (PLTR 93x, NBIS, NVDA). Novena señal acumulada. El 14-Jun, contrapunto alcista: 'Buy The Dip: 5 Top Nasdaq AI Stocks' argumenta que el rebote post-selloff está justificado por fundamentales sólidos en infraestructura AI —continúa el patrón de debate bull/bear ya documentado (Buy The Chip Dip vs Time To Cash In The Chips, 05-Jun). El 15-Jun, dos señales adicionales mixtas: 'Nasdaq Quant Leaders: 5 Top Stocks Averaging 272% Forward EPS Growth' defiende que el crecimiento de BPA impulsado por AI justifica los máximos históricos del Nasdaq, pese a reconocer valoración, macro y geopolítica como riesgos; y 'Why SpaceX, Anthropic, And OpenAI IPOs Are A Red Flag For The Stock Market' argumenta explícitamente que la secuencia de mega-IPOs de IA (SpaceX cerrando por encima de $2T en su primer día, con Anthropic y OpenAI como candidatos a 3-12 meses) es una señal clásica de techo de ciclo especulativo. Doce señales acumuladas, con el debate bull/bear más activo que nunca. El 22-Jun, dos señales adicionales: 'The Software Sell-Off Is Overdone' documenta que el software perdió ~5 puntos de P/E por dudas sobre el valor a largo plazo de la IA agéntica (aunque el autor lo considera exagerado), y 'Great Market Expectations' enmarca la euforia por la OPV de SpaceX como un episodio especulativo con riesgos fundamentales no resueltos — decimotercera y decimocuarta señales. El 24-Jun, 'AI Volatility Hits Market: Dividend Safety Remains Intact' documenta una Fed hawkish combinada con un global tech rout como reality check de la euforia IA, la víspera del informe de Micron — decimoquinta señal. Quince lecturas consolidan este patrón como el más recurrente del tracker, con el debate bull/bear de la burbuja de IA lejos de resolverse. El 27-Jun, SA publica 'S&P 500: The Bubble Burst Is In Progress': el rendimiento YTD del S&P 500 está fuertemente concentrado en pocas acciones beneficiarias del capex de IA, y el artículo argumenta que la burbuja de IA ya muestra grietas visibles. Nueva señal acumulada del patrón, en la misma línea bajista que las anteriores. El 29-Jun, SA publica \"Market Correction Warning For H2 2026\": pese al rebote del S&P 500 (+7,5% YTD), el autor argumenta que el binomio riesgo-recompensa se ha vuelto poco atractivo dado el nivel de valoraciones — decimosexta señal consecutiva del debate bull/bear sistémico, en la misma línea bajista que \"S&P 500: The Bubble Burst Is In Progress\" (27-Jun). El 01-Jul, SA publica \"Grantham Warns Of Biggest Bubble In History, Again\": Jeremy Grantham reitera su advertencia de burbuja histórica pese a que el S&P 500 se encamina a su mejor trimestre en seis años, señalando correcciones sectoriales y vientos en contra macro dentro del rally de los Magnificent 7 — decimoséptima señal consecutiva del debate bull/bear sistémico, coherente con la línea bajista de \"S&P 500: The Bubble Burst Is In Progress\" (27-Jun) y \"Market Correction Warning For H2 2026\" (29-Jun). El 02-Jul, SA publica \"AI Bubble Burst: Meta Admits 'Excess Compute Capacity'\": indicios de que Meta habria reconocido tener exceso de capacidad de computo, siendo el primer hyperscaler en admitirlo, con expectativa de que otros le sigan -- decimoctava senal consecutiva del debate bull/bear sistemico, la primera que aporta una admision corporativa concreta (no solo tesis de valoracion o analisis tecnico) como grieta en la narrativa de demanda insaciable de infraestructura AI. Actualización 07-Jul: dos señales adicionales el mismo día. (a) 'We're In (The Early Stages Of) A Bubble' (Clem Chambers, FREE TRENDING) matiza la narrativa — no es un burst inminente sino una fase temprana con upside remanente y volatilidad inevitable, la lectura menos bajista del patrón hasta la fecha. (b) 'S&P 500: Peak At 7,800 In September, Crash To 4,400 By 2029' proyecta un paralelismo técnico con la burbuja dot-com: melt-up final seguido de corrección severa multi-año. Se mantiene confianza alta y tendencia bajista dado el peso acumulado de 22 señales, pero la pieza (a) introduce el primer matiz explícito de que la fase actual podría no ser terminal. El 08-Jul, SA publica \"Rotation Is Over, Now Brace For Impact\" (FREE TRENDING): pese al buen desempeno superficial de indices, el articulo argumenta que el S&P 500 enfrenta riesgo de volatilidad bajista de corto plazo por el desenrollado (unwinding) del 'AI bottleneck trade' -- decimonovena senal consecutiva del debate bull/bear sistemico, con un angulo nuevo (desenrollado de posicionamiento tecnico/de flujos en el trade de cuello de botella de IA) distinto de los angulos previos de valoracion o admisiones corporativas. El 16-Jul, dos senales contrapuestas el mismo dia intensifican el debate ya documentado: \"Predicting S&P 500 At 6,300 - 6,500 By Year End\" proyecta que el S&P 500 termine 2026 ligeramente por debajo de su nivel inicial por fundamentales de consumo debiles (senal bajista); \"Buy The Dip: 3 Top AI Stocks Averaging 52% Forward EPS Growth\" argumenta que el pullback reciente en infraestructura de IA crea oportunidades de compra pese a la turbulencia geopolitica y las preocupaciones de valoracion (senal contrarian alcista). Vigesimocuarta y vigesimoquinta senales acumuladas -- el valor de sentimiento del dia refleja el neto de ambas lecturas, pero la coexistencia confirma que el debate sigue genuinamente abierto. [Nota: este mismo artículo 'Buy The Dip: 3 Top AI Stocks' reapareció como FREE TRENDING repost el 17-Jul; no se contó de nuevo]. El 17-Jul, SA publica \"An Emerging Black Swan That Could Crush Tech Stocks And Boost Real Assets\": tesis de que la IA podría erosionar a muchos nombres tecnológicos capital-light, con activos reales como refugio más seguro — vigesimosexta señal, ángulo nuevo (rotación hacia real assets como cobertura explícita frente al riesgo de burbuja IA) distinto de valoración, admisiones corporativas o desenrollado técnico ya documentados. El 18-Jul, \"Why I'm 80% Cash While Everyone's Busy Blaming Kimi K3\" documenta el primer catalizador con nombre propio de la tesis china de LLMs más baratos ya anticipada el 31-May (\"3 Things That Could Pop The AI Bubble\"): el lanzamiento del modelo Kimi K3 coincidió con el trade de semiconductores más abarrotado del mercado (82%, récord histórico) y el SOXX cerca de territorio de mercado bajista, con TSMC recortando guías — vigesimoséptima señal, la primera en materializar con un evento concreto el riesgo competitivo chino que hasta ahora era solo tesis. El 19-Jul, SA publica \"The AI Bubble Looks A Lot Like Dot-Com Bust\": valoraciones y comportamiento de mercado en NVDA, MU y SNDK descritos como equiparables a la fase tardía de la burbuja dot-com — vigesimoctava señal, continúa la línea bajista de valoración ya documentada, ahora extendida explícitamente al complejo de memoria (MU, SNDK) además de NVDA. El 20-Jul, contrapunto directo el mismo eje: \"Nvidia: The Bubble That Never Was\" argumenta que NVDA cotiza a 22,6x forward earnings, por debajo de la mediana sectorial y la mitad de su promedio a 5 años, con 88% de crecimiento de BPA proyectado — vigesimonovena señal, la refutación más explícita hasta ahora del ángulo de burbuja de valoración, justo un día después de la comparación con dot-com del 19-Jul. El 21-Jul, \"If I Could Only Buy 2 Deeply Undervalued Real Asset Stocks Today\" reitera la tesis de rotación hacia real assets ya introducida el 17-Jul — trigésima señal acumulada, segunda confirmación del ángulo de cobertura vía activos reales frente al riesgo de burbuja tecnológica. El 26-Jul, SA publica \"Second Largest Negative Signal Of 2026: Bubbles, Barrels, And Skew\": los indicadores de momentum de mercado señalan riesgo elevado y flujos negativos desde el máximo del S&P 500 del 10 de julio, con el sector de semiconductores mencionado explícitamente como foco de la señal -- trigésimo primera señal acumulada del patrón, continúa la línea bajista de valoración/momentum técnico ya documentada, ahora reforzada con un indicador cuantitativo de flujos negativos post-máximo. El 27-Jul, SA publica \"Why Market Volatility May Be Part Of The Bull Case\": nuevo contrapunto alcista (tercero tras el 20-Jul y 23-Jul) — argumenta que los mercados alcistas seculares no avanzan en línea recta, y que los episodios de duda y escepticismo sobre IA (drawdowns incluidos) son parte normal del ciclo y pueden extenderlo en lugar de terminarlo, en vez de confirmar el riesgo de burbuja.",
+      "descripcion": "Señal de alerta macro consolidada: cinco artículos en cinco días con perspectivas de riesgo sistémico desde ángulos distintos. El 29-May trazó paralelismos con la burbuja dot-com de 1999. El 30-May: GPU rental prices -30% genera presión en AI cloud economics y cuestiona el capex billonario de los hyperscalers. El 31-May: artículo explícito sobre 'The 3 Things That Could Pop The AI Bubble' —(1) LLMs chinos más baratos erosionan pricing power, (2) ROI de hyperscalers en cuestión con $700B+ comprometidos, (3) restricciones de infraestructura. El 02-Jun: SPCE +81% en una semana por confusión retail con el IPO de SpaceX —señal de exuberancia irracional y apetito de riesgo indiscriminado (ver pattern_018). El 03-Jun: artículo 'The Massive AI Lie' y predicción de corrección del S&P con valoraciones en máximos históricos —quinta señal consecutiva de advertencia sistémica. La convergencia de cinco ángulos analíticos independientes en cinco días eleva y mantiene la confianza en alta. Relevancia directa para el portfolio en posiciones AI con múltiplos elevados (PLTR 93-98x, NBIS, NVDA). No es señal de salida, es señal de gestión de sizing y stops. El 05-Jun, sexta señal consecutiva: 'Time To Cash In The Chips' —S&P cotiza en CAPE y market cap-to-GDP cercanos a máximos históricos, con ganancias concentradas en pocos nombres. El título del artículo es directamente opuesto al 'Buy The Chip Dip' del mismo día: la divergencia editorial refleja el debate activo en el mercado. Seis artículos en seis días distintos manteniendo la tesis bajista sistémica. El 06-Jun (newsletter tardío), séptima señal: 'I Have Been Patiently Waiting For This Market Meltdown' —S&P y Nasdaq tuvieron una caída fuerte el viernes, materialización parcial del escenario que el patrón venía señalando. El tono es menos apocalíptico que artículos previos: el autor nota que el rally AI sigue fundamentalmente soportado por upgrades de earnings. La corrección ocurrió pero los fundamentales siguen activos —señal de que el mercado está absorbiendo el riesgo de burbuja mediante un pullback controlado, no un crack. El 09-Jun, dos nuevas señales que escalan el riesgo sistémico: (1) 'The Stock Market Crash - Still In Early Phase': el Nasdaq 100 sufrió una caída de casi el 5% el viernes 06-Jun y el autor argumenta que estamos en las fases iniciales de un downturn prolongado —la corrección captada en el historial del 07-Jun como 'meltdown controlado' es ahora caracterizada como el inicio de algo más profundo. Adicionalmente, el Fed tiene previsto subir tipos DOS VECES, escalando el marco macro de 'higher for longer' a 'rate hikes activos' (señal de máxima relevancia para activos de crecimiento). (2) 'The Stock Market's Breaking Point May Be Near': dispersión históricamente alta, baja correlación entre activos = vulnerabilidad a selling mecánico, volatilidad implícita elevada. La convergencia de dos artículos bajistas sistémicos el mismo día, con el telón de fondo de posibles subidas de tipos, eleva el riesgo de cola para posiciones con múltiplos extremos (PLTR 93x, NBIS, NVDA). Novena señal acumulada. El 14-Jun, contrapunto alcista: 'Buy The Dip: 5 Top Nasdaq AI Stocks' argumenta que el rebote post-selloff está justificado por fundamentales sólidos en infraestructura AI —continúa el patrón de debate bull/bear ya documentado (Buy The Chip Dip vs Time To Cash In The Chips, 05-Jun). El 15-Jun, dos señales adicionales mixtas: 'Nasdaq Quant Leaders: 5 Top Stocks Averaging 272% Forward EPS Growth' defiende que el crecimiento de BPA impulsado por AI justifica los máximos históricos del Nasdaq, pese a reconocer valoración, macro y geopolítica como riesgos; y 'Why SpaceX, Anthropic, And OpenAI IPOs Are A Red Flag For The Stock Market' argumenta explícitamente que la secuencia de mega-IPOs de IA (SpaceX cerrando por encima de $2T en su primer día, con Anthropic y OpenAI como candidatos a 3-12 meses) es una señal clásica de techo de ciclo especulativo. Doce señales acumuladas, con el debate bull/bear más activo que nunca. El 22-Jun, dos señales adicionales: 'The Software Sell-Off Is Overdone' documenta que el software perdió ~5 puntos de P/E por dudas sobre el valor a largo plazo de la IA agéntica (aunque el autor lo considera exagerado), y 'Great Market Expectations' enmarca la euforia por la OPV de SpaceX como un episodio especulativo con riesgos fundamentales no resueltos — decimotercera y decimocuarta señales. El 24-Jun, 'AI Volatility Hits Market: Dividend Safety Remains Intact' documenta una Fed hawkish combinada con un global tech rout como reality check de la euforia IA, la víspera del informe de Micron — decimoquinta señal. Quince lecturas consolidan este patrón como el más recurrente del tracker, con el debate bull/bear de la burbuja de IA lejos de resolverse. El 27-Jun, SA publica 'S&P 500: The Bubble Burst Is In Progress': el rendimiento YTD del S&P 500 está fuertemente concentrado en pocas acciones beneficiarias del capex de IA, y el artículo argumenta que la burbuja de IA ya muestra grietas visibles. Nueva señal acumulada del patrón, en la misma línea bajista que las anteriores. El 29-Jun, SA publica \"Market Correction Warning For H2 2026\": pese al rebote del S&P 500 (+7,5% YTD), el autor argumenta que el binomio riesgo-recompensa se ha vuelto poco atractivo dado el nivel de valoraciones — decimosexta señal consecutiva del debate bull/bear sistémico, en la misma línea bajista que \"S&P 500: The Bubble Burst Is In Progress\" (27-Jun). El 01-Jul, SA publica \"Grantham Warns Of Biggest Bubble In History, Again\": Jeremy Grantham reitera su advertencia de burbuja histórica pese a que el S&P 500 se encamina a su mejor trimestre en seis años, señalando correcciones sectoriales y vientos en contra macro dentro del rally de los Magnificent 7 — decimoséptima señal consecutiva del debate bull/bear sistémico, coherente con la línea bajista de \"S&P 500: The Bubble Burst Is In Progress\" (27-Jun) y \"Market Correction Warning For H2 2026\" (29-Jun). El 02-Jul, SA publica \"AI Bubble Burst: Meta Admits 'Excess Compute Capacity'\": indicios de que Meta habria reconocido tener exceso de capacidad de computo, siendo el primer hyperscaler en admitirlo, con expectativa de que otros le sigan -- decimoctava senal consecutiva del debate bull/bear sistemico, la primera que aporta una admision corporativa concreta (no solo tesis de valoracion o analisis tecnico) como grieta en la narrativa de demanda insaciable de infraestructura AI. Actualización 07-Jul: dos señales adicionales el mismo día. (a) 'We're In (The Early Stages Of) A Bubble' (Clem Chambers, FREE TRENDING) matiza la narrativa — no es un burst inminente sino una fase temprana con upside remanente y volatilidad inevitable, la lectura menos bajista del patrón hasta la fecha. (b) 'S&P 500: Peak At 7,800 In September, Crash To 4,400 By 2029' proyecta un paralelismo técnico con la burbuja dot-com: melt-up final seguido de corrección severa multi-año. Se mantiene confianza alta y tendencia bajista dado el peso acumulado de 22 señales, pero la pieza (a) introduce el primer matiz explícito de que la fase actual podría no ser terminal. El 08-Jul, SA publica \"Rotation Is Over, Now Brace For Impact\" (FREE TRENDING): pese al buen desempeno superficial de indices, el articulo argumenta que el S&P 500 enfrenta riesgo de volatilidad bajista de corto plazo por el desenrollado (unwinding) del 'AI bottleneck trade' -- decimonovena senal consecutiva del debate bull/bear sistemico, con un angulo nuevo (desenrollado de posicionamiento tecnico/de flujos en el trade de cuello de botella de IA) distinto de los angulos previos de valoracion o admisiones corporativas. El 16-Jul, dos senales contrapuestas el mismo dia intensifican el debate ya documentado: \"Predicting S&P 500 At 6,300 - 6,500 By Year End\" proyecta que el S&P 500 termine 2026 ligeramente por debajo de su nivel inicial por fundamentales de consumo debiles (senal bajista); \"Buy The Dip: 3 Top AI Stocks Averaging 52% Forward EPS Growth\" argumenta que el pullback reciente en infraestructura de IA crea oportunidades de compra pese a la turbulencia geopolitica y las preocupaciones de valoracion (senal contrarian alcista). Vigesimocuarta y vigesimoquinta senales acumuladas -- el valor de sentimiento del dia refleja el neto de ambas lecturas, pero la coexistencia confirma que el debate sigue genuinamente abierto. [Nota: este mismo artículo 'Buy The Dip: 3 Top AI Stocks' reapareció como FREE TRENDING repost el 17-Jul; no se contó de nuevo]. El 17-Jul, SA publica \"An Emerging Black Swan That Could Crush Tech Stocks And Boost Real Assets\": tesis de que la IA podría erosionar a muchos nombres tecnológicos capital-light, con activos reales como refugio más seguro — vigesimosexta señal, ángulo nuevo (rotación hacia real assets como cobertura explícita frente al riesgo de burbuja IA) distinto de valoración, admisiones corporativas o desenrollado técnico ya documentados. El 18-Jul, \"Why I'm 80% Cash While Everyone's Busy Blaming Kimi K3\" documenta el primer catalizador con nombre propio de la tesis china de LLMs más baratos ya anticipada el 31-May (\"3 Things That Could Pop The AI Bubble\"): el lanzamiento del modelo Kimi K3 coincidió con el trade de semiconductores más abarrotado del mercado (82%, récord histórico) y el SOXX cerca de territorio de mercado bajista, con TSMC recortando guías — vigesimoséptima señal, la primera en materializar con un evento concreto el riesgo competitivo chino que hasta ahora era solo tesis. El 19-Jul, SA publica \"The AI Bubble Looks A Lot Like Dot-Com Bust\": valoraciones y comportamiento de mercado en NVDA, MU y SNDK descritos como equiparables a la fase tardía de la burbuja dot-com — vigesimoctava señal, continúa la línea bajista de valoración ya documentada, ahora extendida explícitamente al complejo de memoria (MU, SNDK) además de NVDA. El 20-Jul, contrapunto directo el mismo eje: \"Nvidia: The Bubble That Never Was\" argumenta que NVDA cotiza a 22,6x forward earnings, por debajo de la mediana sectorial y la mitad de su promedio a 5 años, con 88% de crecimiento de BPA proyectado — vigesimonovena señal, la refutación más explícita hasta ahora del ángulo de burbuja de valoración, justo un día después de la comparación con dot-com del 19-Jul. El 21-Jul, \"If I Could Only Buy 2 Deeply Undervalued Real Asset Stocks Today\" reitera la tesis de rotación hacia real assets ya introducida el 17-Jul — trigésima señal acumulada, segunda confirmación del ángulo de cobertura vía activos reales frente al riesgo de burbuja tecnológica. El 26-Jul, SA publica \"Second Largest Negative Signal Of 2026: Bubbles, Barrels, And Skew\": los indicadores de momentum de mercado señalan riesgo elevado y flujos negativos desde el máximo del S&P 500 del 10 de julio, con el sector de semiconductores mencionado explícitamente como foco de la señal -- trigésimo primera señal acumulada del patrón, continúa la línea bajista de valoración/momentum técnico ya documentada, ahora reforzada con un indicador cuantitativo de flujos negativos post-máximo. El 27-Jul, SA publica \"Why Market Volatility May Be Part Of The Bull Case\": nuevo contrapunto alcista (tercero tras el 20-Jul y 23-Jul) — argumenta que los mercados alcistas seculares no avanzan en línea recta, y que los episodios de duda y escepticismo sobre IA (drawdowns incluidos) son parte normal del ciclo y pueden extenderlo en lugar de terminarlo, en vez de confirmar el riesgo de burbuja. El 28-Jul, SA publica como pieza destacada \"The Market Lost Its Mind, But You Shouldn't\": el Nasdaq se acerca a territorio de corrección mientras los líderes de la cadena de valor de IA y los semiconductores sufren ventas significativas -- confirma la continuación del episodio de selloff/corrección que domina el debate bull/bear de este patrón durante la última semana de julio, con el propio titular sugiriendo un marco contrarian (\"no deberías perder la cabeza\") sin resolver la tensión direccional. El 29-Jul, SA publica \"The AI Bubble Is Bursting - Don't Get Mauled\": documenta la corrección aguda del sector de hardware IA/semiconductores pero identifica oportunidades de compra a corto plazo tras la caída significativa -- trigésimo segunda señal, cuarto contrapunto alcista (tras 20-Jul, 23-Jul y 27-Jul) dentro del mismo debate bull/bear, con el propio título reconociendo la narrativa de \"burbuja estallando\" mientras matiza con un ángulo de oportunidad táctica.",
       "confianza": "alta",
       "tendencia": "bajista",
-      "frecuencia": 33,
+      "frecuencia": 35,
       "fechas": [
         "2026-05-29",
         "2026-05-30",
@@ -1009,7 +1083,9 @@
         "2026-07-21",
         "2026-07-23",
         "2026-07-26",
-        "2026-07-27"
+        "2026-07-27",
+        "2026-07-28",
+        "2026-07-29"
       ],
       "grafico": {
         "tipo": "line",
@@ -1127,6 +1203,14 @@
           {
             "date": "2026-07-27",
             "value": 0.5
+          },
+          {
+            "date": "2026-07-28",
+            "value": -0.5
+          },
+          {
+            "date": "2026-07-29",
+            "value": 0.1
           }
         ]
       }
@@ -1232,17 +1316,17 @@
     {
       "id": "pattern_019",
       "tipo": "Tendencias",
-      "empresa": "AI infra picks & shovels (HPE, CRDO, LITE, STRL, AAOI)",
+      "empresa": "AI infra picks & shovels (HPE, CRDO, LITE, STRL, AAOI, VRT)",
       "tags": [
         "#CapexAI",
         "#Tech",
         "#RevenueBeats",
         "#MarginExpansion"
       ],
-      "descripcion": "Tres empresas de infraestructura AI reportan resultados excepcionales el 03-Jun, todas beneficiarias directas del CapEx masivo de hyperscalers: HPE con ingresos +40% y pedidos de servidores AI casi duplicados; Credo Technology (CRDO) con +157% YoY en Q4 FY2026 y guía de optical DSPs >$600M; LITE con proyección de revenue x5 hacia FY2028. Las tres representan la capa de networking e interconexión del stack AI —el segmento de infraestructura más infravalorado del ciclo frente al foco mediático en GPUs. El driver común es el CapEx de $190B de GOOGL en 2026 y compromisos similares de AWS/Azure/Meta. Primer registro en el tracker para estas tres empresas; seguimiento necesario para confirmar si la narrativa gana continuidad editorial. El 04-Jun, Sterling Infrastructure (STRL) añade la capa más física del stack: construcción de data centers (despeje de terreno, cimentación, suministros). E-infraestructura creció >100% el trimestre pasado con backlog de $3.8B, apreciándose +9% el día 04-Jun como parte de un rally de 'picks & shovels' más amplio. El patrón se amplía de networking/interconexión a toda la cadena física de construcción AI: HPE+CRDO+LITE (networking) + STRL (construcción física). Upgrade confianza baja→media: cuatro artículos, cuatro empresas distintas, misma tesis. El 09-Jun (TIKR), tres empresas adicionales amplían el universo del patrón: (1) MRVL (Marvell Technology) +10%: será incluida en el S&P 500 el 22 de junio (compras mecánicas masivas de fondos indexados garantizadas) + CEO de NVIDIA Jensen Huang la calificó como futura 'compañía de un billón de dólares' en Computex 2026. Diseña silicio personalizado y chips de conectividad de alta velocidad para data centers AI. (2) AGX (Argan) -11%: el retroceso es pura toma de beneficios tras +35% en días anteriores. Sus resultados Q1 FY2027 fueron excepcionales: ingresos +50% a $291M récord (vs. consenso $258M). Construye plantas de energía a gran escala (gas natural) con demanda masiva por el despliegue de data centers AI. (3) CAT (Caterpillar): análisis profundo del segmento Power & Energy (generadores e instalaciones de energía para data centers). EBITDA proyectado de $14B (2025) a ~$30B (2030); backlog $63B +79% YoY; objetivo de crecimiento de ingresos 6-9% anual hasta 2030. El universo de picks & shovels AI ahora abarca: HPE+CRDO+LITE (networking), STRL (construcción física), MRVL (conectividad/silicio personalizado), AGX+CAT (energía para data centers). Upgrade confianza media→alta: siete señales con datos duros en cuatro empresas distintas. El 25-Jun (SA 'Must Reads', llegado a las 20:43 UTC), Goldman Sachs proyecta que la capacidad global de data centers podría casi duplicarse hacia 2030 — octava señal, refuerzo macro de la tesis sin nueva empresa específica, pero confirmando la magnitud del ciclo de CapEx que sostiene a todo el universo del patrón. Nueva señal (06-Jul): 'Lumentum: The Pullback Before The Breakout' — LITE corrigió ~33% desde máximos por desinflado de valoración post-rally IA, tesis de breakout tras la corrección (matiz: pullback de corto plazo dentro de tendencia alcista estructural). El 09-Jul, SA publica \"Credo Enters The Next AI Battleground\": CRDO supero los $1.300M de ingresos en FY2026, creciendo 206% interanual con $662M de beneficio neto, mientras la adquisicion de DustPhotonics amplia sus capacidades en optica -- novena senal del patron, dato duro confirmado que refuerza la tesis de networking/interconexion ya trackeada desde el 03-Jun. El 14-Jul, SA publica \"Credo's Biggest Shift Is Still Undervalued\": dato duro adicional sobre CRDO -- more de $1.300M en ingresos del año fiscal 2026 y guidance de >80% de crecimiento para FY2027, con productos ópticos (incl. ZeroFlap) como motor de expansión de margen. Continúa la confirmación ya registrada el 09-Jul (ingresos +206% YoY) de que CRDO es uno de los beneficiarios directos y con datos duros más sólidos de la narrativa de infraestructura AI (picks & shovels). El 16-Jul (TIKR), primera nota bajista dentro del patron: Applied Optoelectronics (AAOI) cayo ~13% en una ola amplia de aversion al riesgo que golpeo simultaneamente a competidores de optica para IA (Lumentum, Coherent) -- sin mala noticia especifica de la propia empresa, se trata de toma de beneficios de operadores de momentum tras una subida de mas del 200% en el ano. Matiza (sin revertir) la tendencia alcista del patron: la capa de networking/optica AI sigue siendo estructuralmente solida, pero es vulnerable a correcciones tecnicas bruscas cuando el sentimiento de IA se enfria.",
+      "descripcion": "Tres empresas de infraestructura AI reportan resultados excepcionales el 03-Jun, todas beneficiarias directas del CapEx masivo de hyperscalers: HPE con ingresos +40% y pedidos de servidores AI casi duplicados; Credo Technology (CRDO) con +157% YoY en Q4 FY2026 y guía de optical DSPs >$600M; LITE con proyección de revenue x5 hacia FY2028. Las tres representan la capa de networking e interconexión del stack AI —el segmento de infraestructura más infravalorado del ciclo frente al foco mediático en GPUs. El driver común es el CapEx de $190B de GOOGL en 2026 y compromisos similares de AWS/Azure/Meta. Primer registro en el tracker para estas tres empresas; seguimiento necesario para confirmar si la narrativa gana continuidad editorial. El 04-Jun, Sterling Infrastructure (STRL) añade la capa más física del stack: construcción de data centers (despeje de terreno, cimentación, suministros). E-infraestructura creció >100% el trimestre pasado con backlog de $3.8B, apreciándose +9% el día 04-Jun como parte de un rally de 'picks & shovels' más amplio. El patrón se amplía de networking/interconexión a toda la cadena física de construcción AI: HPE+CRDO+LITE (networking) + STRL (construcción física). Upgrade confianza baja→media: cuatro artículos, cuatro empresas distintas, misma tesis. El 09-Jun (TIKR), tres empresas adicionales amplían el universo del patrón: (1) MRVL (Marvell Technology) +10%: será incluida en el S&P 500 el 22 de junio (compras mecánicas masivas de fondos indexados garantizadas) + CEO de NVIDIA Jensen Huang la calificó como futura 'compañía de un billón de dólares' en Computex 2026. Diseña silicio personalizado y chips de conectividad de alta velocidad para data centers AI. (2) AGX (Argan) -11%: el retroceso es pura toma de beneficios tras +35% en días anteriores. Sus resultados Q1 FY2027 fueron excepcionales: ingresos +50% a $291M récord (vs. consenso $258M). Construye plantas de energía a gran escala (gas natural) con demanda masiva por el despliegue de data centers AI. (3) CAT (Caterpillar): análisis profundo del segmento Power & Energy (generadores e instalaciones de energía para data centers). EBITDA proyectado de $14B (2025) a ~$30B (2030); backlog $63B +79% YoY; objetivo de crecimiento de ingresos 6-9% anual hasta 2030. El universo de picks & shovels AI ahora abarca: HPE+CRDO+LITE (networking), STRL (construcción física), MRVL (conectividad/silicio personalizado), AGX+CAT (energía para data centers). Upgrade confianza media→alta: siete señales con datos duros en cuatro empresas distintas. El 25-Jun (SA 'Must Reads', llegado a las 20:43 UTC), Goldman Sachs proyecta que la capacidad global de data centers podría casi duplicarse hacia 2030 — octava señal, refuerzo macro de la tesis sin nueva empresa específica, pero confirmando la magnitud del ciclo de CapEx que sostiene a todo el universo del patrón. Nueva señal (06-Jul): 'Lumentum: The Pullback Before The Breakout' — LITE corrigió ~33% desde máximos por desinflado de valoración post-rally IA, tesis de breakout tras la corrección (matiz: pullback de corto plazo dentro de tendencia alcista estructural). El 09-Jul, SA publica \"Credo Enters The Next AI Battleground\": CRDO supero los $1.300M de ingresos en FY2026, creciendo 206% interanual con $662M de beneficio neto, mientras la adquisicion de DustPhotonics amplia sus capacidades en optica -- novena senal del patron, dato duro confirmado que refuerza la tesis de networking/interconexion ya trackeada desde el 03-Jun. El 14-Jul, SA publica \"Credo's Biggest Shift Is Still Undervalued\": dato duro adicional sobre CRDO -- more de $1.300M en ingresos del año fiscal 2026 y guidance de >80% de crecimiento para FY2027, con productos ópticos (incl. ZeroFlap) como motor de expansión de margen. Continúa la confirmación ya registrada el 09-Jul (ingresos +206% YoY) de que CRDO es uno de los beneficiarios directos y con datos duros más sólidos de la narrativa de infraestructura AI (picks & shovels). El 16-Jul (TIKR), primera nota bajista dentro del patron: Applied Optoelectronics (AAOI) cayo ~13% en una ola amplia de aversion al riesgo que golpeo simultaneamente a competidores de optica para IA (Lumentum, Coherent) -- sin mala noticia especifica de la propia empresa, se trata de toma de beneficios de operadores de momentum tras una subida de mas del 200% en el ano. Matiza (sin revertir) la tendencia alcista del patron: la capa de networking/optica AI sigue siendo estructuralmente solida, pero es vulnerable a correcciones tecnicas bruscas cuando el sentimiento de IA se enfria. El 30-Jul (TIKR), primera mencion de Vertiv (VRT), fabricante de sistemas de alimentacion y refrigeracion para centros de datos: cayo ~17% pese a que el beneficio ajustado (~$1,50) supero expectativas y la direccion elevo su guia de ingresos para todo el ano a ~$14.000M, porque los ingresos del trimestre (~$3.300M, +24% YoY) quedaron por debajo del consenso (~$3.400M) -- matiz bajista de corto plazo (venta con la noticia pese a fundamentales solidos y guidance al alza) dentro de la capa fisica del patron, mismo patron de reaccion ya visto con AGX el 16-Jul.",
       "confianza": "alta",
       "tendencia": "alcista",
-      "frecuencia": 13,
+      "frecuencia": 14,
       "fechas": [
         "2026-06-03",
         "2026-06-04",
@@ -1252,7 +1336,8 @@
         "2026-07-09",
         "2026-07-14",
         "2026-07-16",
-        "2026-07-22"
+        "2026-07-22",
+        "2026-07-30"
       ],
       "grafico": {
         "tipo": "bar",
@@ -1294,6 +1379,10 @@
           {
             "date": "2026-07-22",
             "value": 1
+          },
+          {
+            "date": "2026-07-30",
+            "value": -0.5
           }
         ]
       }
@@ -1533,10 +1622,10 @@
         "#RevenueBeats",
         "#GrowthSelloff"
       ],
-      "descripcion": "SpaceX IPO ($135/acción, ~$1.75T valoración, mayor IPO de la historia) se materializa el 12-Jun. Cuatro artículos con lecturas dispares: alcista (spillover a 3 stocks A&D con +50% EPS growth, Jun-11), bearish ('Heading For The Exits': 90x revenues 2025, señal de exceso de valoración, Jun-12), y contextual (IPO Preview 94x P/Revenue, Jun-12). La divergencia editorial refleja el debate central: ¿es SpaceX un activo generacional o el pico del hype AI/espacio? Impacto colateral en RKLB (pattern_023 y pattern_002): IPO masivo de SpaceX podría resetting las expectativas para el ecosistema espacial más amplio. El 15-Jun, SA ('Why SpaceX, Anthropic, And OpenAI IPOs Are A Red Flag For The Stock Market') confirma que SpaceX cerró su primer día de cotización por encima de $2T (vs. $1.75-1.77T de precio de salida), y señala a Anthropic y OpenAI como candidatos a IPO en un plazo de 3 a 12 meses. El artículo enmarca la secuencia como señal de alerta de techo especulativo para el mercado en general, no solo para el ecosistema SpaceX. Quinta fecha de seguimiento. El 17-Jun, dos señales adicionales con lectura bajista: (1) 'The S&P 500's Missing Giant' — SpaceX no podrá incorporarse al S&P 500 hasta junio de 2027 como mínimo (requisito de 12 meses cotizando antes de elegibilidad), retrasando cualquier flujo de compra pasiva mecánica que el mercado pudiera haber anticipado como catalizador de demanda adicional a corto plazo. (2) 'Sell SpaceX: Don't Get Trapped By One Of The Most Extreme Valuation Traps In History' — SPCX cotiza a 112x ventas con pérdidas netas de $4.900M y FCF negativo, tesis de valoración extrema. Con dos lecturas bajistas el mismo día y los tres últimos puntos de seguimiento (12-Jun, 15-Jun, 17-Jun) mostrando sentimiento netamente negativo, se actualiza la tendencia de neutral a bajista: el debate bull/bear documentado desde el 09-Jun se está resolviendo hacia el lado bajista en las sesiones más recientes. El 24-Jun y el 25-Jun añaden la octava y novena señal del patrón: Rocket Lab continúa bajo presión por el efecto halo de la OPV de SpaceX (desvío de capital, recogida de beneficios en todo el grupo), cayendo ~10% adicional el 25-Jun hasta quedar ~30% por debajo de su máximo de finales de mayo — pese a un backlog récord de $2.200M que sostiene los fundamentales. La tendencia bajista se reconfirma con dos lecturas más, aunque el backlog récord introduce un matiz: la presión es de sentimiento/rotación de capital, no de deterioro del negocio subyacente. El 12-Jul, dos artículos con lecturas contrapuestas sobre SPCX el mismo día marcan el primer resurgimiento del debate bull/bear desde las últimas señales bajistas de 24/25-Jun: (1) 'SpaceX: The Biggest Selloff In IPO History Might Be Coming' argumenta que la valoración de ~$2T es insostenible y que los vencimientos de lockup inminentes podrían expandir significativamente el float, introduciendo presión de venta de insiders — tesis estructural que refuerza la dirección bajista ya establecida del patrón. (2) 'SpaceX: Too Cheap To Ignore' ofrece la primera contra-tesis alcista desde el 09-Jun, señalando que SPCX cotiza cerca de $152 tras un retroceso desde su máximo post-IPO y plantea una oportunidad de compra. Décima y undécima señales acumuladas del patrón; se mantiene la tendencia bajista dado que el riesgo de lockup es un catalizador estructural con fecha conocida, mientras que la tesis de 'barata' es una lectura de valoración más subjetiva sin dato duro que la sustente. El 25-Jul, SA publica \"SpaceX: Why IPO History Prompts A Double Upgrade\": upgrade a doble notch tras una caída peak-to-trough del 51%, argumentando que el patrón se alinea con drawdowns históricos post-IPO que históricamente han marcado puntos de entrada atractivos -- duodécima señal acumulada, segunda contra-tesis alcista tras 'SpaceX: Too Cheap To Ignore' (12-Jul), reforzando que el debate entre riesgo estructural de lockup (bajista) y valoración ya castigada (alcista) permanece abierto.",
+      "descripcion": "SpaceX IPO ($135/acción, ~$1.75T valoración, mayor IPO de la historia) se materializa el 12-Jun. Cuatro artículos con lecturas dispares: alcista (spillover a 3 stocks A&D con +50% EPS growth, Jun-11), bearish ('Heading For The Exits': 90x revenues 2025, señal de exceso de valoración, Jun-12), y contextual (IPO Preview 94x P/Revenue, Jun-12). La divergencia editorial refleja el debate central: ¿es SpaceX un activo generacional o el pico del hype AI/espacio? Impacto colateral en RKLB (pattern_023 y pattern_002): IPO masivo de SpaceX podría resetting las expectativas para el ecosistema espacial más amplio. El 15-Jun, SA ('Why SpaceX, Anthropic, And OpenAI IPOs Are A Red Flag For The Stock Market') confirma que SpaceX cerró su primer día de cotización por encima de $2T (vs. $1.75-1.77T de precio de salida), y señala a Anthropic y OpenAI como candidatos a IPO en un plazo de 3 a 12 meses. El artículo enmarca la secuencia como señal de alerta de techo especulativo para el mercado en general, no solo para el ecosistema SpaceX. Quinta fecha de seguimiento. El 17-Jun, dos señales adicionales con lectura bajista: (1) 'The S&P 500's Missing Giant' — SpaceX no podrá incorporarse al S&P 500 hasta junio de 2027 como mínimo (requisito de 12 meses cotizando antes de elegibilidad), retrasando cualquier flujo de compra pasiva mecánica que el mercado pudiera haber anticipado como catalizador de demanda adicional a corto plazo. (2) 'Sell SpaceX: Don't Get Trapped By One Of The Most Extreme Valuation Traps In History' — SPCX cotiza a 112x ventas con pérdidas netas de $4.900M y FCF negativo, tesis de valoración extrema. Con dos lecturas bajistas el mismo día y los tres últimos puntos de seguimiento (12-Jun, 15-Jun, 17-Jun) mostrando sentimiento netamente negativo, se actualiza la tendencia de neutral a bajista: el debate bull/bear documentado desde el 09-Jun se está resolviendo hacia el lado bajista en las sesiones más recientes. El 24-Jun y el 25-Jun añaden la octava y novena señal del patrón: Rocket Lab continúa bajo presión por el efecto halo de la OPV de SpaceX (desvío de capital, recogida de beneficios en todo el grupo), cayendo ~10% adicional el 25-Jun hasta quedar ~30% por debajo de su máximo de finales de mayo — pese a un backlog récord de $2.200M que sostiene los fundamentales. La tendencia bajista se reconfirma con dos lecturas más, aunque el backlog récord introduce un matiz: la presión es de sentimiento/rotación de capital, no de deterioro del negocio subyacente. El 12-Jul, dos artículos con lecturas contrapuestas sobre SPCX el mismo día marcan el primer resurgimiento del debate bull/bear desde las últimas señales bajistas de 24/25-Jun: (1) 'SpaceX: The Biggest Selloff In IPO History Might Be Coming' argumenta que la valoración de ~$2T es insostenible y que los vencimientos de lockup inminentes podrían expandir significativamente el float, introduciendo presión de venta de insiders — tesis estructural que refuerza la dirección bajista ya establecida del patrón. (2) 'SpaceX: Too Cheap To Ignore' ofrece la primera contra-tesis alcista desde el 09-Jun, señalando que SPCX cotiza cerca de $152 tras un retroceso desde su máximo post-IPO y plantea una oportunidad de compra. Décima y undécima señales acumuladas del patrón; se mantiene la tendencia bajista dado que el riesgo de lockup es un catalizador estructural con fecha conocida, mientras que la tesis de 'barata' es una lectura de valoración más subjetiva sin dato duro que la sustente. El 25-Jul, SA publica \"SpaceX: Why IPO History Prompts A Double Upgrade\": upgrade a doble notch tras una caída peak-to-trough del 51%, argumentando que el patrón se alinea con drawdowns históricos post-IPO que históricamente han marcado puntos de entrada atractivos -- duodécima señal acumulada, segunda contra-tesis alcista tras 'SpaceX: Too Cheap To Ignore' (12-Jul), reforzando que el debate entre riesgo estructural de lockup (bajista) y valoración ya castigada (alcista) permanece abierto. El 28-Jul, SA publica \"SpaceX: I'm Starting To Get Interested, But Here's Where I'd Consider Buying\": SPCX cotiza un 50% por debajo de su precio de IPO y sigue descontando crecimiento agresivo, pero el autor empieza a mostrar interés (aunque todavía sin comprar) -- primera señal de posible suelo de valoración dentro de la tendencia bajista dominante del ecosistema SpaceX desde junio. Actualización 02-Ago (SA, 'SpaceX: Looking For A Bottom'): valoración de $1.4T sigue estirada y la acción cotiza por debajo del precio de IPO de cara a resultados Q2 — continúa la tendencia bajista/cautelosa del patrón.",
       "confianza": "alta",
       "tendencia": "bajista",
-      "frecuencia": 12,
+      "frecuencia": 14,
       "fechas": [
         "2026-06-09",
         "2026-06-11",
@@ -1546,7 +1635,9 @@
         "2026-06-24",
         "2026-06-25",
         "2026-07-12",
-        "2026-07-25"
+        "2026-07-25",
+        "2026-07-28",
+        "2026-08-02"
       ],
       "grafico": {
         "tipo": "line",
@@ -1588,6 +1679,14 @@
           {
             "date": "2026-07-25",
             "value": 0.3
+          },
+          {
+            "date": "2026-07-28",
+            "value": -0.1
+          },
+          {
+            "date": "2026-08-02",
+            "value": -0.3
           }
         ]
       }
@@ -1727,15 +1826,16 @@
         "#Macro",
         "#DefensivePlay"
       ],
-      "descripcion": "David Keller (Jun-11) documenta cambio estructural de Risk-On a Risk-Off: liderazgo estrecho, inversores rotando desde growth sobreextendido hacia defensivos. El mismo día, un segundo artículo recomienda 3 safe haven stocks ante tensiones geopolíticas escalantes, inflación persistente y VIX con swings violentos. Señal diferenciada de pattern_015 (burbuja AI narrativa) y pattern_001 (income yield): este patrón específicamente captura el deterioro de estructura técnica de mercado (narrow leadership → broadening sell-off potencial). Con el SpaceX IPO y MU earnings el 24-Jun como próximos catalizadores, el risk-off puede intensificarse o revertir. El 27-Jun, SA publica 'How The Mag 7 Became The Drag 7, And Might Drop The S&P 500 By 30% (Technical Analysis)': el Mag 7 concentra ~34% de SPY y ~38% de QQQ, dejando a los índices ampliamente vulnerables a su reversión; el análisis técnico semanal apunta a un posible derrumbe de hasta el 30% si el liderazgo estrecho se revierte. Tercera señal del patrón (tras las dos del 11-Jun), confirmando con datos de concentración de índice la tesis de deterioro de estructura técnica de mercado. Con tres señales acumuladas se actualiza la confianza de media a alta. El 29-Jun, SA publica \"3 Top Growth And Income Stocks To Win The 'Tortoise Vs. Hare Race'\": el propio resumen editorial señala que \"el miedo extremo ha regresado al mercado, con inversores rotando fuera de acciones momentum hacia compañías de alta calidad\" — cuarta señal del patrón, confirmando textualmente (no solo técnicamente) la tesis de rotación de liderazgo estrecho hacia defensivos/calidad ya documentada desde el 11-Jun. Decisión editorial: se cuenta esta noticia en pattern_029 (rotación) y no en pattern_001 (income), pese a que el artículo recomienda nombres de income, porque el framing explícito del propio texto es sobre el mecanismo de rotación, no sobre la tesis de yield. El 25-Jul, SA publica \"Top Healthcare Stocks Beyond The Market Rotation Averaging 128% Forward EPS Growth\": los fondos globales han incrementado exposición a salud en el último mes como beneficiario directo de la rotación fuera del trade de IA y otros activos risk-on -- quinta señal del patrón, primera vez que se nombra explícitamente un sector concreto (salud) como destino de capital de la rotación momentum→calidad/defensivo ya documentada desde el 11-Jun, en lugar de solo describir el mecanismo o nombres de income genéricos.",
+      "descripcion": "David Keller (Jun-11) documenta cambio estructural de Risk-On a Risk-Off: liderazgo estrecho, inversores rotando desde growth sobreextendido hacia defensivos. El mismo día, un segundo artículo recomienda 3 safe haven stocks ante tensiones geopolíticas escalantes, inflación persistente y VIX con swings violentos. Señal diferenciada de pattern_015 (burbuja AI narrativa) y pattern_001 (income yield): este patrón específicamente captura el deterioro de estructura técnica de mercado (narrow leadership → broadening sell-off potencial). Con el SpaceX IPO y MU earnings el 24-Jun como próximos catalizadores, el risk-off puede intensificarse o revertir. El 27-Jun, SA publica 'How The Mag 7 Became The Drag 7, And Might Drop The S&P 500 By 30% (Technical Analysis)': el Mag 7 concentra ~34% de SPY y ~38% de QQQ, dejando a los índices ampliamente vulnerables a su reversión; el análisis técnico semanal apunta a un posible derrumbe de hasta el 30% si el liderazgo estrecho se revierte. Tercera señal del patrón (tras las dos del 11-Jun), confirmando con datos de concentración de índice la tesis de deterioro de estructura técnica de mercado. Con tres señales acumuladas se actualiza la confianza de media a alta. El 29-Jun, SA publica \"3 Top Growth And Income Stocks To Win The 'Tortoise Vs. Hare Race'\": el propio resumen editorial señala que \"el miedo extremo ha regresado al mercado, con inversores rotando fuera de acciones momentum hacia compañías de alta calidad\" — cuarta señal del patrón, confirmando textualmente (no solo técnicamente) la tesis de rotación de liderazgo estrecho hacia defensivos/calidad ya documentada desde el 11-Jun. Decisión editorial: se cuenta esta noticia en pattern_029 (rotación) y no en pattern_001 (income), pese a que el artículo recomienda nombres de income, porque el framing explícito del propio texto es sobre el mecanismo de rotación, no sobre la tesis de yield. El 25-Jul, SA publica \"Top Healthcare Stocks Beyond The Market Rotation Averaging 128% Forward EPS Growth\": los fondos globales han incrementado exposición a salud en el último mes como beneficiario directo de la rotación fuera del trade de IA y otros activos risk-on -- quinta señal del patrón, primera vez que se nombra explícitamente un sector concreto (salud) como destino de capital de la rotación momentum→calidad/defensivo ya documentada desde el 11-Jun, en lugar de solo describir el mecanismo o nombres de income genéricos. El 28-Jul, SA publica \"This Is Not A Normal Market Rotation\": la volatilidad reciente no constituye una rotación sana, el riesgo permanece concentrado en semiconductores y tecnología cara, y el mercado de opciones ya descuenta un riesgo mayor -- confirmación adicional del marco de riesgo de mercado estructural (no rotación benigna) que domina este patrón desde finales de junio.",
       "confianza": "alta",
       "tendencia": "bajista",
-      "frecuencia": 5,
+      "frecuencia": 6,
       "fechas": [
         "2026-06-11",
         "2026-06-27",
         "2026-06-29",
-        "2026-07-25"
+        "2026-07-25",
+        "2026-07-28"
       ],
       "grafico": {
         "tipo": "line",
@@ -1757,6 +1857,10 @@
           {
             "date": "2026-07-25",
             "value": -0.55
+          },
+          {
+            "date": "2026-07-28",
+            "value": -0.6
           }
         ]
       }
@@ -1770,14 +1874,15 @@
         "#CapexAI",
         "#DebtConcern"
       ],
-      "descripcion": "Primera cobertura específica sobre META en el tracker (14-Jun, SA): 'Meta At 17x P/E: Investing Doesn't Get Any Easier'. El artículo reconoce presión de mercado sobre META por escepticismo inversor respecto al CapEx creciente en AI y potencial dilución de capital, pero el framing del título (P/E de 17x, 'no se pone más fácil') sugiere que el autor interpreta la caída como oportunidad de entrada barata, en línea con el patrón ya visto en GOOGL (pattern_005: dilución real pero aval institucional cambia el marco) y AVGO (pattern_020: sell-the-news como entrada táctica). El snippet disponible está cortado y no permite confirmar con certeza la conclusión final del autor. Confianza baja: 1 artículo, primera mención de META como empresa individual en el tracker. El 22-Jun, 'Stocks To Play The AI And Data Center Boom' incluye a Meta Platforms como 'buy' por su apalancamiento en base de usuarios global e infraestructura IA agresiva — segunda señal del patrón, consistente en dirección con la primera (14-Jun). Con 2 noticias se actualiza la confianza de baja a media. El 10-Jul, SA publica \"Meta Is Getting Ready For War\": META sube mas de un 15% desde la cobertura previa del autor, quien reitera su calificacion de compra citando la construccion de la base de infraestructura de IA mas solida del sector -- tercera senal del patron, tercera confirmacion consecutiva de la tesis alcista (14-Jun, 22-Jun, 10-Jul), sin abordar directamente la admision de exceso de capacidad de computo documentada en pattern_042 (02-Jul). Con 3 senales se actualiza la confianza de media a alta.",
+      "descripcion": "Primera cobertura específica sobre META en el tracker (14-Jun, SA): 'Meta At 17x P/E: Investing Doesn't Get Any Easier'. El artículo reconoce presión de mercado sobre META por escepticismo inversor respecto al CapEx creciente en AI y potencial dilución de capital, pero el framing del título (P/E de 17x, 'no se pone más fácil') sugiere que el autor interpreta la caída como oportunidad de entrada barata, en línea con el patrón ya visto en GOOGL (pattern_005: dilución real pero aval institucional cambia el marco) y AVGO (pattern_020: sell-the-news como entrada táctica). El snippet disponible está cortado y no permite confirmar con certeza la conclusión final del autor. Confianza baja: 1 artículo, primera mención de META como empresa individual en el tracker. El 22-Jun, 'Stocks To Play The AI And Data Center Boom' incluye a Meta Platforms como 'buy' por su apalancamiento en base de usuarios global e infraestructura IA agresiva — segunda señal del patrón, consistente en dirección con la primera (14-Jun). Con 2 noticias se actualiza la confianza de baja a media. El 10-Jul, SA publica \"Meta Is Getting Ready For War\": META sube mas de un 15% desde la cobertura previa del autor, quien reitera su calificacion de compra citando la construccion de la base de infraestructura de IA mas solida del sector -- tercera senal del patron, tercera confirmacion consecutiva de la tesis alcista (14-Jun, 22-Jun, 10-Jul), sin abordar directamente la admision de exceso de capacidad de computo documentada en pattern_042 (02-Jul). Con 3 senales se actualiza la confianza de media a alta. El 30-Jul, SA publica dos piezas alcistas el mismo dia tras el selloff post-Q2: \"Meta Platforms Q2: The Market Sells, I Buy The Dip\" (Strong Buy, PT $815, ~50% upside desde el precio post-earnings) y \"Meta's Q2: This Selloff Is A Gift\" (metricas operativas solidas y crecimiento de ingresos pese a la caida del 8% tras earnings) -- decimoquinta y decimosexta senal del patron, doble confirmacion editorial el mismo dia de que la caida post-earnings se interpreta como oportunidad de entrada, no como deterioro de tesis.",
       "confianza": "alta",
       "tendencia": "alcista",
-      "frecuencia": 3,
+      "frecuencia": 5,
       "fechas": [
         "2026-06-14",
         "2026-06-22",
-        "2026-07-10"
+        "2026-07-10",
+        "2026-07-30"
       ],
       "grafico": {
         "tipo": "line",
@@ -1795,6 +1900,10 @@
           {
             "date": "2026-07-10",
             "value": 0.55
+          },
+          {
+            "date": "2026-07-30",
+            "value": 0.8
           }
         ]
       }
@@ -2139,12 +2248,13 @@
         "#CapexAI",
         "#Tech"
       ],
-      "descripcion": "El 02-Jul, SA publica \"AI Bubble Burst: Meta Admits 'Excess Compute Capacity'\": segun indicios reportados por el articulo, Meta habria admitido tener exceso de capacidad de computo, siendo el primer hyperscaler en reconocerlo publicamente, con expectativa editorial de que mas hyperscalers sigan el mismo camino. Es la primera grieta con nombre propio (no solo tesis de valoracion generica) en la narrativa de demanda insaciable de infraestructura AI que sostiene patrones bullish como pattern_003, pattern_013 y pattern_019. Se registra como patron separado de pattern_030 (META, Narrativa, alcista, tesis de valoracion barata a 17x P/E) en lugar de fusionarse, por diferir tanto en tipo (Realidad vs Narrativa) como en tendencia (bajista vs alcista) -- fusionarlos ocultaria el debate activo entre la tesis de entrada barata y la primera senal concreta de exceso de capacidad. Confianza media (no alta) porque el propio articulo hedgea el hallazgo con 'indications are' en lugar de citar una declaracion oficial directa de la compañia, y es fuente unica sin verificacion cruzada.",
-      "confianza": "media",
+      "descripcion": "El 02-Jul, SA publica \"AI Bubble Burst: Meta Admits 'Excess Compute Capacity'\": segun indicios reportados por el articulo, Meta habria admitido tener exceso de capacidad de computo, siendo el primer hyperscaler en reconocerlo publicamente, con expectativa editorial de que mas hyperscalers sigan el mismo camino. Es la primera grieta con nombre propio (no solo tesis de valoracion generica) en la narrativa de demanda insaciable de infraestructura AI que sostiene patrones bullish como pattern_003, pattern_013 y pattern_019. Se registra como patron separado de pattern_030 (META, Narrativa, alcista, tesis de valoracion barata a 17x P/E) en lugar de fusionarse, por diferir tanto en tipo (Realidad vs Narrativa) como en tendencia (bajista vs alcista) -- fusionarlos ocultaria el debate activo entre la tesis de entrada barata y la primera senal concreta de exceso de capacidad. Confianza media (no alta) porque el propio articulo hedgea el hallazgo con 'indications are' en lugar de citar una declaracion oficial directa de la compañia, y es fuente unica sin verificacion cruzada. El 30-Jul (TIKR), primer dato duro real que confirma la tesis bajista original (02-Jul, indicios de exceso de capacidad): Meta reporto Q2 con ingresos ~$60.800M (+28% YoY, ligero beat) pero BPA de ~$6,18, muy por debajo del consenso (~$7,20) y -13% YoY; los costes totales subieron 55% (incl. cargos legales/indemnizaciones) y el FCF colapso a ~$784M desde ~$8.600M un ano antes; la compania ademas elevo su guia de CapEx 2026 a $130.000-145.000M. Upgrade de confianza media->alta: la primera senal (02-Jul) era una indicacion hedgeada de un solo articulo, esta es un resultado trimestral real y confirmado.",
+      "confianza": "alta",
       "tendencia": "bajista",
-      "frecuencia": 1,
+      "frecuencia": 2,
       "fechas": [
-        "2026-07-02"
+        "2026-07-02",
+        "2026-07-30"
       ],
       "grafico": {
         "tipo": "line",
@@ -2154,6 +2264,10 @@
           {
             "date": "2026-07-02",
             "value": -0.6
+          },
+          {
+            "date": "2026-07-30",
+            "value": -0.7
           }
         ]
       }
@@ -3190,87 +3304,441 @@
           }
         ]
       }
+    },
+    {
+      "id": "pattern_079",
+      "tipo": "Narrativa",
+      "empresa": "TEAM",
+      "tags": [
+        "#CapexAI",
+        "#Tech"
+      ],
+      "descripcion": "Atlassian (TEAM) subió ~10% el 28-Jul tras lanzar funciones de IA que convierten Jira en centro de mando para agentes de programación con IA (GitHub Copilot, Cursor, Claude Code, integración sin coste adicional para clientes cloud de pago); Morgan Stanley inició cobertura con recomendación alcista y precio objetivo de $120. Primera mención de TEAM en el tracker -- narrativa de reposicionamiento de herramienta de gestión de proyectos hacia infraestructura de agentic coding, en línea con la tesis de adopción de IA en el ciclo de desarrollo de software.",
+      "confianza": "baja",
+      "tendencia": "alcista",
+      "frecuencia": 1,
+      "fechas": [
+        "2026-07-28"
+      ],
+      "grafico": {
+        "tipo": "line",
+        "eje_x": "fecha",
+        "eje_y": "sentimiento",
+        "data": [
+          {
+            "date": "2026-07-28",
+            "value": 0.7
+          }
+        ]
+      }
+    },
+    {
+      "id": "pattern_080",
+      "tipo": "Realidad",
+      "empresa": "LEGN",
+      "tags": [
+        "#Earnings-pressure"
+      ],
+      "descripcion": "Legend Biotech (LEGN) cayó ~13% el 28-Jul tras la salida del CEO Ying Huang (siete años en el cargo, sustituido de forma provisional por un directivo interno) coincidiendo con la rebaja de UBS a Neutral y el recorte de precio objetivo a $28 desde $49, por mayor competencia de la esperada para Carvykti, su terapia celular contra el mieloma múltiple comercializada junto a Johnson & Johnson. Primera mención de LEGN en el tracker -- evento idiosincrático de gobernanza más riesgo competitivo confirmado por analista, sin conexión directa con los temas macro/AI dominantes del tracker.",
+      "confianza": "baja",
+      "tendencia": "bajista",
+      "frecuencia": 1,
+      "fechas": [
+        "2026-07-28"
+      ],
+      "grafico": {
+        "tipo": "line",
+        "eje_x": "fecha",
+        "eje_y": "sentimiento",
+        "data": [
+          {
+            "date": "2026-07-28",
+            "value": -0.6
+          }
+        ]
+      }
+    },
+    {
+      "id": "pattern_081",
+      "tipo": "Narrativa",
+      "empresa": "W",
+      "tags": [
+        "#RevenueBeats"
+      ],
+      "descripcion": "Wayfair (W) subió ~12% el 28-Jul por compras anticipadas a resultados y una ola de subidas de precio objetivo entre analistas, pese a mantener márgenes de beneficio ajustados y con frecuencia negativos. Primera mención de W en el tracker -- señal especulativa pre-earnings, sin confirmación de resultado real todavía.",
+      "confianza": "baja",
+      "tendencia": "alcista",
+      "frecuencia": 1,
+      "fechas": [
+        "2026-07-28"
+      ],
+      "grafico": {
+        "tipo": "line",
+        "eje_x": "fecha",
+        "eje_y": "sentimiento",
+        "data": [
+          {
+            "date": "2026-07-28",
+            "value": 0.5
+          }
+        ]
+      }
+    },
+    {
+      "id": "pattern_082",
+      "tipo": "Narrativa",
+      "empresa": "VG",
+      "tags": [
+        "#Energy"
+      ],
+      "descripcion": "Venture Global (VG), segundo mayor exportador de gas natural licuado de EE.UU., cedió ~10% el 28-Jul devolviendo ganancias de una fuerte racha reciente, sin catalizador fundamental nuevo identificado -- toma de beneficios puntual más que deterioro de tesis. Primera mención de VG en el tracker.",
+      "confianza": "baja",
+      "tendencia": "bajista",
+      "frecuencia": 1,
+      "fechas": [
+        "2026-07-28"
+      ],
+      "grafico": {
+        "tipo": "line",
+        "eje_x": "fecha",
+        "eje_y": "sentimiento",
+        "data": [
+          {
+            "date": "2026-07-28",
+            "value": -0.3
+          }
+        ]
+      }
+    },
+    {
+      "id": "pattern_083",
+      "tipo": "Narrativa",
+      "empresa": "Macro (Housing / Vivienda EEUU)",
+      "tags": [
+        "#Macro",
+        "#RatesUp",
+        "#GrowthSelloff"
+      ],
+      "descripcion": "SA publica el 29-Jul \"U.S. Economy: A 30% Adjustment For Housing Ahead\": el mercado inmobiliario estadounidense se está deteriorando desde niveles ya débiles, con inventarios de viviendas unifamiliares y condominios en máximos plurianuales y ejecuciones hipotecarias al alza, proyectando un ajuste de precios de hasta el 30%. Distinto del patrón ya documentado sobre la burbuja del Sun Belt ya desinflada (pattern_040, 29-Jun), esta pieza plantea un ajuste nacional prospectivo aún no materializado con dato duro. Primera mención en el tracker; relevancia potencial para REITs residenciales y financieras con exposición hipotecaria si se confirma con datos adicionales en próximas ejecuciones.",
+      "confianza": "baja",
+      "tendencia": "bajista",
+      "frecuencia": 1,
+      "fechas": [
+        "2026-07-29"
+      ],
+      "grafico": {
+        "tipo": "line",
+        "eje_x": "fecha",
+        "eje_y": "sentimiento",
+        "data": [
+          {
+            "date": "2026-07-29",
+            "value": -0.6
+          }
+        ]
+      }
+    },
+    {
+      "id": "pattern_084",
+      "tipo": "Realidad",
+      "empresa": "MSFT",
+      "tags": [
+        "#RevenueBeats",
+        "#CapexAI",
+        "#Earnings-pressure",
+        "#Tech"
+      ],
+      "descripcion": "Microsoft reporto su Q4 FY2026 (30-Jul, TIKR) con ingresos de ~$90.000M (vs ~$88.000M esperados) y BPA ajustado de ~$4,75 (vs ~$4,25 esperados). Azure crecio 43% frente al ~40% esperado por los analistas, y la cartera de pedidos comerciales (RPO) se disparo 84% hasta ~$678.000M, dando visibilidad inusual sobre ingresos futuros. El matiz negativo: el capex mas que se duplico hasta ~$36.000M, reduciendo el FCF trimestral a ~$20.000M desde ~$26.000M el ano anterior. Primera cobertura de tipo 'Realidad' (dato duro trimestral) para MSFT en el tracker, separada de pattern_027 (narrativa alcista laggard-premium) y pattern_071 (narrativa bajista dead-money) porque es el resultado real, no una tesis de analista. La dinamica beat-en-ingresos-y-margen-operativo-pero-capex-dispara/FCF-comprime replica casi exactamente el patron ya documentado en GOOGL (pattern_005), reforzando la lectura de que todo el Mag7 enfrenta el mismo dilema de mercado entre crecimiento de Cloud/IA y compresion de flujo de caja libre por CapEx.",
+      "confianza": "alta",
+      "tendencia": "neutral",
+      "frecuencia": 1,
+      "fechas": [
+        "2026-07-30"
+      ],
+      "grafico": {
+        "tipo": "line",
+        "eje_x": "fecha",
+        "eje_y": "sentimiento",
+        "data": [
+          {
+            "date": "2026-07-30",
+            "value": 0.1
+          }
+        ]
+      }
+    },
+    {
+      "id": "pattern_085",
+      "tipo": "Realidad",
+      "empresa": "GRMN",
+      "tags": [
+        "#RevenueBeats",
+        "#MarginExpansion"
+      ],
+      "descripcion": "Garmin subio ~17% hasta maximo historico (30-Jul, TIKR) tras un Q2 que supero ampliamente expectativas: BPA de ~$2,80 (vs ~$2,30 esperados) sobre ingresos de ~$2.000M, con el segmento de fitness creciendo ~25% impulsado por la reciente compra de TrainingPeaks y TrainHeroic (ingresos recurrentes por suscripcion). La direccion elevo su guia de BPA para todo el ano a ~$10. Primera mencion de GRMN en el tracker; confianza baja por ser senal unica, pese a tratarse de un dato duro confirmado -- se mantiene el criterio de no escalar automaticamente a alta con una sola fuente salvo que el hecho sea estructuralmente significativo para el tracker (no lo es, GRMN no forma parte de ninguna narrativa macro/AI ya trackeada).",
+      "confianza": "baja",
+      "tendencia": "alcista",
+      "frecuencia": 1,
+      "fechas": [
+        "2026-07-30"
+      ],
+      "grafico": {
+        "tipo": "line",
+        "eje_x": "fecha",
+        "eje_y": "sentimiento",
+        "data": [
+          {
+            "date": "2026-07-30",
+            "value": 0.7
+          }
+        ]
+      }
+    },
+    {
+      "id": "pattern_086",
+      "tipo": "Realidad",
+      "empresa": "LAD",
+      "tags": [
+        "#RevenueBeats"
+      ],
+      "descripcion": "Lithia Motors subio ~19% hasta maximo de 52 semanas (30-Jul, TIKR) tras un Q2 que supero estimaciones, impulsado por un trimestre destacado de su brazo financiero: BPA ajustado de ~$10 (vs consenso ~$8,80) sobre ingresos record de $9.800M, con el consejo elevando el dividendo ~23%. Primera mencion de LAD en el tracker; confianza baja por ser senal unica y no conectar con ninguna narrativa macro ya trackeada (consumo discrecional/auto, no AI).",
+      "confianza": "baja",
+      "tendencia": "alcista",
+      "frecuencia": 1,
+      "fechas": [
+        "2026-07-30"
+      ],
+      "grafico": {
+        "tipo": "line",
+        "eje_x": "fecha",
+        "eje_y": "sentimiento",
+        "data": [
+          {
+            "date": "2026-07-30",
+            "value": 0.6
+          }
+        ]
+      }
+    },
+    {
+      "id": "pattern_087",
+      "tipo": "Realidad",
+      "empresa": "PSN",
+      "tags": [
+        "#GuidanceCut",
+        "#Earnings-pressure"
+      ],
+      "descripcion": "Parsons se desplomo ~35% (30-Jul, TIKR) tras recortar su guia de ingresos para 2026 a un rango de $6.200-6.500M y rebajar drasticamente su guia de beneficio, alegando cargos vinculados a dos contratos que planea abandonar y un proyecto retrasado por lluvias historicas -- la compania registro una perdida trimestral en libros pese a que el BPA ajustado en realidad supero estimaciones. Primera mencion de PSN en el tracker (contratista gubernamental de defensa/infraestructura). Confianza alta pese a ser senal unica porque se trata de un dato duro confirmado (guidance cut oficial + cargos concretos), cumpliendo la regla de confianza alta para hechos confirmados independientemente del numero de fuentes.",
+      "confianza": "alta",
+      "tendencia": "bajista",
+      "frecuencia": 1,
+      "fechas": [
+        "2026-07-30"
+      ],
+      "grafico": {
+        "tipo": "line",
+        "eje_x": "fecha",
+        "eje_y": "sentimiento",
+        "data": [
+          {
+            "date": "2026-07-30",
+            "value": -0.8
+          }
+        ]
+      }
+    },
+    {
+      "id": "pattern_088",
+      "tipo": "Realidad",
+      "empresa": "MANH",
+      "tags": [
+        "#RevenueBeats",
+        "#MarginExpansion",
+        "#Tech"
+      ],
+      "descripcion": "Manhattan Associates se disparo ~21% (30-Jul, TIKR) tras un Q2 solido que recordo a los inversores por que la accion cotiza con prima: BPA ajustado de ~$1,40 supero expectativas sobre ingresos de ~$298M, con los ingresos por suscripcion en la nube subiendo 26% y un tercer trimestre record consecutivo de contrataciones; la direccion elevo su guia de ingresos para todo el ano a ~$1.160M. Primera mencion de MANH en el tracker (software de cadena de suministro/gestion de almacenes). Confianza alta pese a ser senal unica por tratarse de un dato duro confirmado (beat + guidance raise + tercer trimestre consecutivo de record de contrataciones).",
+      "confianza": "alta",
+      "tendencia": "alcista",
+      "frecuencia": 1,
+      "fechas": [
+        "2026-07-30"
+      ],
+      "grafico": {
+        "tipo": "line",
+        "eje_x": "fecha",
+        "eje_y": "sentimiento",
+        "data": [
+          {
+            "date": "2026-07-30",
+            "value": 0.75
+          }
+        ]
+      }
+    },
+    {
+      "id": "pattern_089",
+      "tipo": "Realidad",
+      "empresa": "AAPL",
+      "tags": [
+        "#RevenueBeats",
+        "#Earnings-pressure",
+        "#GrowthSelloff",
+        "#Tech"
+      ],
+      "descripcion": "Apple reportó su Q3 fiscal el 30-Jul (reacción 31-Jul en SA) con ingresos de $109.420M y BPA de $2,02, ambos por encima de las estimaciones de consenso al alza, con crecimiento sólido en iPhone y Mac. Pese al beat, la acción sufrió una caída notable que tres piezas distintas de SA analizan desde ángulos diferentes el mismo día: (1) 'Apple Dropped The Ball Big Time' -- pese a alcanzar los $5 billones de capitalización bursátil por ventas fuertes de iPhone y renovado entusiasmo por IA, critica que la nueva Siri con IA se limite a los iPhones más recientes, limitando la monetización de IA sobre la base instalada completa; (2) 'Apple Q3: Wall Street Has Lost Its Mind' -- postura contraria alcista, considera injustificada la reacción negativa del mercado dado el beat de ingresos/BPA y el crecimiento de iPhone/Mac; (3) 'Apple Q3: Buy The Rumor, Sell The News' -- atribuye la caída inicial a que un beneficio fiscal por aranceles infla el resultado, generando escepticismo sobre la calidad del beat. Primera cobertura tipo 'Realidad' para AAPL en el tracker (separada de pattern_074, tesis narrativa pre-resultados del 24-Jul). A diferencia del patrón beat-pero-CapEx/FCF-comprimido ya documentado en GOOGL/MSFT/META (pattern_005/084/042), la fricción de mercado en AAPL parece originarse en dudas sobre la calidad del beneficio (componente arancelario no recurrente) y en decepción estratégica sobre el ritmo de despliegue de IA (Siri), no en compresión de flujo de caja por CapEx. Confianza alta por triple cobertura editorial el mismo día sobre un dato duro confirmado (resultados trimestrales reales); tendencia clasificada como neutral por la dispersión genuina de lecturas (2 defensas alcistas vs. 1 crítica bajista sobre la misma cifra).",
+      "confianza": "alta",
+      "tendencia": "neutral",
+      "frecuencia": 3,
+      "fechas": [
+        "2026-07-31"
+      ],
+      "grafico": {
+        "tipo": "line",
+        "eje_x": "fecha",
+        "eje_y": "sentimiento",
+        "data": [
+          {
+            "date": "2026-07-31",
+            "value": 0.1
+          }
+        ]
+      }
+    },
+    {
+      "id": "pattern_090",
+      "tipo": "Realidad",
+      "empresa": "AMZN",
+      "tags": [
+        "#RevenueBeats",
+        "#MarginExpansion",
+        "#Tech"
+      ],
+      "descripcion": "Amazon reportó su Q2 el 31-Jul (SA, 'Amazon Q2: One Of The Best Quarters So Far'): trimestre destacado con aceleración del crecimiento de e-commerce, AWS robusto y márgenes en expansión; el artículo señala además 'opcionalidades' adicionales de negocio como palancas de valor futuras (contenido truncado en el extracto disponible, sin cifras exactas de ingresos/BPA). Primera cobertura de AMZN como empresa individual en el tracker. Confianza alta pese a frecuencia=1 por tratarse de dato duro de resultados trimestrales confirmados con lectura unánimemente positiva (sin contrapunto bajista en el extracto disponible, a diferencia del mismo día para AAPL). Contexto relevante: se suma a MSFT (30-Jul) y AAPL (31-Jul) como tercer miembro del Mag7 en reportar en esta ventana de resultados, pero es el único hasta ahora sin señal de fricción de mercado (ni CapEx/FCF comprimido como GOOGL/MSFT, ni cuestionamiento de calidad de beneficio como AAPL) -- primer punto de datos a vigilar para confirmar si la dispersión bull/bear del resto del Mag7 es generalizada o específica de cada modelo de negocio.",
+      "confianza": "alta",
+      "tendencia": "alcista",
+      "frecuencia": 1,
+      "fechas": [
+        "2026-07-31"
+      ],
+      "grafico": {
+        "tipo": "line",
+        "eje_x": "fecha",
+        "eje_y": "sentimiento",
+        "data": [
+          {
+            "date": "2026-07-31",
+            "value": 0.6
+          }
+        ]
+      }
+    },
+    {
+      "id": "pattern_091",
+      "tipo": "Tendencias",
+      "empresa": "Macro (Mag7 divergence)",
+      "tags": [
+        "#Tech",
+        "#Rotation"
+      ],
+      "descripcion": "El 02-Ago, SA publica 'The Mag 7 Doesn't Exist Anymore: Pick The Winners, Sell The Losers': el grupo Mag7 se ha fracturado en historias individuales distintas que ya no se mueven como un único trade, divergiendo en estrategia, financiación y calidad de resultados. El framing coincide con la evidencia ya documentada por empresa en el tracker (GOOGL con dispersión bull/bear y compresión de FCF en pattern_005, MSFT con señales mixtas entre tesis bajista en pattern_071 y beat con capex elevado en pattern_084, META con recuperación alcista en pattern_030/042, AAPL con dispersión bull/bear en pattern_089, AMZN sin fricción de mercado aparente en pattern_090). Es la primera pieza editorial con contenido sustantivo que articula explícitamente la tesis de divergencia intra-Mag7 (una mención previa del 30-Jul, 'Beyond The Mag 7 And Headline Noise', se omitió por falta de tickers/tesis en el extracto disponible). Relevancia para inversión: refuerza el argumento de que el stock-picking individual dentro del grupo puede ser más rentable que la exposición pasiva conjunta vía ETFs ponderados por Mag7, en línea con la preferencia declarada por análisis fundamental de empresas individuales sobre vehículos pasivos.",
+      "confianza": "baja",
+      "tendencia": "neutral",
+      "frecuencia": 1,
+      "fechas": [
+        "2026-08-02"
+      ],
+      "grafico": {
+        "tipo": "line",
+        "eje_x": "fecha",
+        "eje_y": "frecuencia",
+        "data": [
+          {
+            "date": "2026-08-02",
+            "value": 1
+          }
+        ]
+      }
     }
   ],
   "resumenEstadistico": {
-    "totalPatrones": 78,
+    "totalPatrones": 91,
     "porTipo": {
-      "Narrativa": 36,
-      "Realidad": 32,
-      "Tendencias": 10
+      "Narrativa": 40,
+      "Realidad": 40,
+      "Tendencias": 11
     },
     "porConfianza": {
-      "alta": 38,
-      "media": 14,
-      "baja": 26
+      "alta": 45,
+      "media": 12,
+      "baja": 34
     },
     "porTendencia": {
-      "alcista": 36,
-      "bajista": 29,
-      "neutral": 13
+      "alcista": 42,
+      "bajista": 33,
+      "neutral": 16
     },
     "empresasMasFrecuentes": [
       {
         "empresa": "Macro (Energy, Financials, Income)",
-        "frecuencia": 48
+        "frecuencia": 50
       },
       {
         "empresa": "MU",
-        "frecuencia": 36
+        "frecuencia": 39
       },
       {
         "empresa": "Macro (AI burbuja / GPU cycle)",
-        "frecuencia": 33
+        "frecuencia": 35
       },
       {
         "empresa": "GOOGL",
-        "frecuencia": 13
+        "frecuencia": 15
       },
       {
         "empresa": "NVDA",
-        "frecuencia": 13
+        "frecuencia": 14
       }
     ],
     "tagsMasFrecuentes": [
       {
         "tag": "#Tech",
-        "frecuencia": 39
+        "ocurrencias": 45
       },
       {
         "tag": "#CapexAI",
-        "frecuencia": 27
+        "ocurrencias": 29
       },
       {
         "tag": "#RevenueBeats",
-        "frecuencia": 20
+        "ocurrencias": 27
       },
       {
         "tag": "#GrowthSelloff",
-        "frecuencia": 18
-      },
-      {
-        "tag": "#Macro",
-        "frecuencia": 16
+        "ocurrencias": 20
       },
       {
         "tag": "#Earnings-pressure",
-        "frecuencia": 14
+        "ocurrencias": 18
+      },
+      {
+        "tag": "#Macro",
+        "ocurrencias": 17
       },
       {
         "tag": "#Rotation",
-        "frecuencia": 10
-      },
-      {
-        "tag": "#DefensivePlay",
-        "frecuencia": 9
-      },
-      {
-        "tag": "#Semis",
-        "frecuencia": 9
+        "ocurrencias": 11
       },
       {
         "tag": "#MarginExpansion",
-        "frecuencia": 7
+        "ocurrencias": 10
+      },
+      {
+        "tag": "#DefensivePlay",
+        "ocurrencias": 9
+      },
+      {
+        "tag": "#Semis",
+        "ocurrencias": 9
       }
     ]
   },
@@ -4152,6 +4620,100 @@
       ],
       "nota": "SA 'Must Reads' del 27-Jul (19:57:25 UTC, único disponible; 0 TIKR desde el 22-Jul, confirmado). Carpeta 'Daily report' sigue sin estar montada/accesible en esta sesión (solo 'Analysis' conectada; Glob/Read rechazan con 'outside this session's connected folders' tanto para Daily report como para la raíz INVERSIONES) — 47ª ejecución consecutiva con esta limitación. Gmail MCP usado como fallback, htmlBody convertido a texto vía html2text. 5 piezas de contenido de inversión, 5 procesadas: (1) 'Welltower Needs A Miracle To Justify This Price' — WELL a 41x AFFO forward, cap rates implícitos <3%, tesis de sobrevaloración puntual [pattern_014 +1, segunda señal bajista dentro del debate bull/bear REIT ya abierto el 20-Jul]. (2) 'Intel: The Comeback Is Real, But The Stock Has Already Moved' — confirma el beat de Q2 (ingresos +25% YoY a $16.100M, BPA $0,42) pero matiza que la revalorización ya está en gran parte reflejada en precio [pattern_024 +1]. (3) 'Vertex: SaaSpocalypse Helped Ground The Company, But It Was Not Enough' — VERX, caída de precio por miedo a disrupción AI en software SaaS + rentabilidad débil [pattern_077 nuevo, primera mención de VERX en el tracker]. (4) 'Why Market Volatility May Be Part Of The Bull Case' — tercer contrapunto alcista a la narrativa de burbuja AI (tras 20-Jul y 23-Jul) [pattern_015 +1]. (5) 'American Express: A Strong Business Model That Delivers - A Value Equation Forensic Deep Dive' — AXP, tesis de calidad/moat de largo plazo, ecosistema cerrado premium [pattern_078 nuevo, primera mención de AXP en el tracker]. 2026-07-28 (hoy, fecha de esta ejecución) NO registrado en historial: a las 07:20 UTC el newsletter diario de SA (cadencia habitual ~19:55-19:58 UTC) todavía no se había enviado; TIKR sin actividad desde el 22-Jul. No se fuerza registro 'noticias:0' — queda pendiente de verificación retroactiva en la próxima ejecución, mismo criterio aplicado en ejecuciones previas. ACCIÓN REQUERIDA (persiste desde el 04-Jul, ahora 47ª ejecución consecutiva): conceder acceso a la carpeta 'Daily report' o a la raíz INVERSIONES vía request_cowork_directory para eliminar definitivamente la dependencia del fallback Gmail.",
       "procesadoEn": "2026-07-28"
+    },
+    {
+      "fecha": "2026-07-28",
+      "noticias": 10,
+      "patronesGenerados": [
+        "pattern_079",
+        "pattern_080",
+        "pattern_081",
+        "pattern_082"
+      ],
+      "patronesActualizados": [
+        "pattern_003",
+        "pattern_008",
+        "pattern_011",
+        "pattern_015",
+        "pattern_025",
+        "pattern_029"
+      ],
+      "nota": "TIKR 28-Jul 09:56 UTC (5 noticias: SNDK, TEAM, LEGN, W, VG) + SA 28-Jul 20:17 UTC 'Must Reads' (5 piezas: selloff semis/Nasdaq correccion, MU take-or-pay, SpaceX, NVDA trade of the decade, market rotation). Carpeta 'Daily report' inaccesible (48a ejecucion consecutiva), Gmail MCP usado como fallback.",
+      "procesadoEn": "2026-07-29"
+    },
+    {
+      "fecha": "2026-07-29",
+      "noticias": 5,
+      "patronesGenerados": [
+        "pattern_083"
+      ],
+      "patronesActualizados": [
+        "pattern_003",
+        "pattern_011",
+        "pattern_015",
+        "pattern_001"
+      ],
+      "nota": "SA 'Must Reads' del 29-Jul (20:17:27 UTC, único disponible; 0 TIKR desde el 28-Jul). Carpeta 'Daily report' sigue sin estar montada/accesible en esta sesión (solo 'Analysis' conectada) -- 49ª ejecución consecutiva con esta limitación. Gmail MCP usado como fallback, htmlBody convertido a texto vía html2text. 5 piezas de contenido de inversión, 5 procesadas: (1) 'Buy The Dip: 3 Top European AI Stocks' -- contrapunto alcista al selloff de semis desatado por el debut de CXMT [pattern_003 +1]. (2) 'Micron Stock: Buy When There's Blood In The Streets (Rating Upgrade)' -- upgrade de calificación en medio del selloff, oferta-demanda sigue favorable [pattern_011 +1]. (3) 'The AI Bubble Is Bursting - Don't Get Mauled' -- corrección aguda de hardware IA/semis con oportunidades tácticas de compra [pattern_015 +1, cuarto contrapunto alcista del debate]. (4) 'U.S. Economy: A 30% Adjustment For Housing Ahead' -- inventarios de vivienda en máximos plurianuales, ejecuciones al alza, ajuste de precio proyectado del 30% [pattern_083 nuevo, primera mención de tesis macro de vivienda, distinta del pattern_040 ya cerrado sobre Sun Belt]. (5) 'Top Oil Stocks In A Volatile Market With Over 45% Forward EPS Growth' -- XLE #1 performer 2026 por encima de XLK, crecimiento BPA forward >45% [pattern_001 +1]. Búsqueda Gmail {from:newsletter@tikr.com from:account@seekingalpha.com} after:2026/07/29 confirmó 0 TIKR nuevo desde el 28-Jul.",
+      "procesadoEn": "2026-07-30"
+    },
+    {
+      "fecha": "2026-07-30",
+      "noticias": 10,
+      "patronesGenerados": [
+        "pattern_084",
+        "pattern_085",
+        "pattern_086",
+        "pattern_087",
+        "pattern_088"
+      ],
+      "patronesActualizados": [
+        "pattern_003",
+        "pattern_005",
+        "pattern_019",
+        "pattern_030",
+        "pattern_042"
+      ],
+      "nota": "Carpeta 'Daily report' / raiz INVERSIONES siguen sin estar montadas/accesibles en esta sesion (solo 'Analysis' conectada; Glob y Read rechazan con 'outside this session's connected folders') -- 50a ejecucion consecutiva con esta limitacion desde el 04-Jul. Gmail MCP usado como fallback, htmlBody convertido a texto via html2text. Busqueda Gmail {from:newsletter@tikr.com from:account@seekingalpha.com} after:2026/07/29 -> 2 resultados nuevos: TIKR 30-Jul 08:46:48 UTC ('Las ganancias de Microsoft y Meta ya estan aqui...') y SA 30-Jul 19:57:34 UTC ('Beyond The Mag 7 And Headline Noise'). Confirmado 0 newsletter propio del 31-Jul (hoy) disponible a la hora de esta ejecucion (cadencia habitual SA ~19:55-20:17 UTC); no se fuerza registro 'noticias:0', queda pendiente de verificacion retroactiva en la proxima ejecucion. Procesado resumen-diario-2026-07-30 (12 piezas totales, 10 con senal de mercado, 2 omitidas): TIKR (7 de 9 procesadas -- CDNS deep-dive sin movimiento de precio del dia y calendario 'Semana que Viene' omitidos por precedente): Microsoft (MSFT) Q4 FY26 beat ingresos/BPA/Azure pero capex duplicado y FCF comprimido [pattern_084 nuevo, Realidad, mismo patron que GOOGL]; Meta (META) Q2 revenue beat leve pero BPA -13% YoY y FCF colapsado a $784M [pattern_042 +1, confianza media->alta]; Vertiv (VRT) -17% por revenue miss pese a EPS beat y guidance raise [pattern_019 +1, primera mencion VRT, matiz bajista dentro del patron de infraestructura fisica AI]; Garmin (GRMN) +17% maximo historico, beat + guidance raise [pattern_085 nuevo]; Lithia Motors (LAD) +19% maximo 52 semanas, beat + dividendo +23% [pattern_086 nuevo]; Parsons (PSN) -35% por guidance cut y cargos puntuales [pattern_087 nuevo]; Manhattan Associates (MANH) +21% beat + guidance raise [pattern_088 nuevo]. SA 'Must Reads' (4 de 5 procesadas -- 'Beyond The Mag 7 And Headline Noise' omitida por generica/sin tickers concretos en el extracto disponible, mismo precedente que 'Quant World Cup Watchlist'): dos piezas alcistas sobre META tras el selloff post-earnings, mismo dia [pattern_030 +2, valor=2]; 'Alphabet Stock: Selloff Misses Bigger Story' contrapunto alcista a GOOGL [pattern_005 +1, tercer ciclo de dispersion bull/bear]; 'Why KOSPI And The Semiconductor Sector Is Crashing' continuacion bajista del selloff de memoria/semis iniciado el 28-Jul por el debut de CXMT [pattern_003 +1]. Evento relevante: jornada de alta densidad de earnings del Mag7 y large-caps (MSFT, META el 29-Jul tras cierre, reaccion el 30-Jul) -- primera vez que MSFT recibe una entrada 'Realidad' propia en el tracker, replicando la misma dinamica beat-pero-capex/FCF-comprimido que GOOGL ya documenta desde mayo. Decision editorial: la pieza generica de SA sobre rotacion 'beyond Mag7' se omitio por no aportar tickers ni tesis accionable en el extracto disponible (solo titulo+snippet, sin cuerpo completo de articulo, formato estandar de las newsletters 'Must Reads').",
+      "procesadoEn": "2026-07-31"
+    },
+    {
+      "fecha": "2026-07-31",
+      "noticias": 5,
+      "patronesGenerados": [
+        "pattern_089",
+        "pattern_090"
+      ],
+      "patronesActualizados": [
+        "pattern_014"
+      ],
+      "nota": "SA 'Must Reads' del 31-Jul (19:58:02 UTC, unico disponible; 0 TIKR desde el 30-Jul). Carpeta 'Daily report' / raiz INVERSIONES siguen sin estar montadas/accesibles en esta sesion (solo 'Analysis' conectada; Glob rechaza con 'outside this session's connected folders') -- 51a ejecucion consecutiva con esta limitacion desde el 04-Jul. Gmail MCP usado como fallback, htmlBody convertido a texto via html2text. 5 piezas de contenido de inversion, 5 procesadas (quiz semanal omitido, mismo criterio que ejecuciones previas): (1) 'REIT Rally: 3 Strong Buys With Average 1-Year Return Above 50%' [pattern_014 +1]. (2) 'Apple Dropped The Ball Big Time' -- AAPL alcanza $5 billones de capitalizacion pero critica el despliegue limitado de Siri IA a iPhones recientes [pattern_089 nuevo]. (3) 'Apple Q3: Wall Street Has Lost Its Mind' -- beat de ingresos ($109.420M) y BPA ($2,02), selloff posterior que el autor considera injustificado [pattern_089 +1]. (4) 'Amazon Q2: One Of The Best Quarters So Far' -- trimestre destacado, AWS robusto, margenes en expansion [pattern_090 nuevo]. (5) 'Apple Q3: Buy The Rumor, Sell The News' -- beat atribuido en parte a beneficio arancelario no recurrente, generando escepticismo sobre calidad del resultado [pattern_089 +1]. Evento relevante: AAPL y AMZN reportan resultados en esta ventana (AAPL Q3 fiscal, AMZN Q2), completando practicamente la cobertura del Mag7 en el tracker (GOOGL, MSFT, META, AAPL con 'Realidad' propia; AMZN primera mencion). AAPL replica el patron de dispersion bull/bear ya visto en GOOGL, pero con drivers distintos (calidad del beneficio por aranceles + decepcion estrategica de IA, no CapEx/FCF). Busqueda Gmail {from:newsletter@tikr.com from:account@seekingalpha.com} after:2026/07/29 confirmo 0 TIKR nuevo desde el 30-Jul. 2026-08-01 (hoy, fecha de esta ejecucion) NO registrado en historial: a la hora de esta ejecucion no habia llegado aun el newsletter diario de SA/TIKR (cadencia habitual ~19:55-20:17 UTC); no se fuerza registro 'noticias:0', queda pendiente de verificacion retroactiva en la proxima ejecucion, mismo criterio aplicado en las 50 ejecuciones previas.",
+      "procesadoEn": "2026-08-01"
+    },
+    {
+      "fecha": "2026-08-01",
+      "noticias": 3,
+      "patronesGenerados": [],
+      "patronesActualizados": [
+        "pattern_012",
+        "pattern_004",
+        "pattern_005"
+      ],
+      "nota": "SA 'Must Reads' del 01-Ago (19:57:32 UTC, único disponible; 0 TIKR desde el 30-Jul). Carpeta 'Daily report'/raíz INVERSIONES siguen sin estar montadas/accesibles en esta sesión (solo 'Analysis' conectada) -- 52ª ejecución consecutiva con esta limitación desde el 04-Jul. Gmail MCP usado como fallback, htmlBody convertido a texto vía html2text (get_thread excedió el límite de tokens en ambos emails de esta ejecución). El 'FREE TRENDING ARTICLE' del newsletter era un repost de 'Top Oil Stocks...' (ya procesado el 29-Jul, pattern_001) y se omitió como duplicado; quiz semanal omitido por precedente. 4 piezas en 'Must Reads', 3 procesadas: (1) 'Palantir Looks Very Enticing Ahead Of Q2 Earnings' -- Strong Buy mantenido de cara a resultados Q2 [pattern_012 +1]. (2) 'Rocket Lab: A New Growth Engine Changes Everything' -- adquisición propuesta de Iridium y expansión de defensa refuerzan el outlook pese a caída >40% desde máximos [pattern_004 +1, confianza sube media→alta]. (3) 'Alphabet: Free Cash Flow Collapse Changes Everything' -- continúa el foco bajista en compresión de FCF [pattern_005 +1]. Omitida: 'Buy The Dip: 2 Top Undervalued Stocks Averaging 394% Forward EPS Growth' -- sin tickers ni tesis concreta en el extracto disponible (solo snippet genérico sobre crecimiento de BPA del S&P 500), mismo criterio de omisión aplicado a piezas genéricas sin ticker desde el 30-Jul.",
+      "procesadoEn": "2026-08-03"
+    },
+    {
+      "fecha": "2026-08-02",
+      "noticias": 4,
+      "patronesGenerados": [
+        "pattern_091"
+      ],
+      "patronesActualizados": [
+        "pattern_025",
+        "pattern_011",
+        "pattern_001"
+      ],
+      "nota": "SA 'Must Reads' del 02-Ago (19:58:00 UTC, único disponible; 0 TIKR desde el 30-Jul). Carpeta 'Daily report'/raíz INVERSIONES siguen sin estar montadas/accesibles en esta sesión (solo 'Analysis' conectada) -- 53ª ejecución consecutiva con esta limitación desde el 04-Jul. Gmail MCP usado como fallback, htmlBody convertido a texto vía html2text. El 'FREE TRENDING ARTICLE' era repost del propio Must Read del 01-Ago ('Buy The Dip: 2 Top Undervalued Stocks...') y se omitió como duplicado; quiz semanal omitido por precedente. 4 piezas en 'Must Reads', 4 procesadas: (1) 'SpaceX: Looking For A Bottom' -- valoración estirada de $1.4T, acción bajo precio de IPO de cara a Q2 [pattern_025 +1]. (2) 'Micron: Contracted Scarcity Can Outlast The Memory Boom' -- demanda IA y contratos plurianuales refuerzan tesis de desacoplamiento del ciclo [pattern_011 +1]. (3) 'The Mag 7 Doesn't Exist Anymore: Pick The Winners, Sell The Losers' -- primera pieza sustantiva sobre fractura/divergencia intra-Mag7 [pattern_091 nuevo, Tendencias, confianza baja por ser primera mención con contenido real; el intento previo del 30-Jul se había omitido por falta de tickers]. (4) '10 Funds For Potential $6,000 Monthly Income: Retirement Series' -- continúa la serie de income para retiro [pattern_001 +1]. Búsqueda Gmail {from:newsletter@tikr.com} after:2026/07/30 confirmó 0 TIKR nuevo desde el 30-Jul. 2026-08-03 (hoy, fecha de esta ejecución) NO registrado en historial: a las 08:22 UTC el newsletter diario de SA (cadencia habitual ~19:55-20:17 UTC) todavía no se había enviado; queda pendiente de verificación retroactiva en la próxima ejecución.",
+      "procesadoEn": "2026-08-03"
     }
   ]
 }
