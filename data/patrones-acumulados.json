@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-23",
+  "generatedAt": "2026-08-24",
   "periodo": "últimos 30 días",
   "meta": {
     "archivosAnalizados": 73,
@@ -5240,6 +5240,14 @@
       "patronesActualizados": [],
       "nota": "Ejecucion bloqueada: ni la carpeta 'Daily report' ni la raiz INVERSIONES estan montadas en esta sesion (solo 'Analysis' conectada, Read/Glob rechazan con 'outside this session's connected folders'). Ademas, a diferencia de ejecuciones previas (que usaban Gmail MCP como fallback para leer newsletters de TIKR/Seeking Alpha), en esta sesion NO hay ningun conector de Gmail disponible (ni cargado ni en la lista de servidores en conexion) -- se comprobo con ToolSearch ('gmail email search inbox') y no aparecio. No se pudo acceder a ningun resumen-diario-*.md ni a fuente alternativa de noticias. No se inventan patrones. No se modifica el resto del JSON (patrones/resumenEstadistico intactos). ACCION REQUERIDA (persiste desde 04-Jul, ininterrumpida): conceder acceso a la carpeta 'Daily report' o a la raiz INVERSIONES via request_cowork_directory, y/o reconectar un MCP de Gmail, desde la configuracion de Cowork. Esta sesion programada es no interactiva y no puede solicitar aprobacion directamente.",
       "procesadoEn": "2026-08-19"
+    },
+    {
+      "fecha": "2026-08-24",
+      "noticias": 0,
+      "patronesGenerados": [],
+      "patronesActualizados": [],
+      "nota": "Ejecucion bloqueada: ni la carpeta 'Daily report' ni la raiz INVERSIONES estan montadas en esta sesion (solo 'Analysis' conectada; find/ls confirma que no existe ningun archivo resumen-diario-*.md accesible). Se comprobo tambien disponibilidad de un conector Gmail como fallback (ToolSearch 'gmail email search inbox') y no aparece ningun servidor de Gmail conectado ni en la lista de servidores en conexion -- misma situacion que la ejecucion del 2026-08-19. No se pudo acceder a ningun resumen-diario-*.md ni a fuente alternativa de noticias entre 2026-08-11 y hoy. No se inventan patrones ni se retro-rellenan fechas sin fuente verificada. No se modifica el resto del JSON (patrones/resumenEstadistico intactos). ACCION REQUERIDA (persiste desde 04-Jul): conceder acceso a la carpeta 'Daily report' o a la raiz INVERSIONES via request_cowork_directory, y/o reconectar un MCP de Gmail, desde la configuracion de Cowork. Esta sesion programada es no interactiva y no puede solicitar aprobacion directamente.",
+      "procesadoEn": "2026-08-24"
     }
   ]
 }
