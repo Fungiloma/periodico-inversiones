@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-17",
+  "generatedAt": "2026-10-18",
   "periodo": "últimos 30 días",
   "meta": {
     "archivosAnalizados": 99,
@@ -6618,6 +6618,11 @@
       "fecha": "2026-10-17",
       "estado": "sin_archivos",
       "detalle": "Sin resumenes nuevos. Unico pendiente: 10-16 (0 noticias TIKR/SA, newsletter no llego); no anadido a historial. 0 patrones nuevos. candidatasDCF sin cambios (3, prioridad 2)."
+    },
+    {
+      "fecha": "2026-10-18",
+      "estado": "sin_archivos",
+      "detalle": "Sin resumenes nuevos. Pendientes 10-16 y 10-17: ambos con 0 noticias TIKR/SA (newsletter no llego); no anadidos a historial. 0 patrones nuevos. candidatasDCF sin cambios (3, prioridad 2)."
     }
   ]
 }
